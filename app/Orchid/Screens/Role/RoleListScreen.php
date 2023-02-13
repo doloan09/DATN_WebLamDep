@@ -31,7 +31,7 @@ class RoleListScreen extends Screen
      */
     public function name(): ?string
     {
-        return 'Manage roles';
+        return 'Quản lý các roles';
     }
 
     /**
@@ -41,7 +41,7 @@ class RoleListScreen extends Screen
      */
     public function description(): ?string
     {
-        return 'Access rights';
+        return 'Quyền truy cập';
     }
 
     /**
@@ -62,7 +62,7 @@ class RoleListScreen extends Screen
     public function commandBar(): iterable
     {
         return [
-            Link::make(__('Add'))
+            Link::make('Thêm mới')
                 ->icon('plus')
                 ->href(route('platform.systems.roles.create')),
         ];

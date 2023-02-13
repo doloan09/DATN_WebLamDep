@@ -39,7 +39,7 @@ class UserListScreen extends Screen
      */
     public function name(): ?string
     {
-        return 'User';
+        return 'Người dùng';
     }
 
     /**
@@ -49,7 +49,7 @@ class UserListScreen extends Screen
      */
     public function description(): ?string
     {
-        return 'All registered users';
+        return 'Tất cả người dùng đã đăng ký';
     }
 
     /**
@@ -70,7 +70,7 @@ class UserListScreen extends Screen
     public function commandBar(): iterable
     {
         return [
-            Link::make(__('Add'))
+            Link::make('Thêm mới')
                 ->icon('plus')
                 ->route('platform.systems.users.create'),
         ];

@@ -27,7 +27,7 @@ class UserListLayout extends Table
     public function columns(): array
     {
         return [
-            TD::make('name', __('Name'))
+            TD::make('name', 'Tên')
                 ->sort()
                 ->cantHide()
                 ->filter(Input::make())
@@ -45,11 +45,11 @@ class UserListLayout extends Table
                         'user' => $user->id,
                     ])),
 
-            TD::make('updated_at', __('Last edit'))
+            TD::make('updated_at', __('Lần chỉnh sửa cuối'))
                 ->sort()
                 ->render(fn (User $user) => $user->updated_at->toDateTimeString()),
 
-            TD::make(__('Actions'))
+            TD::make(__('Thao tác'))
                 ->align(TD::ALIGN_CENTER)
                 ->width('100px')
                 ->render(fn (User $user) => DropDown::make()
