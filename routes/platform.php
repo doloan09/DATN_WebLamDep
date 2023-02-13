@@ -82,18 +82,67 @@ Route::screen('roles', RoleListScreen::class)
         ->parent('platform.index')
         ->push(__('Roles'), route('platform.systems.roles')));
 
-// Example...
-Route::screen('example', ExampleScreen::class)
-    ->name('platform.example')
-    ->breadcrumbs(fn (Trail $trail) => $trail
-        ->parent('platform.index')
-        ->push('Example screen'));
 
-Route::screen('example-fields', ExampleFieldsScreen::class)->name('platform.example.fields');
-Route::screen('example-layouts', ExampleLayoutsScreen::class)->name('platform.example.layouts');
-Route::screen('example-charts', ExampleChartsScreen::class)->name('platform.example.charts');
-Route::screen('example-editors', ExampleTextEditorsScreen::class)->name('platform.example.editors');
-Route::screen('example-cards', ExampleCardsScreen::class)->name('platform.example.cards');
-Route::screen('example-advanced', ExampleFieldsAdvancedScreen::class)->name('platform.example.advanced');
+//// Platform > System > Categories
+Route::prefix('categories')->group(function () {
+    Route::screen('/', \App\Orchid\Screens\Category\CategoryListScreen::class)
+        ->name('categories.index')
+        ->breadcrumbs(function (Trail $trail) {
+            return $trail
+                ->parent('platform.index')
+                ->push(__('Danh mục'), route('categories.index'));
+        });
 
-//Route::screen('idea', Idea::class, 'platform.screens.idea');
+});
+
+//// Platform > System > Posts
+Route::prefix('posts')->group(function () {
+    Route::screen('/', \App\Orchid\Screens\Post\PostListScreen::class)
+        ->name('posts.index')
+        ->breadcrumbs(function (Trail $trail) {
+            return $trail
+                ->parent('platform.index')
+                ->push(__('Bài viết'), route('posts.index'));
+        });
+
+    Route::screen('/create', \App\Orchid\Screens\Post\PostEditScreen::class)
+        ->name('posts.create')
+        ->breadcrumbs(function (Trail $trail) {
+            return $trail
+                ->parent('posts.index')
+                ->push(__('Add'), route('posts.create'));
+        });
+
+    Route::screen('/{post}/edit', \App\Orchid\Screens\Post\PostEditScreen::class)
+        ->name('posts.edit')
+        ->breadcrumbs(function (Trail $trail, $post) {
+            return $trail
+                ->parent('posts.index')
+                ->push(__('Edit'), route('posts.edit', $post));
+        });
+});
+
+//// image
+///
+Route::prefix('images')->group(function () {
+    Route::screen('/', \App\Orchid\Screens\Image\ImageListScreen::class)
+        ->name('images.index')
+        ->breadcrumbs(function (Trail $trail) {
+            return $trail
+                ->parent('platform.index')
+                ->push(__('Ảnh'), route('images.index'));
+        });
+
+});
+
+// folder cloudinary
+Route::prefix('folders')->group(function () {
+    Route::screen('/', \App\Orchid\Screens\FolderImage\FolderImageListScreen::class)
+        ->name('folders.index')
+        ->breadcrumbs(function (Trail $trail) {
+            return $trail
+                ->parent('platform.index')
+                ->push(__('Thư mục ảnh'), route('folders.index'));
+        });
+
+});
