@@ -8,7 +8,9 @@ use App\Orchid\Layouts\Image\ImageEditLayout;
 use App\Orchid\Layouts\Image\ImageListLayout;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Http\Request;
+use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Actions\ModalToggle;
+use Orchid\Screen\Layouts\Modal;
 use Orchid\Screen\Screen;
 use Orchid\Support\Facades\Layout;
 use Orchid\Support\Facades\Toast;
@@ -23,7 +25,7 @@ class ImageListScreen extends Screen
     public function query(): iterable
     {
         return [
-            'images' => Image::query()->paginate(),
+            'images' => Image::query()->orderByDesc('id')->paginate(),
         ];
     }
 
@@ -45,9 +47,13 @@ class ImageListScreen extends Screen
     public function commandBar(): iterable
     {
         return [
+            Button::make('Xóa')
+                ->icon('close')
+                ->method('delete'),
+
             ModalToggle::make('Thêm mới')
                 ->modal('imageModal')
-                ->modalTitle('Thêm mới thư mục')
+                ->modalTitle('Thêm mới hình ảnh')
                 ->method('submit')
                 ->icon('plus'),
 
@@ -77,6 +83,20 @@ class ImageListScreen extends Screen
             Layout::modal('imageModal', [
                 ImageEditLayout::class
             ])->applyButton('Thêm mới'),
+
+            Layout::modal('showImage', Layout::view('admin.components.image'))
+                ->async('asyncGetData')
+                ->title('Hình ảnh')
+                ->size(Modal::SIZE_LG)
+                ->withoutApplyButton()
+                ->withoutCloseButton(),
+        ];
+    }
+
+    public function asyncGetData(string $image): iterable
+    {
+        return [
+            'image' => $image,
         ];
     }
 
@@ -88,7 +108,6 @@ class ImageListScreen extends Screen
             $resizedImage = cloudinary()->upload($item->getRealPath(), [
                 'folder'         => $folder->name,
                 'transformation' => [
-//                    'width'   => 250,
                     'format'  => 'f_jpg',
                     'gravity' => 'faces',
                     'crop'    => 'fill',
@@ -111,17 +130,25 @@ class ImageListScreen extends Screen
         return redirect()->route('images.index');
     }
 
-    public function delete(int $id, string $link)
-    {
-        $token  = explode('/', $link);
-        $token2 = explode('.', $token[sizeof($token) - 1]);
+    public function delete(Request $request){
+        $list = $request->get('check');
 
-        Cloudinary::destroy($token[7] . '/' . $token2[0]); // ten folder: $token[7], ten anh: $token2[0]
+        if ($list) {
+            foreach ($list as $item) {
+                $image = Image::query()->findOrFail($item);
 
-        Image::query()->where('id', $id)->delete();
+                $token  = explode('/', $image->link);
+                $token2 = explode('.', $token[sizeof($token) - 1]);
 
-        Toast::success('Success');
-        return redirect()->route('images.index');
+                Cloudinary::destroy($token[7] . '/' . $token2[0]); // ten folder: $token[7], ten anh: $token2[0]
+
+                $image->delete();
+            }
+
+            Toast::success('Xóa thành công!');
+            return redirect()->route('images.index');
+        }else{
+            Toast::error('Vui lòng chọn ảnh bạn cần xóa!');
+        }
     }
-
 }

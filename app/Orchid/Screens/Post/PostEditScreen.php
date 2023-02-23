@@ -2,27 +2,47 @@
 
 namespace App\Orchid\Screens\Post;
 
+use App\Models\Category;
 use App\Models\Post;
 use App\Orchid\Layouts\Post\PostEditLayout;
+use App\Orchid\Screens\BaseScreen;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
+use Illuminate\Support\Str;
 use Orchid\Screen\Actions\Button;
-use Orchid\Screen\Screen;
 use Orchid\Support\Facades\Alert;
 use Orchid\Support\Facades\Toast;
 
-class PostEditScreen extends Screen
+class PostEditScreen extends BaseScreen
 {
-    public $posts;
+    protected bool $useTurbo = false;
+    public Post    $posts;
+    public bool    $edit;
+
     /**
      * Query data.
      *
      * @return array
      */
-    public function query(Post $posts): iterable
+    public function query(?int $id): iterable
     {
+        if ($id) {
+            $this->edit = true;
+            try {
+                $post = Post::query()->findOrFail($id);
+
+                return [
+                    'post' => $post,
+                    'edit' => false,
+                ];
+            } catch (\Exception) {
+                abort(404);
+            }
+        }
+
+        $this->edit = false;
         return [
-            'posts' => $posts
+            'edit' => true,
         ];
     }
 
@@ -33,7 +53,7 @@ class PostEditScreen extends Screen
      */
     public function name(): ?string
     {
-        return $this->posts->exists ? 'Edit Posts' : 'Create Posts';
+        return $this->edit ? 'Edit Posts' : 'Create Posts';
     }
 
     /**
@@ -44,15 +64,21 @@ class PostEditScreen extends Screen
     public function commandBar(): iterable
     {
         return [
-            Button::make(__('Save'))
-                ->icon('check')
-                ->method('save'),
+            Button::make('Thêm mới')
+                ->icon('plus')
+                ->method('store')
+                ->canSee(!$this->edit),
 
-            Button::make(__('Remove'))
+            Button::make('Cập nhật')
+                ->icon('check')
+                ->method('update')
+                ->canSee($this->edit),
+
+            Button::make('Xóa')
                 ->icon('trash')
-                ->confirm(__('Once the account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.'))
-                ->method('remove')
-                ->canSee($this->posts->exists),
+                ->confirm(__('Bạn có chắc muốn xóa bài viết này không?'))
+                ->method('delete')
+                ->canSee($this->edit),
         ];
     }
 
@@ -69,38 +95,94 @@ class PostEditScreen extends Screen
     }
 
     /**
-     * @param Post    $category
+     * @param Request $request
+     * @return void
+     */
+    public function store(Request $request)
+    {
+        try {
+            $request->validate([
+                'title'   => ['required'],
+                'content' => ['required'],
+            ]);
+
+            $category     = Category::query()->findOrFail($request->get('id_category'));
+            $item         = $request->file('link_image');
+            $resizedImage = cloudinary()->upload($item->getRealPath(), [
+                'folder'         => $category->name,
+                'transformation' => [
+                    'format'  => 'f_jpg',
+                    'gravity' => 'faces',
+                    'crop'    => 'fill',
+                ]
+            ])->getSecurePath();
+
+            $post = Post::query()->insert([
+                'title'       => $request->get('title'),
+                'slug'        => Str::slug($request->get('title')),
+                'content'     => $request->get('content'),
+                'id_category' => $request->get('id_category'),
+                'status'      => 0,
+                'description' => $request->get('description'),
+                'link_image'  => $resizedImage,
+                'created_at'  => Carbon::now(),
+            ]);
+
+            if ($post) {
+                Toast::success('Thêm mới thành công!');
+                return redirect()->route('posts.index');
+            }
+
+            Toast::error('Có lỗi khi thêm mới bài viết!');
+        }catch (\Exception){
+            Toast::error('Lỗi');
+        }
+    }
+
+    /**
+     * @param Post $posts
      * @param Request $request
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function save(Post $posts, Request $request)
+    public function update(Request $request)
     {
         $request->validate([
-            'posts.tittle' => [
-                'required',
-                Rule::unique(Post::class, 'tittle')->ignore($posts),
-            ],
-            'posts.contents' => ['required'],
-            'posts.description' => ['required'],
-            'posts.date' => ['required'],
+            'title'   => ['required'],
+            'content' => ['required'],
         ]);
 
-        $posts->fill($request->collect('posts')->toArray())->save();
+        try {
+            Post::query()->findOrFail($request->get('id'));
 
-        Toast::info(__('Posts was saved.'));
+            $update = Post::query()
+                ->where('id', $request->get('id'))
+                ->update([
+                    'title'       => $request->get('title'),
+                    'slug'        => Str::slug($request->get('title')),
+                    'content'     => $request->get('content'),
+                    'id_category' => $request->get('id_category'),
+                    'description' => $request->get('description'),
+                ]);
 
-        return redirect()->route('platform.systems.posts');
+            if ($update) {
+                Toast::success('Cập nhật thành công!');
+                return redirect()->route('posts.index');
+            }
+            Toast::error('Lỗi khi cập nhât!');
+        } catch (\Exception) {
+            return abort(404);
+        }
     }
 
     /**
      * @param Post $posts
      *
+     * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
      *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function remove(Post $posts)
+    public function delete(Post $posts)
     {
         $posts->delete();
 

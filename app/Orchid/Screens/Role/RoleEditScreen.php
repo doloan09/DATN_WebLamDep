@@ -44,7 +44,7 @@ class RoleEditScreen extends Screen
      */
     public function name(): ?string
     {
-        return 'Manage roles';
+        return 'Vai trò người dùng';
     }
 
     /**
@@ -54,7 +54,7 @@ class RoleEditScreen extends Screen
      */
     public function description(): ?string
     {
-        return 'Access rights';
+        return 'Quyền truy cập';
     }
 
     /**
@@ -75,11 +75,11 @@ class RoleEditScreen extends Screen
     public function commandBar(): iterable
     {
         return [
-            Button::make(__('Save'))
+            Button::make('Sửa')
                 ->icon('check')
                 ->method('save'),
 
-            Button::make(__('Remove'))
+            Button::make('Xóa')
                 ->icon('trash')
                 ->method('remove')
                 ->canSee($this->role->exists),
@@ -97,7 +97,7 @@ class RoleEditScreen extends Screen
             Layout::block([
                 RoleEditLayout::class,
             ])
-                ->title('Role')
+                ->title('Vai trò')
                 ->description('A role is a collection of privileges (of possibly different services like the Users service, Moderator, and so on) that grants users with that role the ability to perform certain tasks or operations.'),
 
             Layout::block([

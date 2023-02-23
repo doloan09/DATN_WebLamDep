@@ -22,9 +22,9 @@ class RoleEditLayout extends Rows
                 ->type('text')
                 ->max(255)
                 ->required()
-                ->title(__('Name'))
-                ->placeholder(__('Name'))
-                ->help(__('Role display name')),
+                ->title('Tên')
+                ->placeholder('Tên')
+                ->help('Tên hiển thị vai trò'),
 
             Input::make('role.slug')
                 ->type('text')
@@ -32,7 +32,7 @@ class RoleEditLayout extends Rows
                 ->required()
                 ->title(__('Slug'))
                 ->placeholder(__('Slug'))
-                ->help(__('Actual name in the system')),
+                ->help('Tên thực trong hệ thống'),
         ];
     }
 }

@@ -31,7 +31,7 @@ class RoleListScreen extends Screen
      */
     public function name(): ?string
     {
-        return 'Quản lý các roles';
+        return 'Vai trò người dùng';
     }
 
     /**

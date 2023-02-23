@@ -8,6 +8,7 @@ use App\Orchid\Layouts\Category\CategoryEditLayout;
 use App\Orchid\Layouts\Category\CategoryListLayout;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Orchid\Screen\Actions\ModalToggle;
 use Orchid\Screen\Screen;
 use Orchid\Support\Facades\Layout;
@@ -101,6 +102,7 @@ class CategoryListScreen extends Screen
 
         $category = Category::query()->insert([
             'name' => $request->get('name'),
+            'slug' => Str::slug($request->get('name')),
             'created_at' => Carbon::now(),
         ]);
 
@@ -119,11 +121,16 @@ class CategoryListScreen extends Screen
 
         $id   = $request->get('id');
         $name = $request->get('name');
+        $slug = Str::slug($request->get('name'));
 
         try {
             Category::query()->findOrFail($id);
 
-            Category::query()->where('id', $id)->update(['name' => $name]);
+            Category::query()->where('id', $id)->update([
+                'name' => $name,
+                'slug' => $slug,
+            ]);
+
             Toast::success('Cập nhật thành công!');
         } catch (\Exception) {
             Toast::error('Lỗi khi cập nhật thông tin nhóm câu hỏi');

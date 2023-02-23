@@ -27,7 +27,7 @@ class PlatformScreen extends Screen
      */
     public function name(): ?string
     {
-        return 'Get Started';
+        return 'Trang quản trị hệ thống';
     }
 
     /**
@@ -37,7 +37,7 @@ class PlatformScreen extends Screen
      */
     public function description(): ?string
     {
-        return 'Welcome to your Orchid application.';
+        return 'Chào mừng bạn đến với trang quản trị Amara.store';
     }
 
     /**
@@ -49,16 +49,16 @@ class PlatformScreen extends Screen
     {
         return [
             Link::make('Website')
-                ->href('http://orchid.software')
+                ->href('http://weblamdep-lan.com/')
                 ->icon('globe-alt'),
 
-            Link::make('Documentation')
-                ->href('https://orchid.software/en/docs')
-                ->icon('docs'),
+            Link::make('Youtube')
+                ->href('https://www.youtube.com/@lanchamlam')
+                ->icon('social-youtube'),
 
-            Link::make('GitHub')
-                ->href('https://github.com/orchidsoftware/platform')
-                ->icon('social-github'),
+            Link::make('Shoppe')
+                ->href('https://shopee.vn/amara.storee')
+                ->icon('basket'),
         ];
     }
 
@@ -70,7 +70,7 @@ class PlatformScreen extends Screen
     public function layout(): iterable
     {
         return [
-            Layout::view('platform::partials.welcome'),
+            Layout::view('admin.layouts.welcome'),
         ];
     }
 }

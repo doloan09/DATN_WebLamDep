@@ -33,6 +33,8 @@ class CategoryListLayout extends Table
 
             TD::make('name', 'Tên danh mục'),
 
+            TD::make('slug', 'Slug'),
+
             TD::make('created_at', 'Thời gian tạo')
                 ->render(function (Category $category){
                     return Carbon::parse($category->created_at)->format('Y-m-d H:i:s');
