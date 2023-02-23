@@ -4,6 +4,14 @@ namespace App\Models;
 
 use Orchid\Platform\Models\User as Authenticatable;
 
+/**
+ * @property int $id
+ * @property string $name
+ * @property string $email
+ * @property string $password
+ * @property string $permissions
+ *
+ */
 class User extends Authenticatable
 {
     /**
