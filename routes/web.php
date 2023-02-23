@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +16,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Login - logout (User)
+Route::get('/login', [AuthController::class, 'showLogin'])->name('login.show'); // hien thi view login
+Route::get('/register', [AuthController::class, 'showRegister'])->name('register.show'); // hien thi view sign in
+Route::post('/login', [AuthController::class, 'login'])->name('login'); // login
+Route::post('/register', [AuthController::class, 'register'])->name('register'); //sign in
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
+///Login gg
+Route::get('/login/google/redirect', [AuthController::class, 'redirectToGoogle'])->name('login.google.redirect');
+Route::get('/login/google/callback', [AuthController::class, 'handleGoogleCallback'])->name('login.google.callback');
+
+///Login fb
+Route::get('/login/facebook/redirect', [AuthController::class, 'redirectToFacebook'])->name('login.facebook.redirect');
+Route::get('/login/facebook/callback', [AuthController::class, 'handleFacebookCallback'])->name('login.facebook.callback');
+
+//
+Route::get('/', [PostController::class, 'index'])->name('home');
+Route::get('/trang-chu', [PostController::class, 'index'])->name('home');
+Route::get('/danh-muc/{category}', [CategoryController::class, 'show'])->name('categories.show'); // danh sach bai viet theo theo loai
+Route::get('/bai-viet/{slug}', [PostController::class, 'show'])->name('articles.show'); // chi tiet 1 bai viet
