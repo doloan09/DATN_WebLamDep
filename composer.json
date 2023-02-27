@@ -8,14 +8,17 @@
         "php": "^8.0.2",
         "bensampo/laravel-enum": "^6.3",
         "cloudinary-labs/cloudinary-laravel": "^2.0",
+        "doloan09/package_laravel_comment": "^3.1",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
         "laravel/socialite": "^5.6",
         "laravel/tinker": "^2.7",
-        "orchid/platform": "^13.9"
+        "orchid/platform": "^13.9",
+        "pusher/pusher-php-server": "^7.2"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.8",
         "fakerphp/faker": "^1.9.1",
         "laravel/pint": "^1.0",
         "laravel/sail": "^1.0.1",
