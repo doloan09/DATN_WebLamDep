@@ -13,7 +13,10 @@ module.exports = {
             },
             height:{
                 '48r': '48rem',
-            }
+            },
+            colors: {
+                'purple': '#723F5FFF',
+            },
         },
         fontFamily: {
             'roboto': ['Roboto', 'sans-serif'],
