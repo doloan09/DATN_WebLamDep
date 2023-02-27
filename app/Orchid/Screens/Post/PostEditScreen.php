@@ -33,7 +33,7 @@ class PostEditScreen extends BaseScreen
 
                 return [
                     'post' => $post,
-                    'edit' => false,
+                    'edit' => true,
                 ];
             } catch (\Exception) {
                 abort(404);
@@ -42,7 +42,7 @@ class PostEditScreen extends BaseScreen
 
         $this->edit = false;
         return [
-            'edit' => true,
+            'edit' => false,
         ];
     }
 
@@ -106,16 +106,18 @@ class PostEditScreen extends BaseScreen
                 'content' => ['required'],
             ]);
 
-            $category     = Category::query()->findOrFail($request->get('id_category'));
             $item         = $request->file('link_image');
-            $resizedImage = cloudinary()->upload($item->getRealPath(), [
-                'folder'         => $category->name,
-                'transformation' => [
-                    'format'  => 'f_jpg',
-                    'gravity' => 'faces',
-                    'crop'    => 'fill',
-                ]
-            ])->getSecurePath();
+            if ($item) {
+                $category     = Category::query()->findOrFail($request->get('id_category'));
+                $resizedImage = cloudinary()->upload($item->getRealPath(), [
+                    'folder'         => $category->name,
+                    'transformation' => [
+                        'format'  => 'f_jpg',
+                        'gravity' => 'faces',
+                        'crop'    => 'fill',
+                    ]
+                ])->getSecurePath();
+            }
 
             $post = Post::query()->insert([
                 'title'       => $request->get('title'),

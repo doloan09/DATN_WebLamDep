@@ -50,7 +50,8 @@ class PostEditLayout extends Rows
             Input::make('link_image')
                 ->title('Hình nền')
                 ->type('file')
-                ->canSee($edit == 1),
+                ->required()
+                ->canSee($edit == 0),
 
             RichTextBox::make('content')
                 ->title('Nội dung')

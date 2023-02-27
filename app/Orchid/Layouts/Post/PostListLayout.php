@@ -41,12 +41,12 @@ class PostListLayout extends Table
                 ->width(200),
 
             TD::make('description', 'Mô tả')
-                ->width(200),
+                ->width(300),
 
             TD::make('content', 'Nội dung')
                 ->width(500)
                 ->render(function (Post $post) {
-                    return '<div style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden;">' . $post->content . '</div>';
+                    return '<div style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden; width: 500px;">' . $post->content . '</div>';
                 }),
 
             TD::make('id_category', 'Danh mục')
@@ -75,8 +75,9 @@ class PostListLayout extends Table
 
             TD::make('link_image', 'Hình nền')
                 ->alignCenter()
+                ->width(250)
                 ->render(function (Post $post){
-                    return $post->link_image ? '<img src="'. $post->link_image .'" style="width: 250px; height: 150px;">' : "";
+                    return $post->link_image ? '<img src="'. $post->link_image .'" style="width: 250px; max-height: 150px;">' : "";
                 }),
 
             TD::make()->render(function (Post $post) {
