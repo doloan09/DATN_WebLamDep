@@ -20,8 +20,6 @@
 <body>
 @include('user.layouts.header')
 
-@include('user.layouts.navbar')
-
 @yield('content')
 
 @stack('scripts')
