@@ -20,4 +20,11 @@ class Category extends Model
         'name',
     ];
 
+    /**
+     * Get the post that owns the comment.
+     */
+    public function posts()
+    {
+        return $this->hasMany(Post::class, 'id_category');
+    }
 }

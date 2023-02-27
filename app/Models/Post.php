@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enum\PostStatus;
+use Doloan09\Comments\Commentable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Orchid\Screen\AsSource;
@@ -21,6 +22,7 @@ use Orchid\Screen\AsSource;
 class Post extends Model
 {
     use HasFactory, AsSource;
+    use Commentable;
 
     protected $fillable = [
         'title',

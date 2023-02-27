@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Doloan09\Comments\Commenter;
+use Illuminate\Notifications\Notifiable;
 use Orchid\Platform\Models\User as Authenticatable;
 
 /**
@@ -14,6 +16,7 @@ use Orchid\Platform\Models\User as Authenticatable;
  */
 class User extends Authenticatable
 {
+    use Notifiable, Commenter;
     /**
      * The attributes that are mass assignable.
      *
