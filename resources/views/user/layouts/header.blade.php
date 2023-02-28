@@ -264,7 +264,6 @@
     };
 
     function showSearch(){
-        $('#search').show();
         $( "#search" ).toggle( "slow");
 
         $(document).ready(function () {
