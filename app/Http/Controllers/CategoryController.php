@@ -49,11 +49,16 @@ class CategoryController extends Controller
     public function show($slug)
     {
         $posts_hot = Post::query()->where('status', 1)->limit(4)->get();
+        $categories = Category::query()->get();
         $category = Category::query()->where('slug', $slug)->first();
         $posts = $category->posts()->paginate(9);
         $user = Auth::user();
+        $wishlist = [];
+        if ($user){
+            $wishlist = $user->wishlist()->join('posts', 'posts.id', '=', 'wishlists.id_post')->get();
+        }
 
-        return view('user.posts.list', compact('posts', 'posts_hot', 'category', 'user'));
+        return view('client.posts.list', compact('posts', 'posts_hot', 'category', 'user', 'wishlist', 'categories'));
     }
 
     /**

@@ -18,10 +18,14 @@ class PostController extends Controller
     public function index()
     {
         $posts_hot = Post::query()->where('status', 1)->limit(4)->get();
-        $category = Category::query()->get();
+        $categories = Category::query()->get();
         $user = Auth::user();
+        $wishlist = [];
+        if ($user){
+            $wishlist = $user->wishlist()->join('posts', 'posts.id', '=', 'wishlists.id_post')->get();
+        }
 
-        return view('user.home', compact('posts_hot', 'category', 'user'));
+        return view('client.home', compact('posts_hot', 'categories', 'user', 'wishlist'));
     }
 
     /**
@@ -55,10 +59,15 @@ class PostController extends Controller
     {
         $posts_hot = Post::query()->where('status', PostStatus::Active)->limit(4)->get();
         $post = Post::query()->where('slug', $slug)->first();
+        $categories = Category::query()->get();
         $category = Category::query()->findOrFail($post->id_category);
         $user = Auth::user();
+        $wishlist = [];
+        if ($user){
+            $wishlist = $user->wishlist()->join('posts', 'posts.id', '=', 'wishlists.id_post')->get();
+        }
 
-        return view('user.posts.detail', compact('post', 'category', 'posts_hot', 'user'));
+        return view('client.posts.detail', compact('post', 'category', 'posts_hot', 'user', 'wishlist', 'categories'));
     }
 
     /**

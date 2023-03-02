@@ -4,9 +4,14 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
+use App\Models\Category;
+use App\Models\Post;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -17,7 +22,7 @@ class AuthController extends Controller
 {
     /**
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function showLogin()
     {
@@ -27,7 +32,7 @@ class AuthController extends Controller
 
         $url = isset($_SERVER["HTTP_REFERER"]) ? $_SERVER["HTTP_REFERER"] : '/';
 
-        return view('user.auth.login');
+        return view('client.auth.login');
     }
 
     /**
@@ -71,7 +76,7 @@ class AuthController extends Controller
         if (Auth::user()){
             return redirect()->route('home');
         }
-        return view('user.auth.register');
+        return view('client.auth.register');
     }
 
     /**
@@ -112,7 +117,7 @@ class AuthController extends Controller
         if ($userCheck){
             Auth::login($userCheck);
 
-            return redirect('/home');
+            return redirect()->route('home');
         }
 
         // $user->token
@@ -121,8 +126,7 @@ class AuthController extends Controller
         ], [
             'name' => $ggUser->name,
             'email' => $ggUser->email,
-            'password' => '12345678',
-            'is_admin' => '0',
+            'password' => Hash::make('12345678'),
             'avatar' => $ggUser->avatar,
             'google_token' => $ggUser->token,
             'google_refresh_token' => $ggUser->refreshToken,
@@ -132,7 +136,7 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        return redirect('/home')->with('message', 'Bạn đã đăng nhập thành công! Vui lòng kiểm tra email để xác thực tài khoản của bạn!');
+        return redirect()->route('home')->with('message', 'Bạn đã đăng nhập thành công! Vui lòng kiểm tra email để xác thực tài khoản của bạn!');
     }
 
     public function redirectToFacebook(){
@@ -157,7 +161,6 @@ class AuthController extends Controller
             'name' => $githubUser->name,
             'email' => $githubUser->email,
             'password' => '12345678',
-            'is_admin' => '0',
             'avatar' => $githubUser->avatar,
             'facebook_token' => $githubUser->token,
             'facebook_refresh_token' => $githubUser->refreshToken,
@@ -167,7 +170,7 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        return redirect()->route('home')->with('message', 'Bạn đã đăng nhập thành công! Vui lòng kiểm tra email để xác thực tài khoản của bạn!');
+        return redirect()->route('home')->with('message', 'Bạn đã đăng ký thành công! Vui lòng kiểm tra email để xác thực tài khoản của bạn!');
     }
 
     public function logout(){
@@ -175,5 +178,19 @@ class AuthController extends Controller
         Auth::logout();
 
         return redirect('/login');
+    }
+
+    /**
+     * @return Application|Factory|View
+     */
+    public function about(){
+        $posts_hot = Post::query()->where('status', 1)->limit(4)->get();
+        $user = Auth::user();
+        $categories = Category::query()->get();
+        $wishlist = [];
+        if ($user){
+            $wishlist = $user->wishlist()->join('posts', 'posts.id', '=', 'wishlists.id_post')->get();
+        }
+        return view('client.about', compact('user', 'posts_hot', 'wishlist', 'categories'));
     }
 }

@@ -34,5 +34,6 @@ Route::get('/login/facebook/callback', [AuthController::class, 'handleFacebookCa
 //
 Route::get('/', [PostController::class, 'index'])->name('home');
 Route::get('/trang-chu', [PostController::class, 'index'])->name('home');
+Route::get('/gioi-thieu', [AuthController::class, 'about'])->name('about');
 Route::get('/danh-muc/{category}', [CategoryController::class, 'show'])->name('categories.show'); // danh sach bai viet theo theo loai
 Route::get('/bai-viet/{slug}', [PostController::class, 'show'])->name('posts.show'); // chi tiet 1 bai viet
