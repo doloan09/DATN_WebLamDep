@@ -7,19 +7,21 @@
 
 </head>
 <body>
-@if(session('message'))
-    <div class="text-white text-center bg-green-500 py-2">
-        {{ session('message') }}
-    </div>
-@endif
 <div class="mb-24 md:mb-36">
+    {{--    trai tym goc duoi ben phai--}}
     <div class="z-20 border-2 p-1 shadow-lg shadow-purple rounded-full bg-white items-center cursor-pointer" onclick="showSearch()" style="bottom: 40px; position: fixed; right: 20px;">
         <svg class="inline-block w-10 h-10 pt-1 " xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" fill="#723F5FFF"/>
         </svg>
     </div>
-
+    {{----}}
     <header class="md:border-b z-0 w-full" style="position: fixed; top: 0;">
+        @if(session('message'))
+            <div class="text-white text-xs text-center border-b bg-fuchsia-700 py-2">
+                {{ session('message') }}
+            </div>
+        @endif
+
         <div class="top-nav-cta fixed l-0 r-0 w-full md:relative text-center py-2 px-4 flex items-center bg-purple" style="height: 40px;">
             <a data-formkit-toggle="3527a72463" href="#" class="top-nav-cta-link text-white mt-1 text-xs md:text-sm leading-none uppercase font-sans tracking-extra-widest mx-auto inline-block">
                 <svg class="inline-block w-3 h-3 mr-1" viewBox="0 0 520 600" role="img" xmlns="http://www.w3.org/2000/svg">
@@ -44,9 +46,12 @@
             </div>
             <ul class="sm:flex sm:mt-2 shadow-md md:shadow-none md:inline-flex hidden text-sm md:text-base" id="menu">
                 <li><a class="lg:mx-4 sm:-mb-7 pb-7 block font-sans font-medium md:font-bold uppercase tracking-wider text-black no-underline md:border-b-3 md:border-transparent md:border-purple-500" href="{{ route('home') }}">Trang chủ</a></li>
-                <li><a class="lg:mx-4 sm:-mb-7 pb-7 block font-sans font-medium md:font-bold uppercase tracking-wider text-black no-underline md:border-b-3 md:border-transparent" href="#">Giới thiệu</a></li>
-                <li><a class="lg:mx-4 sm:-mb-7 pb-7 block font-sans font-medium md:font-bold uppercase tracking-wider text-black no-underline md:border-b-3 md:border-transparent" href="{{ route('categories.show', 'suc-khoe') }}">Sức khỏe</a></li>
-                <li><a class="lg:mx-4 sm:-mb-7 pb-7 block font-sans font-medium md:font-bold uppercase tracking-wider text-black no-underline md:border-b-3 md:border-transparent" href="{{ route('categories.show', 'lam-dep') }}">Làm đẹp</a></li>
+                <li><a class="lg:mx-4 sm:-mb-7 pb-7 block font-sans font-medium md:font-bold uppercase tracking-wider text-black no-underline md:border-b-3 md:border-transparent" href="{{ route('about') }}">Giới thiệu</a></li>
+                @foreach($categories as $i)
+                    <li>
+                        <a class="lg:mx-4 sm:-mb-7 pb-7 block font-sans font-medium md:font-bold uppercase tracking-wider text-black no-underline md:border-b-3 md:border-transparent" href="{{ route('categories.show', $i->slug) }}">{{ $i->name }}</a>
+                    </li>
+                @endforeach
                 <li id="search-button" class="ml-4">
                     <button class="search-button" onclick="showSearch()">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -115,43 +120,75 @@
                 <div class="w-10/12 mx-auto container pb-10">
                     <div class="flex justify-center items-center">
                         <input class="border text-gray-400 my-4 outline-0 rounded-full w-full mr-4 py-2 px-4 rounded-3" placeholder="Nhập vào từ khóa cần tìm kiếm">
-                        <a class="search-button" href="https://pinchofyum.com/?s=">
+                        <a class="search-button" href="#">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                             </svg>
                         </a>
                     </div>
-                    <div class="mt-6">
-                        <a href="#">
-                            <span class="font-sans uppercase text-lg text-purple">Danh sách yêu thích</span>
-                        </a>
-                        <div class="inline-flex mt-4 my-4 w-full" id="owl-theme-favorites">
-                            @for ($i = 0; $i<10; $i++)
-                                <div class="flex-shrink-0 rounded-lg mx-2 md:mx-3">
-                                    <a href="#">
-                                        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgwHAu1fPbK5eBWwVvIXxFwic9G8-6JGQ6N-iSmxN39iJksbe-6d9g75u6u1w3lkd6dr59mhzg9b0ceb6TebSG-U4SHEhKMjBEJAgtgH_5g2rWLj6HJfPdeR2IUx9Q1BRY-W0YavpIS-pDhL2BzSACwsOjiZdQKkSBdbdFx0Is8bz28R93ews9mTDs2/w800-h800-p-k-no-nu/Minh%20da%20vuot%20qua%20kho%20khan%20tam%20ly%20nhu%20the%20nao.JPG" class="rounded-xl w-full h-48 md:h-56 hover:brightness-90">  {{--h-40 md:h-48--}}
-                                        <div class="bg-white font-light text-base mt-3 relative">
-                                            <a href="#" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;">How to make cold brew. How to make cold brew. How to make cold brew</a>
-                                            <div class="absolute bg-white pl-3 py-3 rounded-tl-2xl flex text-purple cursor-pointer" onclick="alert('route');" style="top: -40px; right: 0px;">
-                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" fill="#723F5FFF"/>
-                                                </svg>
-                                                <p class="ml-2">112</p>
-                                            </div>
+                    @if(count($wishlist) > 0)
+                        @if(count($wishlist) < 6)
+                            <div class="mt-6 w-full">
+                                <a href="#">
+                                    <span class="font-sans uppercase text-lg text-purple">Danh sách yêu thích</span>
+                                </a>
+                                <div class="mt-4 my-4 w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+                                    @foreach($wishlist as $wl)
+                                        <div class="rounded-lg mx-2 md:mx-3 col-span-1">
+                                            <a href="#">
+                                                <img src="{{ $wl->link_image }}" class="rounded-xl w-full h-48 md:h-56 hover:brightness-90">
+                                                <div class="bg-white font-light text-base mt-3 relative">
+                                                    <a href="#" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;">
+                                                        {{ $wl->title }}
+                                                    </a>
+                                                    <div class="absolute bg-white pl-3 py-3 rounded-tl-2xl flex text-purple cursor-pointer" onclick="alert('route');" style="top: -40px; right: 0px;">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" fill="#723F5FFF"/>
+                                                        </svg>
+                                                        <p class="ml-2">112</p>
+                                                    </div>
+                                                </div>
+                                            </a>
                                         </div>
-                                    </a>
+                                    @endforeach
                                 </div>
-                            @endfor
-                        </div>
-                    </div>
+                            </div>
+                        @else
+                            <div class="mt-6">
+                                <a href="#">
+                                    <span class="font-sans uppercase text-lg text-purple">Danh sách yêu thích</span>
+                                </a>
+                                <div class="mt-4 my-4 w-full " id="owl-theme-favorites">
+                                    @foreach($wishlist as $wl)
+                                            <div class="float-left rounded-lg mx-2 md:mx-3 w-1/6">
+                                                <a href="#">
+                                                    <img src="{{ $wl->link_image }}" class="rounded-xl w-full h-48 md:h-56 hover:brightness-90">
+                                                    <div class="bg-white font-light text-base mt-3 relative">
+                                                        <a href="#" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;">
+                                                            {{ $wl->title }}
+                                                        </a>
+                                                        <div class="absolute bg-white pl-3 py-3 rounded-tl-2xl flex text-purple cursor-pointer" onclick="alert('route');" style="top: -40px; right: 0px;">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" fill="#723F5FFF"/>
+                                                            </svg>
+                                                            <p class="ml-2">112</p>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        @endif
+                    @endif
 
                     <div class="mt-6">
                         <a href="#">
                             <span class="font-sans uppercase text-lg text-purple">Sức khỏe</span>
                         </a>
-                        <div class="inline-flex mt-4 my-4 w-full" id="owl-theme-suc-khoe">
+                        <div class="mt-4 my-4 w-full" id="owl-theme-suc-khoe">
                             @for ($i = 0; $i<10; $i++)
-                                <div class="flex-shrink-0 rounded-lg mx-2 md:mx-3">
+                                <div class=" w-1/6 rounded-lg mx-2 md:mx-3">
                                     <a href="#">
                                         <img src="https://c06f.app.slickstream.com/p/pageimg/L8EAVD26/102416?site=L8EAVD26&epoch=1676926521369" class="rounded-xl w-full h-48 md:h-56 hover:brightness-90">  {{--h-40 md:h-48--}}
                                         <div class="bg-white font-light text-base mt-3 relative">
@@ -173,9 +210,9 @@
                         <a href="#">
                             <span class="font-sans uppercase text-lg text-purple">Làm đẹp</span>
                         </a>
-                        <div class="inline-flex mt-4 my-4 w-full" id="owl-theme-lam-dep">
+                        <div class="mt-4 my-4" id="owl-theme-lam-dep">
                             @for ($i = 0; $i<10; $i++)
-                                <div class="flex-shrink-0 rounded-lg mx-2 md:mx-3">
+                                <div class="rounded-lg mx-2 md:mx-3">
                                     <a href="#">
                                         <img src="https://c06f.app.slickstream.com/p/pageimg/L8EAVD26/740?site=L8EAVD26&epoch=1676926521369" class="rounded-xl w-full h-48 md:h-56 hover:brightness-90">  {{--h-40 md:h-48--}}
                                         <div class="bg-white font-light text-base mt-3 relative">
@@ -234,21 +271,21 @@
         autoplaySpeed: 1000,
         // autoplay: true,
         loop: true,
-        slidesToShow: 7,
+        slidesToShow: 6,
         responsive: [{
             breakpoint: 1024,
             settings: {
-                slidesToShow: 6
+                slidesToShow: 6,
             }
         }, {
             breakpoint: 768,
             settings: {
-                slidesToShow: 4
+                slidesToShow: 5
             }
         }, {
             breakpoint: 640,
             settings: {
-                slidesToShow: 3
+                slidesToShow: 4
             }
         }, {
             breakpoint: 480,

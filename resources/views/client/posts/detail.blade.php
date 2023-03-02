@@ -1,6 +1,6 @@
-@extends('user.layouts.master')
+@extends('client.layouts.master')
 
-@section('title', 'Amara Store - Home')
+@section('title', $post->title . ' - Amara Store')
 
 @section('content')
 <div class="mx-auto container px-3 md:px-2">
@@ -24,7 +24,7 @@
 
     <div class="grid grid-cols-12 gap-8 mt-3 md:mt-10">
         <div class="col-span-12 md:col-span-9">
-            <p class="uppercase text-center font-light text-lg md:text-2xl">{{ $post->title }}</p>
+            <h1 class="uppercase text-center font-light text-lg md:text-2xl">{{ $post->title }}</h1>
             <p class="text-center font-light my-6"><span class="py-5 px-10 text-sm md:text-base border-purple border-t">{{ $post->created_at->toFormattedDateString() }}</span></p>
             <div class="text-sm">
                 {!! $post->content !!}
@@ -86,7 +86,7 @@
             </div>
         </div>
         <div class="hidden md:block col-span-3">
-            @include('user.layouts.navbar_right')
+            @include('client.layouts.navbar_right')
         </div>
     </div>
 </div>

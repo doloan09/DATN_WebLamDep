@@ -18,10 +18,10 @@
 
 </head>
 <body>
-@include('user.layouts.header')
+@include('client.layouts.header')
 
 @yield('content')
 
 @stack('scripts')
 
-@include('user.layouts.footer')
+@include('client.layouts.footer')
