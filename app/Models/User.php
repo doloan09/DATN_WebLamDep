@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Doloan09\Comments\Commenter;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Notifications\Notifiable;
 use Orchid\Platform\Models\User as Authenticatable;
 
@@ -14,7 +15,7 @@ use Orchid\Platform\Models\User as Authenticatable;
  * @property string $permissions
  *
  */
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable, Commenter;
     /**
@@ -27,6 +28,13 @@ class User extends Authenticatable
         'email',
         'password',
         'permissions',
+        'avatar',
+        'google_id',
+        'google_token',
+        'google_refresh_token',
+        'facebook_id',
+        'facebook_token',
+        'facebook_refresh_token'
     ];
 
     /**
@@ -74,4 +82,9 @@ class User extends Authenticatable
         'updated_at',
         'created_at',
     ];
+
+    public function wishlist(){
+        return $this->hasMany(Wishlist::class, 'id_user');
+    }
+
 }
