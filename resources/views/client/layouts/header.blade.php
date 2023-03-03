@@ -126,6 +126,7 @@
                             </svg>
                         </a>
                     </div>
+                    {{--        danh sách yêu thích            --}}
                     @if(count($wishlist) > 0)
                         @if(count($wishlist) < 6)
                             <div class="mt-6 w-full">
@@ -135,20 +136,21 @@
                                 <div class="mt-4 my-4 w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
                                     @foreach($wishlist as $wl)
                                         <div class="rounded-lg mx-2 md:mx-3 col-span-1">
-                                            <a href="#">
+                                            <form method="POST" action="{{ route('wishlist.store', ['id_post' => $wl->id, 'id_user' => \Illuminate\Support\Facades\Auth::id()]) }}">
+                                                @csrf
                                                 <img src="{{ $wl->link_image }}" class="rounded-xl w-full h-48 md:h-56 hover:brightness-90">
                                                 <div class="bg-white font-light text-base mt-3 relative">
                                                     <a href="#" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;">
                                                         {{ $wl->title }}
                                                     </a>
-                                                    <div class="absolute bg-white pl-3 py-3 rounded-tl-2xl flex text-purple cursor-pointer" onclick="alert('route');" style="top: -40px; right: 0px;">
+                                                    <button type="submit" class="absolute bg-white pl-3 py-3 rounded-tl-2xl flex text-purple cursor-pointer" style="top: -50px; right: 0px;">
                                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                                             <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" fill="#723F5FFF"/>
                                                         </svg>
                                                         <p class="ml-2">112</p>
-                                                    </div>
+                                                    </button>
                                                 </div>
-                                            </a>
+                                            </form>
                                         </div>
                                     @endforeach
                                 </div>
@@ -161,20 +163,21 @@
                                 <div class="mt-4 my-4 w-full " id="owl-theme-favorites">
                                     @foreach($wishlist as $wl)
                                             <div class="float-left rounded-lg mx-2 md:mx-3 w-1/6">
-                                                <a href="#">
+                                                <form method="POST" action="{{ route('wishlist.store', ['id_post' => $wl->id, 'id_user' => \Illuminate\Support\Facades\Auth::id()]) }}">
+                                                    @csrf
                                                     <img src="{{ $wl->link_image }}" class="rounded-xl w-full h-48 md:h-56 hover:brightness-90">
                                                     <div class="bg-white font-light text-base mt-3 relative">
                                                         <a href="#" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;">
                                                             {{ $wl->title }}
                                                         </a>
-                                                        <div class="absolute bg-white pl-3 py-3 rounded-tl-2xl flex text-purple cursor-pointer" onclick="alert('route');" style="top: -40px; right: 0px;">
+                                                        <button type="submit" class="absolute bg-white pl-3 py-3 rounded-tl-2xl flex text-purple cursor-pointer" style="top: -50px; right: 0px;">
                                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" fill="#723F5FFF"/>
                                                             </svg>
                                                             <p class="ml-2">112</p>
-                                                        </div>
+                                                        </button>
                                                     </div>
-                                                </a>
+                                                </form>
                                             </div>
                                     @endforeach
                                 </div>
@@ -182,53 +185,89 @@
                         @endif
                     @endif
 
-                    <div class="mt-6">
-                        <a href="#">
-                            <span class="font-sans uppercase text-lg text-purple">Sức khỏe</span>
-                        </a>
-                        <div class="mt-4 my-4 w-full" id="owl-theme-suc-khoe">
-                            @for ($i = 0; $i<10; $i++)
-                                <div class=" w-1/6 rounded-lg mx-2 md:mx-3">
+                    {{--          danh mục thường          --}}
+                    @foreach($categories as $item)
+                        @php
+                            $posts_item = $item->posts()->limit(10)->get();
+                            $count = count($posts_item);
+                        @endphp
+                        @if($count > 0)
+                            @if($count < 6)
+                                <div class="mt-6">
                                     <a href="#">
-                                        <img src="https://c06f.app.slickstream.com/p/pageimg/L8EAVD26/102416?site=L8EAVD26&epoch=1676926521369" class="rounded-xl w-full h-48 md:h-56 hover:brightness-90">  {{--h-40 md:h-48--}}
-                                        <div class="bg-white font-light text-base mt-3 relative">
-                                            <a href="#" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;">How to make cold brew. How to make cold brew. How to make cold brew</a>
-                                            <div class="absolute bg-white pl-3 py-3 rounded-tl-2xl flex text-purple cursor-pointer" style="top: -40px; right: 0px;">
-                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" fill="#723F5FFF"/>
-                                                </svg>
-                                                <p class="ml-2">112</p>
-                                            </div>
-                                        </div>
+                                        <span class="font-sans uppercase text-lg text-purple">{{ $item->name }}</span>
                                     </a>
+                                    <div class="mt-4 my-4 w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+                                        @foreach($posts_item as $i)
+                                            @php
+                                                $posts_wishlist = $i->wishlist()->limit(10)->get();
+                                                $count_wishlist = count($posts_wishlist);
+                                            @endphp
+                                            <div class="rounded-lg mx-2 md:mx-3 col-span-1">
+                                                <form method="POST" action="{{ route('wishlist.store', ['id_post' => $i->id, 'id_user' => \Illuminate\Support\Facades\Auth::id()]) }}">
+                                                    @csrf
+                                                    <img src="{{ $i->link_image }}" class="rounded-xl w-full h-48 md:h-56 hover:brightness-90">
+                                                    <div class="bg-white font-light text-base mt-3 relative">
+                                                        <a href="#" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;">
+                                                            {{ $i->title }}
+                                                        </a>
+                                                        <button type="submit" class="absolute bg-white pl-3 py-3 rounded-tl-2xl flex text-purple cursor-pointer" style="top: -50px; right: 0px;">
+                                                        @if($count_wishlist > 0)
+                                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" fill="#723F5FFF"/>
+                                                            </svg>
+                                                        @else
+                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                                                            </svg>
+                                                        @endif
+                                                        <p class="ml-2">112</p>
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        @endforeach
+                                    </div>
                                 </div>
-                            @endfor
-                        </div>
-                    </div>
-
-                    <div class="mt-6">
-                        <a href="#">
-                            <span class="font-sans uppercase text-lg text-purple">Làm đẹp</span>
-                        </a>
-                        <div class="mt-4 my-4" id="owl-theme-lam-dep">
-                            @for ($i = 0; $i<10; $i++)
-                                <div class="rounded-lg mx-2 md:mx-3">
+                            @else
+                                <div class="mt-6">
                                     <a href="#">
-                                        <img src="https://c06f.app.slickstream.com/p/pageimg/L8EAVD26/740?site=L8EAVD26&epoch=1676926521369" class="rounded-xl w-full h-48 md:h-56 hover:brightness-90">  {{--h-40 md:h-48--}}
-                                        <div class="bg-white font-light text-base mt-3 relative">
-                                            <a href="#" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;">How to make cold brew. How to make cold brew. How to make cold brew</a>
-                                            <div class="absolute bg-white pl-3 py-3 rounded-tl-2xl flex text-purple cursor-pointer" style="top: -40px; right: 0px;">
-                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" fill="#723F5FFF"/>
-                                                </svg>
-                                                <p class="ml-2">112</p>
-                                            </div>
-                                        </div>
+                                        <span class="font-sans uppercase text-lg text-purple">{{ $item->name }}</span>
                                     </a>
+                                    <div class="mt-4 my-4 w-full" id='owl-theme-{{ $item->slug }}'>
+                                        @foreach($posts_item as $i)
+                                            @php
+                                                $posts_wishlist = $i->wishlist()->limit(4)->get();
+                                                $count_wishlist = count($posts_wishlist);
+                                            @endphp
+                                            <div class=" w-1/6 rounded-lg mx-2 md:mx-3">
+                                                <form action="{{ route('wishlist.store', ['id_post' => $i, 'id_user' => \Illuminate\Support\Facades\Auth::id()]) }}" method="POST">
+                                                    @csrf
+                                                    <img src="{{ $i->link_image }}" class="rounded-xl w-full h-48 md:h-56 hover:brightness-90">  {{--h-40 md:h-48--}}
+                                                    <div class="bg-white font-light text-base mt-3 relative">
+                                                        <a href="#" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;">{{ $i->title }}</a>
+                                                        <button type="submit" class="absolute bg-white pl-3 py-3 rounded-tl-2xl flex text-purple cursor-pointer" style="top: -50px; right: 0px;">
+                                                            @if($count_wishlist > 0)
+                                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" fill="#723F5FFF"/>
+                                                                </svg>
+                                                            @else
+                                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                                                                </svg>
+                                                            @endif
+                                                            <p class="ml-2">112</p>
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        @endforeach
+                                    </div>
                                 </div>
-                            @endfor
-                        </div>
-                    </div>
+                            @endif
+                        @endif
+                    @endforeach
+                </div>
                 </div>
             </div>
         </div>
@@ -382,6 +421,7 @@
     var password = '{{ $errors->first('password') }}';
     var status = '{{ session('status') }}';
     var name = '{{ $errors->first('name') }}';
+    var wishlist_status = '{{ session('wishlist') }}';
 
     show_info();
 
@@ -397,6 +437,9 @@
         if (name){
             $("#modal-info-user").show();
             toggle_info_user();
+        }
+        if (wishlist_status){
+            showSearch();
         }
     }
 

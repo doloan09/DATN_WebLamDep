@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\UserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -48,6 +49,9 @@ Route::post('/reset-password', [ResetPassController::class, 'resetPass'])->middl
 Route::get('/gioi-thieu', [UserController::class, 'about'])->name('about');
 Route::post('/update-password/{id}', [UserController::class, 'update'])->name('update.password'); // thay đổi mật khẩu
 Route::post('/update-info/{id}', [UserController::class, 'update_info'])->name('update.info'); // cập nhật thông tin
+
+// wishlist
+Route::post('/wishlist', [WishlistController::class, 'store'])->name('wishlist.store');
 
 //
 Route::get('/', [PostController::class, 'index'])->name('home');
