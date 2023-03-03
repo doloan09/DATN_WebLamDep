@@ -62,16 +62,16 @@
 
                 <div id="dropdown-wrapper-user" class="hidden md:block inline-block text-sm md:text-lg ml-8 z-50">
                     <div class="relative">
-                        <div onclick="toggle()" class="cursor-pointer">
+                        <div onclick="toggle_menu_user()" class="cursor-pointer">
                             <img src="{{ $user->avatar ?? "https://1.bp.blogspot.com/-HhU9edRL9Q8/YU1CjMlHZvI/AAAAAAAANt4/RKMHAtXYD_MqJOr3UbkiGN7ZkCz8Oy95gCLcBGAsYHQ/w800-h800-p-k-no-nu/Mailovesbeauty_LifeStyle%2BBlog.JPG" }}" class="w-8 h-8 rounded-full">
                         </div>
                     </div>
                     <div id="menuUser" class="hidden flex flex-col bg-white drop-shadow-md absolute -ml-28">
                         @if($user)
-                            <a class="px-4 py-3 hover:bg-gray-300 border-b border-gray-200 hover:bg-white" href="#">
+                            <div class="px-4 py-3 hover:bg-gray-300 border-b border-gray-200 hover:bg-white cursor-pointer" id="btn-info-user">
                                 <p class="font-medium">{{ $user->name }}</p>
                                 <p class="text-sm font-light text-gray-500 text-center">{{ $user->email }}</p>
-                            </a>
+                            </div>
                             <a class="px-4 py-3 hover:bg-gray-100 hover:text-purple border-b border-gray-200 flex" href="{{ route('logout') }}">
                                 <div>
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -235,17 +235,191 @@
     </div>
 </div>
 
+{{-- thong tin ca nhan --}}
+@if($user)
+    <div class="hidden fixed z-10 inset-0 overflow-y-auto animate-fade-in-down" aria-labelledby="modal-info-user" role="dialog" aria-modal="true" id="modal-info-user">
+        <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 bg-black bg-opacity-50 transition-opacity ease-out duration-300" aria-hidden="true" onclick="hidden_info()"></div>
+            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">​</span>
+            <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full w-full">
+                <div class="bg-white relative">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="absolute h-6 right-3 text-gray-500 top-3 w-6 cursor-pointer" fill="none" viewBox="0 0 24 24" stroke="currentColor" onclick="hidden_info()">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                    <div class="border-b flex p-4 items-center">
+                        <img src="{{ $user->avatar ?? "https://1.bp.blogspot.com/-HhU9edRL9Q8/YU1CjMlHZvI/AAAAAAAANt4/RKMHAtXYD_MqJOr3UbkiGN7ZkCz8Oy95gCLcBGAsYHQ/w800-h800-p-k-no-nu/Mailovesbeauty_LifeStyle%2BBlog.JPG" }}" class="w-8 h-8 rounded-full">
+                        <span class="text-lg leading-6 font-medium text-gray-900 font-bold ml-2" id="modal-title">
+                                Thông tin cá nhân
+                        </span>
+                    </div>
+                    <div class="my-3 text-center sm:text-left p-4">
+                        <div class="flex flex-wrap mb-2">
+                            <p class="font-bold mr-4">Họ tên: </p>
+                            <p>{{ $user->name }}</p>
+                        </div>
+                        <div class="flex flex-wrap">
+                            <p class="font-bold mr-4">Email: </p>
+                            <p>{{ $user->email }}</p>
+                        </div>
+
+                        {{--          cập nhật thông tin              --}}
+                        <div class="hidden" id="info_user">
+                            <div
+                                class="flex items-center my-8 before:flex-1 before:border-t before:border-gray-300 before:mt-0.5 after:flex-1 after:border-t after:border-gray-300 after:mt-0.5"
+                            >
+                                <p class="text-center font-semibold mx-4 mb-0">Cập nhật thông tin</p>
+                            </div>
+                            <form method="POST" action="{{ route('update.info', ['id' => $user->id]) }}">
+                                @csrf
+
+                                @if($errors->has('name'))
+                                    <div class="text-center text-sm text-red-600 mb-2">{{ $errors->first('name') }}</div>
+                                @endif
+
+                                <div class="flex flex-wrap mb-2">
+                                    <p class="font-bold mr-4">Họ tên: </p>
+                                    <input
+                                        name="name"
+                                        type="text"
+                                        class="px-3 py-1.5 text-base border border-gray-300 rounded m-0 focus:outline-none mb-2 focus"
+                                        placeholder="Họ và tên"
+                                        value="{{ $user->name }}"
+                                        required
+                                    />
+                                </div>
+                                <div class="flex flex-wrap">
+                                    <p class="font-bold mr-4">Email: </p>
+                                    <p>{{ $user->email }}</p>
+                                </div>
+
+                                <div class="text-end mt-5">
+                                    <a href="#"
+                                        class="border border-purple text-purple hover:bg-purple p-3 hover:text-white mb-2 mr-2"
+                                        onclick="toggle_info_user()"
+                                    >
+                                        Hủy
+                                    </a>
+                                    <button
+                                        class="border border-purple text-purple hover:bg-purple p-2 hover:text-white mb-2"
+                                        type="submit"
+                                    >
+                                        Cập nhật
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+
+                        {{--          thay đổi mật khẩu              --}}
+                        <div class="hidden" id="forgot_password">
+                            <div
+                                class="flex items-center my-8 before:flex-1 before:border-t before:border-gray-300 before:mt-0.5 after:flex-1 after:border-t after:border-gray-300 after:mt-0.5"
+                            >
+                                <p class="text-center font-semibold mx-4 mb-0">Đổi mật khẩu</p>
+                            </div>
+                            <form method="POST" action="{{ route('update.password', ['id' => $user->id]) }}">
+                                @csrf
+
+                                @if($errors->has('password'))
+                                    <div class="text-center text-sm text-red-600 mb-2">{{ $errors->first('password') }}</div>
+                                @endif
+
+                                <input
+                                    name="password"
+                                    type="password"
+                                    class="form-control block w-full px-3 py-1.5 text-base border border-gray-300 rounded m-0 focus:outline-none mb-2"
+                                    placeholder="Mật khẩu mới"
+                                    required
+                                />
+                                <input
+                                    name="password_confirmation"
+                                    type="password"
+                                    class="form-control block w-full px-3 py-1.5 text-base border border-gray-300 rounded m-0 focus:outline-none mb-2"
+                                    placeholder="Nhập lại mật khẩu mới"
+                                    required
+                                />
+                                <div class="text-end mt-5">
+                                    <button
+                                        class="border border-purple text-purple hover:bg-purple p-2 hover:text-white mb-2 mr-2"
+                                        onclick="toggle_forgot_password()"
+                                    >
+                                        Hủy
+                                    </button>
+                                    <button
+                                        class="border border-purple text-purple hover:bg-purple p-2 hover:text-white mb-2"
+                                        type="submit"
+                                    >
+                                        Cập nhật
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="mt-10 flex flex-wrap" id="div-btn">
+                            @if($user->email_verified_at == null)
+                                <form action="{{ route('verification.send') }}" method="POST" class="mb-2">
+                                    @csrf
+                                    <button type="submit" class="cursor-pointer border border-purple text-purple hover:bg-purple h-10 p-2 hover:text-white mr-4">Xác thực tài khoản</button>
+                                </form>
+                            @endif
+                            <a href="#" class="border border-purple text-purple hover:bg-purple h-10 p-2 hover:text-white mr-4 mb-2" onclick="toggle_forgot_password()">Đổi mật khẩu</a>
+                            <a href="#" class="border border-purple text-purple hover:bg-purple h-10 p-2 hover:text-white mb-2" onclick="toggle_info_user()">Chỉnh sửa thông tin</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endif
+
 @push('scripts')
 <script>
 {{--    menu user --}}
     var menuUser = document.getElementById("menuUser");
+    var modal_info = document.getElementById("forgot_password");
+    var div_btn = document.getElementById('div-btn');
+    var div_info = document.getElementById('info_user');
 
-    function toggle() {
-        if (menuUser.classList.contains('hidden')) {
-            menuUser.classList.remove('hidden');
-        } else {
-            menuUser.classList.add('hidden');
+    var password = '{{ $errors->first('password') }}';
+    var status = '{{ session('status') }}';
+    var name = '{{ $errors->first('name') }}';
+
+    show_info();
+
+    function show_info(){
+        if (password) {
+            $("#modal-info-user").show();
+            toggle_forgot_password();
         }
+        if (status){
+            alert(status);
+            $("#modal-info-user").show();
+        }
+        if (name){
+            $("#modal-info-user").show();
+            toggle_info_user();
+        }
+    }
+
+    function toggle(item) {
+        if (item.classList.contains('hidden')) {
+            item.classList.remove('hidden');
+        } else {
+            item.classList.add('hidden');
+        }
+    }
+
+    function toggle_menu_user(){
+        toggle(menuUser);
+    }
+
+    function toggle_forgot_password(){
+        toggle(modal_info);
+        toggle(div_btn);
+    }
+
+    function toggle_info_user(){
+        toggle(div_info);
+        toggle(div_btn);
     }
 
     // close the menu when the user clicks outside of it
@@ -256,6 +430,15 @@
             menuUser.classList.add('hidden');
         }
 
+    }
+
+    // hiển thị thông tin cá nhân
+    $("#btn-info-user").click(function (){
+        $("#modal-info-user").show();
+    });
+
+    function hidden_info(){
+        $("#modal-info-user").hide();
     }
 
     // muc yeu thich - search

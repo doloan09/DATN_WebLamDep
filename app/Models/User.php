@@ -13,7 +13,7 @@ use Orchid\Platform\Models\User as Authenticatable;
  * @property string $email
  * @property string $password
  * @property string $permissions
- *
+ *@property string $email_verified_at
  */
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -27,6 +27,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'password',
+        'email_verified_at',
         'permissions',
         'avatar',
         'google_id',

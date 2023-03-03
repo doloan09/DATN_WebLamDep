@@ -180,17 +180,4 @@ class AuthController extends Controller
         return redirect('/login');
     }
 
-    /**
-     * @return Application|Factory|View
-     */
-    public function about(){
-        $posts_hot = Post::query()->where('status', 1)->limit(4)->get();
-        $user = Auth::user();
-        $categories = Category::query()->get();
-        $wishlist = [];
-        if ($user){
-            $wishlist = $user->wishlist()->join('posts', 'posts.id', '=', 'wishlists.id_post')->get();
-        }
-        return view('client.about', compact('user', 'posts_hot', 'wishlist', 'categories'));
-    }
 }

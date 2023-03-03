@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\ResetPassController;
+use App\Http\Controllers\Auth\UserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PostController;
@@ -34,6 +35,7 @@ Route::get('/login/facebook/redirect', [AuthController::class, 'redirectToFacebo
 Route::get('/login/facebook/callback', [AuthController::class, 'handleFacebookCallback'])->name('login.facebook.callback');
 
 /// email verify
+Route::post('/email/verification-notification', [VerifyEmailController::class, 'verifySend'])->middleware(['auth', 'throttle:6,1'])->name('verification.send'); // gui lai mail xac minh
 Route::get('/email/verify/{id}/{hash}', [VerifyEmailController::class, 'verify'])->middleware(['auth', 'signed'])->name('verification.verify'); // xu ly xac thuc email khi user click vao link trong email xac thuc
 
 /// forgot password
@@ -42,9 +44,13 @@ Route::post('/forgot-password', [ResetPassController::class, 'forgotPass'])->mid
 Route::get('/reset-password/{token}', [ResetPassController::class, 'showResetPass'])->middleware('guest')->name('password.reset'); // view reset pass
 Route::post('/reset-password', [ResetPassController::class, 'resetPass'])->middleware('guest')->name('password.update'); // reset pass
 
+//user
+Route::get('/gioi-thieu', [UserController::class, 'about'])->name('about');
+Route::post('/update-password/{id}', [UserController::class, 'update'])->name('update.password'); // thay đổi mật khẩu
+Route::post('/update-info/{id}', [UserController::class, 'update_info'])->name('update.info'); // cập nhật thông tin
+
 //
 Route::get('/', [PostController::class, 'index'])->name('home');
 Route::get('/trang-chu', [PostController::class, 'index'])->name('home');
-Route::get('/gioi-thieu', [AuthController::class, 'about'])->name('about');
 Route::get('/danh-muc/{category}', [CategoryController::class, 'show'])->name('categories.show'); // danh sach bai viet theo theo loai
 Route::get('/bai-viet/{slug}', [PostController::class, 'show'])->name('posts.show'); // chi tiet 1 bai viet

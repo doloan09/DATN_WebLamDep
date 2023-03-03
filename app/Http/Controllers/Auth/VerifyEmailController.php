@@ -8,6 +8,12 @@ use Illuminate\Http\Request;
 
 class VerifyEmailController extends Controller
 {
+    public function verifySend(Request $request) {
+        $request->user()->sendEmailVerificationNotification();
+
+        return back()->with('message', 'Đã gửi liên kết xác minh! Vui lòng kiểm tra email của bạn!');
+    }
+
     public function verify(EmailVerificationRequest $request) {
         $request->fulfill();
 
