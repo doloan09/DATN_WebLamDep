@@ -42,13 +42,13 @@
                                 {{--                 reset password                   --}}
 
                                 @if(session('status'))
-                                    <div class="alert alert-info text-green-600">
+                                    <div class="text-center text-sm text-red-600 mb-2">
                                         {{ session('status') }}
                                     </div>
-                                @elseif(session('email'))
-                                    <div class="alert alert-info text-red-600">
-                                        {{ session('email') }}
-                                    </div>
+                                @endif
+
+                                @if($errors->has('password'))
+                                    <div class="text-center text-sm text-red-600 mb-2">{{ $errors->first('password') }}</div>
                                 @endif
 
                                 <input type="hidden" name="token" value="{{ $token }}">
@@ -63,9 +63,6 @@
                                         required
                                     />
 
-                                    @if($errors->has('password'))
-                                        <div class="text-left mt-2 text-red-600">{{ $errors->first('password') }}</div>
-                                    @endif
                                     <input
                                         name="password_confirmation"
                                         type="password"

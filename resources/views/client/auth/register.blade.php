@@ -85,6 +85,11 @@
                                 </div>
 
                                 <div class="mb-4">
+                                    @if(\Session::has('errorName'))
+                                        <div class="alert alert-info text-red-600 px-3 text-xs mb-2">
+                                            {{\Session::get('errorName')}}
+                                        </div>
+                                    @endif
                                     <input
                                         name="name"
                                         type="text"
@@ -92,27 +97,28 @@
                                         placeholder="UserName"
                                         required
                                     />
-                                    @if(\Session::has('errorName'))
-                                        <div class="alert alert-info text-red-600 px-3 text-xs pt-2">
-                                            {{\Session::get('errorName')}}
-                                        </div>
-                                    @endif
                                 </div>
 
                                 <div class="mb-4">
+                                    @if(\Session::has('errorEmail'))
+                                        <div class="alert alert-info text-red-600 px-3 text-xs mb-2">
+                                            {{\Session::get('errorEmail')}}
+                                        </div>
+                                    @endif
                                     <input
                                         name="email"
+                                        type="email"
                                         class="form-control block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                                         placeholder="Email"
                                         required
                                     />
-                                    @if(\Session::has('errorEmail'))
-                                        <div class="alert alert-info text-red-600 px-3 text-xs pt-2">
-                                            {{\Session::get('errorEmail')}}
-                                        </div>
-                                    @endif
                                 </div>
                                 <div class="mb-4">
+                                    @if(\Session::has('errorPassword'))
+                                        <div class="alert alert-info text-red-600 px-3 text-xs mb-2">
+                                            {{\Session::get('errorPassword')}}
+                                        </div>
+                                    @endif
                                     <input
                                         name="password"
                                         type="password"
@@ -120,11 +126,6 @@
                                         placeholder="Password"
                                         required
                                     />
-                                    @if(\Session::has('errorPassword'))
-                                        <div class="alert alert-info text-red-600 px-3 text-xs pt-2">
-                                            {{\Session::get('errorPassword')}}
-                                        </div>
-                                    @endif
                                 </div>
                                 <div class="text-center pt-1 mb-20 pb-1">
                                     <button

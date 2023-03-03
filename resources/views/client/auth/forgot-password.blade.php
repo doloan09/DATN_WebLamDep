@@ -34,7 +34,7 @@
                                     </div>
 
                                     @if(\Session::has('message'))
-                                        <div class="alert alert-info text-red-600 px-3 text-xs pb-6 text-center">
+                                        <div class="text-red-600 px-3 text-sm pb-6 text-center">
                                             {{\Session::get('message')}}
                                         </div>
                                     @endif
@@ -42,27 +42,23 @@
                                     {{--                 reset password                   --}}
 
                                     @if(session('status'))
-                                        <div class="alert alert-info text-green-600">
+                                        <div class="text-center text-sm text-green-600 mb-2">
                                             {{ session('status') }}
                                         </div>
-                                    @elseif(session('email'))
-                                        <div class="alert alert-info text-red-600">
-                                            {{ session('email') }}
-                                        </div>
                                     @endif
+
+                                    @if($errors->has('email'))
+                                        <div class="text-center text-red-600 text-sm mb-2">{{ $errors->first('email') }}</div>
+                                    @endif
+
                                     <div class="">
                                         <input
                                             name="email"
                                             type="email"
                                             class="mb-6 form-control block w-full px-3 py-1.5 text-base border border-gray-300 rounded m-0 focus:outline-none"
-                                            placeholder="Email"
+                                            placeholder="Nhập vào email ... "
                                             required
                                         />
-
-                                        @if($errors->has('email'))
-                                            <div class="text-left pl-16 text-red-600 mt-2">{{ $errors->first('email') }}</div>
-                                        @endif
-
                                     </div>
 
                                     <div class="text-center pt-1 mb-20 pb-1">

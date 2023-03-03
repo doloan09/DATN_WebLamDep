@@ -100,7 +100,7 @@ class AuthController extends Controller
             return redirect()->route('home')->with('message', 'Bạn đã đăng ký tài khoản thành công!');
         }catch (\Exception $e){
             $err = $e->errors();
-            return redirect()->route('register.show')->with('errorName', $err['name'][0])->with('errorEmail', $err['email'][0])->with('errorPassword', $err['password'][0]);
+            return redirect()->route('register.show')->with('errorName', $err['name'][0] ?? '')->with('errorEmail', $err['email'][0] ?? '')->with('errorPassword', $err['password'][0] ?? '');
         }
     }
 

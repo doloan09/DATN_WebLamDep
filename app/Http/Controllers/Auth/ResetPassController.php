@@ -16,15 +16,20 @@ class ResetPassController extends Controller
     }
 
     public function forgotPass(Request $request) {
-        $request->validate(['email' => 'required|email']);
+        $request->validate([
+            'email' => 'required|email'
+        ],[
+            'email.required' => 'Email không được bỏ trống!',
+            'email.email' => 'Email không đúng định dạng!',
+        ]);
 
         $status = Password::sendResetLink(
             $request->only('email')
         );
 
         return $status === Password::RESET_LINK_SENT
-            ? back()->with(['status' => __($status)])
-            : back()->withErrors(['email' => __($status)]);
+            ? back()->with(['status' => 'Vui lòng kiểm tra email để đặt lại mật khẩu!'])
+            : back()->withErrors(['email' => 'Không tồn tại tài khoản với email này! Vui lòng kiểm tra lại!']);
     }
 
     public function showResetPass ($token) {
@@ -36,6 +41,13 @@ class ResetPassController extends Controller
             'token' => 'required',
             'email' => 'required|email',
             'password' => 'required|min:8|confirmed',
+        ],[
+            'token.required' => 'Token không được bỏ trống!',
+            'email.required' => 'Email không được bỏ trống!',
+            'email.email' => 'Email không đúng định dạng!',
+            'password.required' => 'Mật khẩu không được bỏ trống!',
+            'password.min' => 'Mật khẩu phải chứa ít nhất 8 ký tự!',
+            'password.confirmed' => 'Mật khẩu phải trùng nhau!',
         ]);
 
         $status = Password::reset(
@@ -52,7 +64,7 @@ class ResetPassController extends Controller
         );
 
         return $status === Password::PASSWORD_RESET
-            ? redirect()->route('login.show')->with('status', __($status))
-            : back()->withErrors(['email' => [__($status)]]);
+            ? redirect()->route('login.show')->with('status', 'Đặt lại mật khẩu thành công! Vui lòng đăng nhập tài khoản!')
+            : back()->withErrors(['email' => 'Không tồn tại tài khoản với email này! Vui lòng kiểm tra lại!']);
     }
 }

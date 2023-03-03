@@ -86,39 +86,45 @@
                                     <p class="text-center font-semibold mx-4 mb-0">Or</p>
                                 </div>
 
+                                @if(session('status'))
+                                    <div class="text-center text-sm text-green-600 mb-2">
+                                        {{ session('status') }}
+                                    </div>
+                                @endif
+
                                 @if(\Session::has('message'))
-                                    <div class="alert alert-info text-red-600 px-3 text-xs pb-6 text-center">
+                                    <div class="text-red-600 text-sm mb-2 text-center">
                                         {{\Session::get('message')}}
                                     </div>
                                 @endif
 
                                 <div class="mb-4">
+                                    @if(\Session::has('errorEmail'))
+                                        <div class="text-red-600 px-3 text-xs mb-2">
+                                            {{\Session::get('errorEmail')}}
+                                        </div>
+                                    @endif
                                     <input
                                         name="email"
                                         type="email"
                                         class="form-control block w-full px-3 py-1.5 text-base border border-gray-300 rounded m-0 focus:outline-none"
                                         placeholder="Email"
-{{--                                            required--}}
+                                        required
                                     />
-                                    @if(\Session::has('errorEmail'))
-                                        <div class="alert alert-info text-red-600 px-3 text-xs pt-2">
-                                            {{\Session::get('errorEmail')}}
-                                        </div>
-                                    @endif
                                 </div>
                                 <div class="mb-4">
+                                    @if(\Session::has('errorPassword'))
+                                        <div class="text-red-600 px-3 text-xs mb-2">
+                                            {{\Session::get('errorPassword')}}
+                                        </div>
+                                    @endif
                                     <input
                                         name="password"
                                         type="password"
                                         class="form-control block w-full px-3 py-1.5 text-base border border-gray-300 rounded m-0 focus:outline-none"
                                         placeholder="Password"
-{{--                                            required--}}
+                                            required
                                     />
-                                    @if(\Session::has('errorPassword'))
-                                        <div class="alert alert-info text-red-600 px-3 text-xs pt-2">
-                                            {{\Session::get('errorPassword')}}
-                                        </div>
-                                    @endif
                                 </div>
                                 <div class="text-center pt-1 mb-20 pb-1">
                                     <button
