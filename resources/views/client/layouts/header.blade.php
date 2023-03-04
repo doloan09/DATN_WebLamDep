@@ -135,34 +135,13 @@
                                 </a>
                                 <div class="mt-4 my-4 w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
                                     @foreach($wishlist as $wl)
-                                        <div class="rounded-lg mx-2 md:mx-3 col-span-1">
-                                            <form method="POST" action="{{ route('wishlist.store', ['id_post' => $wl->id, 'id_user' => \Illuminate\Support\Facades\Auth::id()]) }}">
-                                                @csrf
-                                                <img src="{{ $wl->link_image }}" class="rounded-xl w-full h-48 md:h-56 hover:brightness-90">
-                                                <div class="bg-white font-light text-base mt-3 relative">
-                                                    <a href="#" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;">
-                                                        {{ $wl->title }}
-                                                    </a>
-                                                    <button type="submit" class="absolute bg-white pl-3 py-3 rounded-tl-2xl flex text-purple cursor-pointer" style="top: -50px; right: 0px;">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" fill="#723F5FFF"/>
-                                                        </svg>
-                                                        <p class="ml-2">112</p>
-                                                    </button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    @endforeach
-                                </div>
-                            </div>
-                        @else
-                            <div class="mt-6">
-                                <a href="#">
-                                    <span class="font-sans uppercase text-lg text-purple">Danh sách yêu thích</span>
-                                </a>
-                                <div class="mt-4 my-4 w-full " id="owl-theme-favorites">
-                                    @foreach($wishlist as $wl)
-                                            <div class="float-left rounded-lg mx-2 md:mx-3 w-1/6">
+                                        @php
+                                            $post = \App\Models\Post::query()->findOrFail($wl->id_post);
+                                            $posts_wishlist = $post->wishlist()->get();
+                                            $count_wishlist = count($posts_wishlist);
+                                        @endphp
+                                        <div class="rounded-lg mx-2 md:mx-3 col-span-1 cursor-pointer" >
+                                            <a href="{{ route('posts.show', $wl->slug) }}">
                                                 <form method="POST" action="{{ route('wishlist.store', ['id_post' => $wl->id, 'id_user' => \Illuminate\Support\Facades\Auth::id()]) }}">
                                                     @csrf
                                                     <img src="{{ $wl->link_image }}" class="rounded-xl w-full h-48 md:h-56 hover:brightness-90">
@@ -174,11 +153,46 @@
                                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" fill="#723F5FFF"/>
                                                             </svg>
-                                                            <p class="ml-2">112</p>
+                                                            <p class="ml-2">{{ $count_wishlist }}</p>
                                                         </button>
                                                     </div>
                                                 </form>
-                                            </div>
+                                            </a>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        @else
+                            <div class="mt-6">
+                                <a href="#">
+                                    <span class="font-sans uppercase text-lg text-purple">Danh sách yêu thích</span>
+                                </a>
+                                <div class="mt-4 my-4 w-full " id="owl-theme-favorites">
+                                    @foreach($wishlist as $wl)
+                                        @php
+                                            $post = \App\Models\Post::query()->findOrFail($wl->id_post);
+                                            $posts_wishlist = $post->wishlist()->get();
+                                            $count_wishlist = count($posts_wishlist);
+                                        @endphp
+                                        <div class="float-left rounded-lg mx-2 md:mx-3 w-1/6">
+                                            <a href="{{ route('posts.show', $wl->slug) }}">
+                                                <form method="POST" action="{{ route('wishlist.store', ['id_post' => $wl->id, 'id_user' => \Illuminate\Support\Facades\Auth::id()]) }}">
+                                                    @csrf
+                                                    <img src="{{ $wl->link_image }}" class="rounded-xl w-full h-48 md:h-56 hover:brightness-90">
+                                                    <div class="bg-white font-light text-base mt-3 relative">
+                                                        <a href="#" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;">
+                                                            {{ $wl->title }}
+                                                        </a>
+                                                        <button type="submit" class="absolute bg-white pl-3 py-3 rounded-tl-2xl flex text-purple cursor-pointer" style="top: -50px; right: 0px;">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" fill="#723F5FFF"/>
+                                                            </svg>
+                                                            <p class="ml-2">{{ $count_wishlist }}</p>
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            </a>
+                                        </div>
                                     @endforeach
                                 </div>
                             </div>
@@ -200,31 +214,34 @@
                                     <div class="mt-4 my-4 w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
                                         @foreach($posts_item as $i)
                                             @php
-                                                $posts_wishlist = $i->wishlist()->limit(10)->get();
-                                                $count_wishlist = count($posts_wishlist);
+                                                $user_wishlist = $i->wishlist()->where('id_user', \Illuminate\Support\Facades\Auth::id())->first(); // kiem tra xem user da thich bai viet nay chua
+                                                $posts_wishlist = $i->wishlist()->get(); // tat ca luot thich cua tat ca user
+                                                $count_wishlist = count($posts_wishlist); // tong so luot thich bai viet cua tat ca user
                                             @endphp
                                             <div class="rounded-lg mx-2 md:mx-3 col-span-1">
-                                                <form method="POST" action="{{ route('wishlist.store', ['id_post' => $i->id, 'id_user' => \Illuminate\Support\Facades\Auth::id()]) }}">
-                                                    @csrf
-                                                    <img src="{{ $i->link_image }}" class="rounded-xl w-full h-48 md:h-56 hover:brightness-90">
-                                                    <div class="bg-white font-light text-base mt-3 relative">
-                                                        <a href="#" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;">
-                                                            {{ $i->title }}
-                                                        </a>
-                                                        <button type="submit" class="absolute bg-white pl-3 py-3 rounded-tl-2xl flex text-purple cursor-pointer" style="top: -50px; right: 0px;">
-                                                        @if($count_wishlist > 0)
-                                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" fill="#723F5FFF"/>
-                                                            </svg>
-                                                        @else
-                                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-                                                            </svg>
-                                                        @endif
-                                                        <p class="ml-2">112</p>
-                                                        </button>
-                                                    </div>
-                                                </form>
+                                                <a href="{{ route('posts.show', $i->slug) }}">
+                                                    <form method="POST" action="{{ route('wishlist.store', ['id_post' => $i->id, 'id_user' => \Illuminate\Support\Facades\Auth::id()]) }}">
+                                                        @csrf
+                                                        <img src="{{ $i->link_image }}" class="rounded-xl w-full h-48 md:h-56 hover:brightness-90">
+                                                        <div class="bg-white font-light text-base mt-3 relative">
+                                                            <a href="#" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;">
+                                                                {{ $i->title }}
+                                                            </a>
+                                                            <button type="submit" class="absolute bg-white pl-3 py-3 rounded-tl-2xl flex text-purple cursor-pointer" style="top: -50px; right: 0px;">
+                                                            @if($user_wishlist)
+                                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" fill="#723F5FFF"/>
+                                                                </svg>
+                                                            @else
+                                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                                                                </svg>
+                                                            @endif
+                                                            <p class="ml-2">{{ $count_wishlist }}</p>
+                                                            </button>
+                                                        </div>
+                                                    </form>
+                                                </a>
                                             </div>
                                         @endforeach
                                     </div>
@@ -237,29 +254,32 @@
                                     <div class="mt-4 my-4 w-full" id='owl-theme-{{ $item->slug }}'>
                                         @foreach($posts_item as $i)
                                             @php
-                                                $posts_wishlist = $i->wishlist()->limit(4)->get();
-                                                $count_wishlist = count($posts_wishlist);
+                                                $user_wishlist = $i->wishlist()->where('id_user', \Illuminate\Support\Facades\Auth::id())->first(); // kiem tra xem user da thich bai viet nay chua
+                                                $posts_wishlist = $i->wishlist()->get(); // tat ca luot thich cua tat ca user
+                                                $count_wishlist = count($posts_wishlist); // tong so luot thich bai viet cua tat ca user
                                             @endphp
                                             <div class=" w-1/6 rounded-lg mx-2 md:mx-3">
-                                                <form action="{{ route('wishlist.store', ['id_post' => $i, 'id_user' => \Illuminate\Support\Facades\Auth::id()]) }}" method="POST">
-                                                    @csrf
-                                                    <img src="{{ $i->link_image }}" class="rounded-xl w-full h-48 md:h-56 hover:brightness-90">  {{--h-40 md:h-48--}}
-                                                    <div class="bg-white font-light text-base mt-3 relative">
-                                                        <a href="#" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;">{{ $i->title }}</a>
-                                                        <button type="submit" class="absolute bg-white pl-3 py-3 rounded-tl-2xl flex text-purple cursor-pointer" style="top: -50px; right: 0px;">
-                                                            @if($count_wishlist > 0)
-                                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" fill="#723F5FFF"/>
-                                                                </svg>
-                                                            @else
-                                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-                                                                </svg>
-                                                            @endif
-                                                            <p class="ml-2">112</p>
-                                                        </button>
-                                                    </div>
-                                                </form>
+                                                <a href="{{ route('posts.show', $i->slug) }}">
+                                                    <form action="{{ route('wishlist.store', ['id_post' => $i, 'id_user' => \Illuminate\Support\Facades\Auth::id()]) }}" method="POST">
+                                                        @csrf
+                                                        <img src="{{ $i->link_image }}" class="rounded-xl w-full h-48 md:h-56 hover:brightness-90">  {{--h-40 md:h-48--}}
+                                                        <div class="bg-white font-light text-base mt-3 relative">
+                                                            <a href="#" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;">{{ $i->title }}</a>
+                                                            <button type="submit" class="absolute bg-white pl-3 py-3 rounded-tl-2xl flex text-purple cursor-pointer" style="top: -50px; right: 0px;">
+                                                                @if($user_wishlist)
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" fill="#723F5FFF"/>
+                                                                    </svg>
+                                                                @else
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                                                                    </svg>
+                                                                @endif
+                                                                <p class="ml-2">{{ $count_wishlist }}</p>
+                                                            </button>
+                                                        </div>
+                                                    </form>
+                                                </a>
                                             </div>
                                         @endforeach
                                     </div>
@@ -393,7 +413,7 @@
                             </form>
                         </div>
 
-                        <div class="mt-10 flex flex-wrap" id="div-btn">
+                        <div class="mt-10 flex justify-center flex-wrap" id="div-btn">
                             @if($user->email_verified_at == null)
                                 <form action="{{ route('verification.send') }}" method="POST" class="mb-2">
                                     @csrf
