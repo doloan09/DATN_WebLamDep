@@ -8,7 +8,7 @@
         "php": "^8.0.2",
         "bensampo/laravel-enum": "^6.3",
         "cloudinary-labs/cloudinary-laravel": "^2.0",
-        "doloan09/package_laravel_comment": "^3.1",
+        "doloan09/package_laravel_comment": "^3.2",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
