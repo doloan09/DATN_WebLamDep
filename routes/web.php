@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\ResetPassController;
 use App\Http\Controllers\Auth\UserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\LikeNotifyController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
@@ -52,6 +53,9 @@ Route::post('/update-info/{id}', [UserController::class, 'update_info'])->name('
 
 // wishlist
 Route::post('/wishlist', [WishlistController::class, 'store'])->name('wishlist.store');
+
+// Notify like
+Route::get('/notification/{notify}/{slug}', [LikeNotifyController::class, 'store'])->name('notification');
 
 //
 Route::get('/', [PostController::class, 'index'])->name('home');

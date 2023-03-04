@@ -44,7 +44,7 @@
                     </svg>
                 </button>
             </div>
-            <ul class="sm:flex sm:mt-2 shadow-md md:shadow-none md:inline-flex hidden text-sm md:text-base" id="menu">
+            <ul class="sm:flex sm:mt-2 shadow-md md:shadow-none md:inline-flex hidden text-sm md:text-base px-2 md:px-0" id="menu">
                 <li><a class="lg:mx-4 sm:-mb-7 pb-7 block font-sans font-medium md:font-bold uppercase tracking-wider text-black no-underline md:border-b-3 md:border-transparent md:border-purple-500" href="{{ route('home') }}">Trang chủ</a></li>
                 <li><a class="lg:mx-4 sm:-mb-7 pb-7 block font-sans font-medium md:font-bold uppercase tracking-wider text-black no-underline md:border-b-3 md:border-transparent" href="{{ route('about') }}">Giới thiệu</a></li>
                 @foreach($categories as $i)
@@ -52,15 +52,52 @@
                         <a class="lg:mx-4 sm:-mb-7 pb-7 block font-sans font-medium md:font-bold uppercase tracking-wider text-black no-underline md:border-b-3 md:border-transparent" href="{{ route('categories.show', $i->slug) }}">{{ $i->name }}</a>
                     </li>
                 @endforeach
-                <li id="search-button" class="ml-4">
-                    <button class="search-button" onclick="showSearch()">
+                <li id="search-button" class="mx-4">
+                    <button class="search-button hidden md:block" onclick="showSearch()">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                         </svg>
                     </button>
                 </li>
 
-                <div id="dropdown-wrapper-user" class="hidden md:block inline-block text-sm md:text-lg ml-8 z-50">
+                @if($user)
+                    <div class="relative cursor-pointer hidden md:block" onclick="notify()">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0M3.124 7.5A8.969 8.969 0 015.292 3m13.416 0a8.969 8.969 0 012.168 4.5"></path>
+                        </svg>
+                        <span id="list_liker_icon" class="hidden -top-3 absolute bg-red-600 font-bold p-1 rounded-full text-center text-white ml-2.5 text-xs transform scale-75 w-6" style="display: none;"></span>
+                    </div>
+                    <div id="list-notify" class="absolute hidden flex-col bg-white drop-shadow-xl md:p-8 p-4 right-0 mt-8 transform transition z-50">
+                        <div class="flex items-center justify-between mb-8">
+                            <p class=" text-2xl font-semibold leading-6 text-gray-800">Thông báo</p>
+                            <button onclick="notify()" class="bg-white cursor-pointer outline-none p-1 rounded-full">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M18 6L6 18" stroke="#4B5563" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    <path d="M6 6L18 18" stroke="#4B5563" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"></path>
+                                </svg>
+                            </button>
+                        </div>
+
+                        <div class="overflow-y-scroll scrollbar-none space-y-3 lg:w-96 text-center" style="height: calc(100vh - 150px) !important;" id="list-new-notify">
+                            @foreach($user->notifications as $notification)
+                                <a href="{{ route('notification', [$notification, $notification['data']['slug']]) }}" class="flex hover:bg-gray-200 px-2 py-2 rounded-lg">
+                                    <img src="{{ $user->avatar ?? "https://1.bp.blogspot.com/-HhU9edRL9Q8/YU1CjMlHZvI/AAAAAAAANt4/RKMHAtXYD_MqJOr3UbkiGN7ZkCz8Oy95gCLcBGAsYHQ/w800-h800-p-k-no-nu/Mailovesbeauty_LifeStyle%2BBlog.JPG" }}" class="w-8 h-8 rounded-full">
+                                    <div class="ml-3">
+                                        <div class="flex">
+                                            <div><span class="font-bold text-sm">{{ $notification['data']['user_name'] }}</span> đã thích bình luận của bạn</div>
+                                            @if(!$notification['read_at'])
+                                                <div class="bg-blue-600 h-2 justify-center ml-6 mt-3 rounded w-2"></div>
+                                            @endif
+                                        </div>
+                                        <div class="text-left text-sm">{{ $notification['created_at']->diffForHumans() }}</div>
+                                    </div>
+                                </a>
+                            @endforeach
+                        </div>
+                    </div>
+                @endif
+
+                <div id="dropdown-wrapper-user" class="hidden md:block inline-block flex text-sm md:text-lg ml-4 z-50">
                     <div class="relative">
                         <div onclick="toggle_menu_user()" class="cursor-pointer">
                             <img src="{{ $user->avatar ?? "https://1.bp.blogspot.com/-HhU9edRL9Q8/YU1CjMlHZvI/AAAAAAAANt4/RKMHAtXYD_MqJOr3UbkiGN7ZkCz8Oy95gCLcBGAsYHQ/w800-h800-p-k-no-nu/Mailovesbeauty_LifeStyle%2BBlog.JPG" }}" class="w-8 h-8 rounded-full">
@@ -437,6 +474,7 @@
     var modal_info = document.getElementById("forgot_password");
     var div_btn = document.getElementById('div-btn');
     var div_info = document.getElementById('info_user');
+    var menuNotify = document.getElementById("list-notify");
 
     var password = '{{ $errors->first('password') }}';
     var status = '{{ session('status') }}';
@@ -483,6 +521,15 @@
     function toggle_info_user(){
         toggle(div_info);
         toggle(div_btn);
+    }
+
+    function notify(){
+        document.getElementById('list_liker_icon').style.display = 'none';
+        if (menuNotify.classList.contains('hidden')) {
+            menuNotify.classList.remove('hidden');
+        } else {
+            menuNotify.classList.add('hidden');
+        }
     }
 
     // close the menu when the user clicks outside of it
@@ -576,4 +623,30 @@
     };
 
 </script>
+
+<script type="module">
+    Echo.private(`App.Models.User.{{Auth::id()}}`)
+        .notification((notification) => {
+            document.getElementById('list_liker_icon').innerHTML = `<div>` + notification.sum + `</div>`;
+            document.getElementById('list_liker_icon').style.display = 'block';
+
+            let str = document.getElementById('list-new-notify');
+
+            str.innerHTML = `<a href="/notification/` + notification.id + "/" + notification.slug + `" class="flex hover:bg-gray-200 px-2 py-4 rounded-lg">
+                                <img src="https://1.bp.blogspot.com/-HhU9edRL9Q8/YU1CjMlHZvI/AAAAAAAANt4/RKMHAtXYD_MqJOr3UbkiGN7ZkCz8Oy95gCLcBGAsYHQ/w800-h800-p-k-no-nu/Mailovesbeauty_LifeStyle%2BBlog.JPG" class="w-6 h-6 rounded-full">
+                                <div class="ml-3">
+                                    <div class="flex">
+                                    <div><span class="font-bold text-sm">` + notification.username
+                                + `</span> đã thích bình luận của bạn</div>
+                                    <div class="bg-blue-600 h-2 justify-center ml-6 mt-3 rounded w-2"></div>
+                                    </div>
+                                    <div class="text-left">` + notification.time + `</div>
+                                </div>
+                            </a>`
+                + str.innerHTML;
+
+            // console.log(notification);
+        });
+</script>
+
 @endpush
