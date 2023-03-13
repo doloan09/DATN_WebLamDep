@@ -22,7 +22,7 @@ class PostController extends Controller
         $user = Auth::user();
         $wishlist = [];
         if ($user){
-            $wishlist = $user->wishlist()->join('posts', 'posts.id', '=', 'wishlists.id_post')->get();
+            $wishlist = $user->wishlist()->join('posts', 'posts.id', '=', 'wishlists.id_post')->paginate(4);
         }
 
         return view('client.home', compact('posts_hot', 'categories', 'user', 'wishlist'));
