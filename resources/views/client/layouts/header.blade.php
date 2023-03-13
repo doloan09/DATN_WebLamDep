@@ -25,12 +25,6 @@
         </label>
         <input class="hidden" type="checkbox" id="menu-toggle" />
 
-        <div class="order-1 md:order-1">
-            <a class="flex items-center tracking-wide no-underline hover:no-underline font-bold text-gray-800 text-xl" href="{{ route('home') }}">
-                AMARA STORE
-            </a>
-        </div>
-
         <div class="hidden md:flex md:items-center md:w-auto w-full order-3 md:order-2" id="menu">
             <nav>
                 <ul class="md:flex items-center justify-between text-base text-gray-700 pt-4 md:pt-0">
@@ -43,9 +37,15 @@
             </nav>
         </div>
 
+        <div class="order-1 md:order-1">
+            <a class="flex items-center tracking-wide no-underline hover:no-underline font-bold text-gray-800 text-xl" href="{{ route('home') }}">
+                AMARA STORE
+            </a>
+        </div>
+
         <div class="order-2 md:order-3 flex items-center" id="nav-content">
             @if($user)
-                <div class="relative cursor-pointer hidden md:block" onclick="notify()">
+                <div class="relative cursor-pointer" onclick="notify()">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0M3.124 7.5A8.969 8.969 0 015.292 3m13.416 0a8.969 8.969 0 012.168 4.5"></path>
                     </svg>
@@ -70,7 +70,7 @@
                                     <div class="flex">
                                         <div><span class="font-bold text-sm">{{ $notification['data']['user_name'] }}</span> đã thích bình luận của bạn</div>
                                         @if(!$notification['read_at'])
-                                            <div class="bg-blue-600 h-2 justify-center ml-4 mt-3 rounded w-2"></div>
+                                            <div class="bg-blue-600 h-2 justify-center ml-2 mt-2 md:ml-4 md:mt-3 rounded w-2"></div>
                                         @endif
                                     </div>
                                     <div class="text-left text-sm">{{ $notification['created_at']->diffForHumans() }}</div>
@@ -81,7 +81,7 @@
                 </div>
             @endif
 
-            <div id="dropdown-wrapper-user" class="hidden md:block flex text-sm md:text-lg ml-4">
+            <div id="dropdown-wrapper-user" class="flex text-sm md:text-lg ml-4">
                 <div class="relative">
                     <div onclick="toggle_menu_user()" class="cursor-pointer">
                         <a class="inline-block no-underline hover:text-black" href="#">
@@ -92,7 +92,7 @@
                         </a>
                     </div>
                 </div>
-                <div id="menuUser" class="hidden flex flex-col bg-white drop-shadow-md absolute -ml-28">
+                <div id="menuUser" class="hidden flex flex-col bg-white drop-shadow-md absolute -ml-28 mt-10">
                     @if($user)
                         <div class="px-4 py-3 hover:bg-gray-300 border-b border-gray-200 hover:bg-white cursor-pointer" id="btn-info-user">
                             <p class="font-medium">{{ $user->name }}</p>

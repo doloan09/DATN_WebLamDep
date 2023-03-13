@@ -33,7 +33,7 @@
             <div class="mt-10">
                 <div class="grid grid-cols-3 mb-8">
                     <div><hr class="border-purple mt-3"></div>
-                    <div class="text-center uppercase text-lg">
+                    <div class="text-center uppercase text-base md:text-lg">
                         Bài viết yêu thích
                     </div>
                     <div><hr class="border-purple mt-3"></div>
