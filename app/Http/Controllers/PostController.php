@@ -15,7 +15,7 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $posts_hot = Post::query()->where('status', 1)->limit(4)->get();
         $categories = Category::query()->get();
@@ -25,7 +25,14 @@ class PostController extends Controller
             $wishlist = $user->wishlist()->join('posts', 'posts.id', '=', 'wishlists.id_post')->paginate(4);
         }
 
-        return view('client.home', compact('posts_hot', 'categories', 'user', 'wishlist'));
+        $posts = Post::query();
+        if ($request->get('title')){
+            $posts = $posts->where('title', 'like', '%' . $request->get('title') . '%');
+        }
+
+        $posts = $posts->paginate();
+
+        return view('client.home', compact('posts_hot', 'categories', 'user', 'wishlist', 'posts'));
     }
 
     /**
@@ -62,12 +69,8 @@ class PostController extends Controller
         $categories = Category::query()->get();
         $category = Category::query()->findOrFail($post->id_category);
         $user = Auth::user();
-        $wishlist = [];
-        if ($user){
-            $wishlist = $user->wishlist()->join('posts', 'posts.id', '=', 'wishlists.id_post')->get();
-        }
 
-        return view('client.posts.detail', compact('post', 'category', 'posts_hot', 'user', 'wishlist', 'categories'));
+        return view('client.posts.detail', compact('post', 'category', 'posts_hot', 'user', 'categories'));
     }
 
     /**

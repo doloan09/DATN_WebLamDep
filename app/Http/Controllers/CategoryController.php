@@ -53,12 +53,8 @@ class CategoryController extends Controller
         $category = Category::query()->where('slug', $slug)->first();
         $posts = $category->posts()->paginate(12);
         $user = Auth::user();
-        $wishlist = [];
-        if ($user){
-            $wishlist = $user->wishlist()->join('posts', 'posts.id', '=', 'wishlists.id_post')->paginate(4);
-        }
 
-        return view('client.posts.list', compact('posts', 'posts_hot', 'category', 'user', 'wishlist', 'categories'));
+        return view('client.posts.list', compact('posts', 'posts_hot', 'category', 'user', 'categories'));
     }
 
     /**
