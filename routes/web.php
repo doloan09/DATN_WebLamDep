@@ -60,5 +60,7 @@ Route::get('/notification/{notify}/{slug}', [LikeNotifyController::class, 'store
 //
 Route::get('/', [PostController::class, 'index'])->name('home');
 Route::get('/trang-chu', [PostController::class, 'index'])->name('home');
+Route::get('/trang-chu/search', [PostController::class, 'index'])->name('search');
+Route::get('/trang-chu/danh-sach-yeu-thich', [PostController::class, 'index'])->name('wishlist');
 Route::get('/danh-muc/{category}', [CategoryController::class, 'show'])->name('categories.show'); // danh sach bai viet theo theo loai
 Route::get('/bai-viet/{slug}', [PostController::class, 'show'])->name('posts.show'); // chi tiet 1 bai viet
