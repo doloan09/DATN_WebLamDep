@@ -22,6 +22,11 @@
                     @isset($posts)
                         @if(count($posts) > 0)
                             @foreach($posts as $item)
+                                @php
+                                    $user_wishlist = $item->wishlist()->where('id_user', \Illuminate\Support\Facades\Auth::id())->first(); // kiem tra xem user da thich bai viet nay chua
+                                    $posts_wishlist = $item->wishlist()->get(); // tat ca luot thich cua tat ca user
+                                    $count_wishlist = count($posts_wishlist); // tong so luot thich bai viet cua tat ca user
+                                @endphp
                                 <div class="md:mb-5 border hover:text-purple flex flex-col hover:grow hover:shadow-lg">
                                     <div class="md:h-72">
                                         <a href="{{ route('posts.show', $item->slug) }}">
@@ -32,15 +37,22 @@
                                         <a href="{{ route('posts.show', $item->slug) }}" class="uppercase text-sm" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden;">
                                             {{ $item->title }}
                                         </a>
-                                        <div class="flex justify-between font-light text-sm mt-2">
+                                        <form class="flex justify-between font-light text-sm mt-2" method="POST" action="{{ route('wishlist.store', ['id_post' => $item->id, 'id_user' => \Illuminate\Support\Facades\Auth::id()]) }}">
+                                            @csrf
                                             <p class="mt-3">{{ $item->created_at->toFormattedDateString() }}</p>
-                                            <div class="bg-white pl-3 py-3 rounded-tl-2xl flex text-purple cursor-pointer" onclick="alert('xxx');">
-                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" fill="#723F5FFF"/>
-                                                </svg>
-                                                <p class="ml-2">112</p>
-                                            </div>
-                                        </div>
+                                            <button type="submit" class="bg-white pl-3 py-3 rounded-tl-2xl flex text-purple cursor-pointer">
+                                                @if($user_wishlist)
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" fill="#723F5FFF"/>
+                                                    </svg>
+                                                @else
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                                                    </svg>
+                                                @endif
+                                                <p class="ml-2">{{ $count_wishlist }}</p>
+                                            </button>
+                                        </form>
                                     </div>
                                 </div>
                             @endforeach

@@ -40,7 +40,7 @@
 
             <div class="form-group mt-8 flex">
                 <img src="https://1.bp.blogspot.com/-HhU9edRL9Q8/YU1CjMlHZvI/AAAAAAAANt4/RKMHAtXYD_MqJOr3UbkiGN7ZkCz8Oy95gCLcBGAsYHQ/w800-h800-p-k-no-nu/Mailovesbeauty_LifeStyle%2BBlog.JPG" class="w-10 h-10">
-                <textarea class="ml-2 border w-full form-control p-2 focus:outline-none @if($errors->has('message')) is-invalid @endif" name="message" rows="1" placeholder="Viết bình luận ...."></textarea>
+                <textarea required class="ml-2 border w-full form-control p-2 focus:outline-none @if($errors->has('message')) is-invalid @endif" name="message" rows="1" placeholder="Viết bình luận ...."></textarea>
                 <button type="submit" class="bg-purple h-10 px-3 text-white float-right ml-2">@lang('comments::comments.submit')</button>
             </div>
         </form>
