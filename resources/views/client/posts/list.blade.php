@@ -3,7 +3,7 @@
 @section('title', $category->name . ' - Amara Store')
 
 @section('content')
-    <div class="mx-auto container px-3 md:px-2">
+    <div class="mx-auto container px-3 md:px-2 mt-20">
         <div class="py-4">
             <div class="flex flex-wrap border-l-4 border-purple">
                 <a href="{{ route('home') }}" class="px-3 hover:text-purple">Trang chủ</a>
@@ -18,18 +18,18 @@
 
         <div class="grid grid-cols-12 gap-8 mt-3 md:mt-10">
             <div class="col-span-12 md:col-span-9">
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-20">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-20">
                     @isset($posts)
                         @if(count($posts) > 0)
                             @foreach($posts as $item)
-                                <div class="md:mb-5 border hover:text-purple">
-                                    <div class="md:h-96">
+                                <div class="md:mb-5 border hover:text-purple flex flex-col hover:grow hover:shadow-lg">
+                                    <div class="md:h-72">
                                         <a href="{{ route('posts.show', $item->slug) }}">
                                             <img class="max-h-96" src="{{ $item->link_image }}">
                                         </a>
                                     </div>
                                     <div class="bg-white p-4 mx-2">
-                                        <a href="{{ route('posts.show', $item->slug) }}" class="uppercase" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden;">
+                                        <a href="{{ route('posts.show', $item->slug) }}" class="uppercase text-sm" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden;">
                                             {{ $item->title }}
                                         </a>
                                         <div class="flex justify-between font-light text-sm mt-2">

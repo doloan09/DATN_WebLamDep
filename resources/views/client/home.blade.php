@@ -3,67 +3,275 @@
 @section('title', 'Amara Store')
 
 @section('content')
-    <div class="mx-auto container">
-        <div class="inline-flex my-4 w-full -z-10" id="owl-theme-new">
-            @for ($i = 0; $i<10; $i++)
-                <img src="https://img.ws.mms.shopee.vn/a5e5844928940945a3144400c8117c2b" class="w-full max-w-full hover:brightness-90 z-0" style="max-height: 600px;">
-            @endfor
-        </div>
+<style>
+    .work-sans {
+        font-family: 'Work Sans', sans-serif;
+    }
 
-        {{--    content--}}
-        <div class="my-6 px-3">
-            <div class="mb-6 md:mb-10 pb-10 md:pb-16 border-b border-purple border-dashed">
-                <div class="font-sans uppercase text-lg md:text-2xl text-center mb-10 md:mb-20 font-medium text-purple">
-                    <span class="border-b-2 border-purple">Bài viết nổi bật</span>
+    #menu-toggle:checked + #menu {
+        display: block;
+    }
+
+    .hover\:grow {
+        transition: all 0.3s;
+        transform: scale(1);
+    }
+
+    .hover\:grow:hover {
+        transform: scale(1.02);
+    }
+
+    .carousel-open:checked + .carousel-item {
+        position: static;
+        opacity: 100;
+    }
+
+    .carousel-item {
+        -webkit-transition: opacity 0.6s ease-out;
+        transition: opacity 0.6s ease-out;
+    }
+
+    #carousel-1:checked ~ .control-1,
+    #carousel-2:checked ~ .control-2,
+    #carousel-3:checked ~ .control-3 {
+        display: block;
+    }
+
+    .carousel-indicators {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        position: absolute;
+        bottom: 2%;
+        left: 0;
+        right: 0;
+        text-align: center;
+        z-index: 10;
+    }
+
+    #carousel-1:checked ~ .control-1 ~ .carousel-indicators li:nth-child(1) .carousel-bullet,
+    #carousel-2:checked ~ .control-2 ~ .carousel-indicators li:nth-child(2) .carousel-bullet,
+    #carousel-3:checked ~ .control-3 ~ .carousel-indicators li:nth-child(3) .carousel-bullet {
+        color: #000;
+        /*Set to match the Tailwind colour you want the active one to be */
+    }
+</style>
+
+<div class="carousel relative container mx-auto mt-20" style="max-width:1600px;">
+    <div class="carousel-inner relative overflow-hidden w-full">
+        <!--Slide 1-->
+        <input class="carousel-open" type="radio" id="carousel-1" name="carousel" aria-hidden="true" hidden="" checked="checked">
+        <div class="carousel-item absolute opacity-0" style="height:50vh;">
+            <div class="block h-full w-full mx-auto flex pt-6 md:pt-0 md:items-center bg-cover bg-right" style="background-image: url('https://images.unsplash.com/photo-1422190441165-ec2956dc9ecc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1600&q=80');">
+
+                <div class="container mx-auto">
+                    <div class="flex flex-col w-full lg:w-1/2 md:ml-16 items-center md:items-start px-6 tracking-wide">
+                        <p class="text-black text-2xl my-4">Stripy Zig Zag Jigsaw Pillow and Duvet Set</p>
+                        <a class="text-xl inline-block no-underline border-b border-gray-600 leading-relaxed hover:text-black hover:border-black" href="#">view product</a>
+                    </div>
                 </div>
-                <div class="flex grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-                    @foreach($posts_hot as $item)
-                        <a href="{{ route('posts.show', $item->slug) }}" class="grid grid-cols-3 hover:text-purple">
-                            <div class="col-span-1">
-                                <img src="{{ $item->link_image }}" class="max-h-64 w-4/5">
-                            </div>
-                            <div class="col-span-2">
-                                <span class="font-light text-base md:text-xl uppercase border-b border-purple">{{ $item->title }}</span>
-                                <p class="text-sm flex mt-2 md:mt-5 font-light">
-                                    {{ $item->created_at->toFormattedDateString() }}
-                                </p>
-                                <p class="text-sm md:text-base mt-3 font-light" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden;">{{ $item->description }}</p>
-                            </div>
+
+            </div>
+        </div>
+        <label for="carousel-3" class="prev control-1 w-10 h-10 ml-2 md:ml-10 absolute cursor-pointer hidden text-3xl font-bold text-black hover:text-white rounded-full bg-white hover:bg-gray-900 leading-tight text-center z-10 inset-y-0 left-0 my-auto">‹</label>
+        <label for="carousel-2" class="next control-1 w-10 h-10 mr-2 md:mr-10 absolute cursor-pointer hidden text-3xl font-bold text-black hover:text-white rounded-full bg-white hover:bg-gray-900 leading-tight text-center z-10 inset-y-0 right-0 my-auto">›</label>
+
+        <!--Slide 2-->
+        <input class="carousel-open" type="radio" id="carousel-2" name="carousel" aria-hidden="true" hidden="">
+        <div class="carousel-item absolute opacity-0 bg-cover bg-right" style="height:50vh;">
+            <div class="block h-full w-full mx-auto flex pt-6 md:pt-0 md:items-center bg-cover bg-right" style="background-image: url('https://images.unsplash.com/photo-1533090161767-e6ffed986c88?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjM0MTM2fQ&auto=format&fit=crop&w=1600&q=80');">
+
+                <div class="container mx-auto">
+                    <div class="flex flex-col w-full lg:w-1/2 md:ml-16 items-center md:items-start px-6 tracking-wide">
+                        <p class="text-black text-2xl my-4">Real Bamboo Wall Clock</p>
+                        <a class="text-xl inline-block no-underline border-b border-gray-600 leading-relaxed hover:text-black hover:border-black" href="#">view product</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <label for="carousel-1" class="prev control-2 w-10 h-10 ml-2 md:ml-10 absolute cursor-pointer hidden text-3xl font-bold text-black hover:text-white rounded-full bg-white hover:bg-gray-900  leading-tight text-center z-10 inset-y-0 left-0 my-auto">‹</label>
+        <label for="carousel-3" class="next control-2 w-10 h-10 mr-2 md:mr-10 absolute cursor-pointer hidden text-3xl font-bold text-black hover:text-white rounded-full bg-white hover:bg-gray-900  leading-tight text-center z-10 inset-y-0 right-0 my-auto">›</label>
+
+        <!--Slide 3-->
+        <input class="carousel-open" type="radio" id="carousel-3" name="carousel" aria-hidden="true" hidden="">
+        <div class="carousel-item absolute opacity-0" style="height:50vh;">
+            <div class="block h-full w-full mx-auto flex pt-6 md:pt-0 md:items-center bg-cover bg-bottom" style="background-image: url('https://images.unsplash.com/photo-1519327232521-1ea2c736d34d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1600&q=80');">
+
+                <div class="container mx-auto">
+                    <div class="flex flex-col w-full lg:w-1/2 md:ml-16 items-center md:items-start px-6 tracking-wide">
+                        <p class="text-black text-2xl my-4">Brown and blue hardbound book</p>
+                        <a class="text-xl inline-block no-underline border-b border-gray-600 leading-relaxed hover:text-black hover:border-black" href="#">view product</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <label for="carousel-2" class="prev control-3 w-10 h-10 ml-2 md:ml-10 absolute cursor-pointer hidden text-3xl font-bold text-black hover:text-white rounded-full bg-white hover:bg-gray-900  leading-tight text-center z-10 inset-y-0 left-0 my-auto">‹</label>
+        <label for="carousel-1" class="next control-3 w-10 h-10 mr-2 md:mr-10 absolute cursor-pointer hidden text-3xl font-bold text-black hover:text-white rounded-full bg-white hover:bg-gray-900  leading-tight text-center z-10 inset-y-0 right-0 my-auto">›</label>
+
+        <!-- Add additional indicators for each slide-->
+        <ol class="carousel-indicators">
+            <li class="inline-block mr-3">
+                <label for="carousel-1" class="carousel-bullet cursor-pointer block text-4xl text-gray-400 hover:text-gray-900">•</label>
+            </li>
+            <li class="inline-block mr-3">
+                <label for="carousel-2" class="carousel-bullet cursor-pointer block text-4xl text-gray-400 hover:text-gray-900">•</label>
+            </li>
+            <li class="inline-block mr-3">
+                <label for="carousel-3" class="carousel-bullet cursor-pointer block text-4xl text-gray-400 hover:text-gray-900">•</label>
+            </li>
+        </ol>
+
+    </div>
+</div>
+
+<div class="bg-white py-8">
+    <div class="container mx-auto flex items-center flex-wrap pt-4 pb-12">
+        <nav id="store" class="w-full top-0 px-6 py-1">
+            <div class="w-full container mx-auto flex flex-wrap items-center justify-between mt-0 px-2 py-3">
+
+                <a class="uppercase tracking-wide no-underline hover:no-underline font-bold text-gray-800 text-xl " href="#" id="title">
+                    Bài viết nổi bật
+                </a>
+
+                <div class="flex items-center" id="store-nav-content">
+
+                    <a class="pl-3 inline-block no-underline hover:text-purple" href="#">
+                        <svg class="fill-current hover:text-black" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <path d="M7 11H17V13H7zM4 7H20V9H4zM10 15H14V17H10z" />
+                        </svg>
+                    </a>
+
+                    @if(count($wishlist) > 0)
+                        <a class="pl-3 inline-block no-underline hover:text-purple z-0" href="#" onclick="showWishList()">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                            </svg>
                         </a>
-                    @endforeach
+                    @endif
+
+                    <a class="pl-3 inline-block no-underline hover:text-purple" href="#" id="search-button" onclick="showSearch()">
+                        <svg class="fill-current hover:text-black" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <path d="M10,18c1.846,0,3.543-0.635,4.897-1.688l4.396,4.396l1.414-1.414l-4.396-4.396C17.365,13.543,18,11.846,18,10 c0-4.411-3.589-8-8-8s-8,3.589-8,8S5.589,18,10,18z M10,4c3.309,0,6,2.691,6,6s-2.691,6-6,6s-6-2.691-6-6S6.691,4,10,4z" />
+                        </svg>
+                    </a>
+
                 </div>
             </div>
+        </nav>
 
-            @foreach($categories as $item)
+        {{--    bài viết nổi bật        --}}
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-20" id="posts_hot">
+            @foreach($posts_hot as $item)
                 @php
-                    $posts_item = $item->posts()->limit(4)->get();
-                    $count = count($posts_item);
+                    $user_wishlist = $item->wishlist()->where('id_user', \Illuminate\Support\Facades\Auth::id())->first(); // kiem tra xem user da thich bai viet nay chua
+                    $posts_wishlist = $item->wishlist()->get(); // tat ca luot thich cua tat ca user
+                    $count_wishlist = count($posts_wishlist); // tong so luot thich bai viet cua tat ca user
                 @endphp
-                @if($count > 0)
-                    <div class="mb-6 md:mb-10 pb-10 md:pb-16 border-b border-purple border-dashed">
-                        <div class="font-sans uppercase text-lg md:text-2xl text-center font-medium mb-10 md:mb-20 text-purple">
-                            <a href="{{ route('categories.show', $item->slug) }}"><span class="border-b-2 border-purple">{{ $item->name }}</span></a>
-                        </div>
-                        <div class="flex grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mt-10">
-                            @foreach($posts_item as $i)
-                                <a href="{{ route('posts.show', $i->slug) }}" class="grid grid-cols-3 hover:text-purple">
-                                    <div class="col-span-1">
-                                        <img src="{{ $i->link_image }}" class="max-h-64 w-4/5">
-                                    </div>
-                                    <div class="col-span-2">
-                                        <span class="font-light text-base md:text-xl uppercase border-b border-purple">{{ $i->title }}</span>
-                                        <p class="text-sm flex mt-2 md:mt-5 font-light">
-                                            {{ $i->created_at->toFormattedDateString() }}
-                                        </p>
-                                        <p class="text-sm md:text-base mt-3 font-light" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden;">{{ $i->description }}</p>
-                                    </div>
-                                </a>
-                            @endforeach
-                        </div>
+                <div class="md:mb-5 hover:text-purple flex flex-col hover:grow hover:shadow-lg">
+                    <div class="md:h-72">
+                        <a href="{{ route('posts.show', $item->slug) }}">
+                            <img class="max-h-96" src="{{ $item->link_image }}">
+                        </a>
                     </div>
-                @endif
+                    <div class="bg-white p-4 mx-2">
+                        <a href="{{ route('posts.show', $item->slug) }}" class="uppercase text-sm" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden;">
+                            {{ $item->title }}
+                        </a>
+                        <form class="flex justify-between font-light text-sm mt-2" method="POST" action="{{ route('wishlist.store', ['id_post' => $item->id, 'id_user' => \Illuminate\Support\Facades\Auth::id()]) }}">
+                            @csrf
+                            <p class="mt-3">{{ $item->created_at->toFormattedDateString() }}</p>
+                            <button type="submit" class="bg-white pl-3 py-3 rounded-tl-2xl flex text-purple cursor-pointer">
+                                @if($user_wishlist)
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" fill="#723F5FFF"/>
+                                    </svg>
+                                @else
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                                    </svg>
+                                @endif
+                                <p class="ml-2">{{ $count_wishlist }}</p>
+                            </button>
+                        </form>
+                    </div>
+                </div>
             @endforeach
         </div>
+
+        {{--    bài viết yêu thích        --}}
+        @if(count($wishlist) > 0)
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-20" id="wish_list">
+                @foreach($wishlist as $wl)
+                    @php
+                        $post = \App\Models\Post::query()->findOrFail($wl->id_post);
+                        $posts_wishlist = $post->wishlist()->get();
+                        $count_wishlist = count($posts_wishlist);
+                    @endphp
+                    <div class="md:mb-5 hover:text-purple flex flex-col hover:grow hover:shadow-lg">
+                        <div class="md:h-72">
+                            <a href="{{ route('posts.show', $wl->slug) }}">
+                                <img class="max-h-96" src="{{ $wl->link_image }}">
+                            </a>
+                        </div>
+                        <div class="bg-white p-4 mx-2">
+                            <a href="{{ route('posts.show', $wl->slug) }}" class="uppercase text-sm" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden;">
+                                {{ $wl->title }}
+                            </a>
+                            <form class="flex justify-between font-light text-sm mt-2" method="POST" action="{{ route('wishlist.store', ['id_post' => $wl->id, 'id_user' => \Illuminate\Support\Facades\Auth::id()]) }}">
+                                @csrf
+                                <p class="mt-3">{{ $wl->created_at->toFormattedDateString() }}</p>
+                                <div class="bg-white pl-3 py-3 rounded-tl-2xl flex text-purple cursor-pointer" onclick="alert('xxx');">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" fill="#723F5FFF"/>
+                                    </svg>
+                                    <p class="ml-2">{{ $count_wishlist }}</p>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        @endif
+
+        <div class="container mx-auto bg-white border-t border-dashed pt-8 border-gray-400">
+            <div class="container flex px-3">
+                <div class="w-full mx-auto flex flex-wrap">
+                    <div class="flex w-full lg:w-1/2 ">
+                        <div class="px-3 md:px-0">
+                            <h3 class="font-bold text-gray-900">About</h3>
+                            <p class="py-4">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas vel mi ut felis tempus commodo nec id erat. Suspendisse consectetur dapibus velit ut lacinia.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="flex w-full lg:w-1/2 lg:justify-end lg:text-right">
+                        <div class="px-3 md:px-0">
+                            <h3 class="font-bold text-gray-900">Social</h3>
+                            <ul class="list-reset items-center pt-3">
+                                <li>
+                                    <a class="inline-block no-underline hover:text-black hover:underline py-1" href="#">Add social links</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
+</div>
 
 @endsection
+
+@push('scripts')
+    <script>
+        function showWishList(){
+            $('#posts_hot').hide();
+            $('#wish_list').show();
+            $('#title').text('Danh sách yêu thích');
+        }
+
+    </script>
+@endpush
