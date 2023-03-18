@@ -2,6 +2,32 @@
 
 @section('title', $post->title . ' - Amara Store')
 
+<style>
+    .tooltiptext {
+        visibility: hidden;
+        min-width: 100px;
+        position: absolute;
+        z-index: 1;
+        left: 50%;
+        margin-left: -60px;
+    }
+
+    .tooltip .tooltiptext::after {
+        content: "";
+        position: absolute;
+        bottom: 100%;
+        left: 50%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: transparent transparent black transparent;
+    }
+
+    .tooltip:hover .tooltiptext {
+        visibility: visible;
+    }
+</style>
+
 @section('content')
 <div class="mx-auto container px-3 md:px-2 mt-20">
     <div class="py-4">
@@ -32,27 +58,31 @@
             <h1 class="uppercase text-center font-light text-lg md:text-2xl">{{ $post->title }}</h1>
             <p class="text-center font-light my-6"><span class="py-5 px-10 text-sm md:text-base border-purple border-t">{{ $post->created_at->toFormattedDateString() }}</span></p>
             <div class="flex justify-end my-3">
-                <div class="text-sm flex font-light">
+                <div class="tooltip relative text-sm flex font-light cursor-pointer hover:text-purple">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-1">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                     </svg>
                     {{ views($post)->count() }}
+                    <span class="tooltiptext bg-purple text-white text-center px-3 py-1 rounded-lg mt-6">Lượt xem: {{ views($post)->count() }}</span>
                 </div>
                 <form method="POST" action="{{ route('wishlist.store', ['id_post' => $post->id, 'id_user' => \Illuminate\Support\Facades\Auth::id()]) }}">
                     @csrf
-                    <button class="flex mx-3 text-sm cursor-pointer hover:text-purple" type="submit">
-                        @if($user_wishlist)
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-1">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" fill="#723F5FFF"/>
-                            </svg>
-                        @else
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-1">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-                            </svg>
-                        @endif
-                        {{ $count_wishlist }}
-                    </button>
+                    <div class="tooltip relative">
+                        <button class="flex mx-3 text-sm cursor-pointer hover:text-purple" type="submit">
+                            @if($user_wishlist)
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-1">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" fill="#723F5FFF"/>
+                                </svg>
+                            @else
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-1">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                                </svg>
+                            @endif
+                            {{ $count_wishlist }}
+                        </button>
+                        <span class="tooltiptext text-sm bg-purple text-white text-center p-1 rounded-lg mt-1 font-light">Lượt thích: {{ $count_wishlist }}</span>
+                    </div>
                 </form>
             </div>
 
