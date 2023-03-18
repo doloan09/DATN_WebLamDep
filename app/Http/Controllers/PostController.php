@@ -66,7 +66,13 @@ class PostController extends Controller
     {
         $posts_hot = Post::query()->where('status', PostStatus::Active)->limit(4)->get();
         $post = Post::query()->where('slug', $slug)->first();
-        views($post)->record();
+
+        // sau 3h mới tiếp tục lưu lượt view của bài viết này trên cùng 1 trình duyệt
+        $expiresAt = now()->addHours(3);
+        views($post)
+            ->cooldown($expiresAt)
+            ->record();
+
         $categories = Category::query()->get();
         $category = Category::query()->findOrFail($post->id_category);
         $user = Auth::user();
