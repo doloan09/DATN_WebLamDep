@@ -6,7 +6,7 @@
     @vite('resources/css/app.css')
 
     <style>
-        .work-sans {
+        #menu{
             font-family: 'Work Sans', sans-serif;
         }
 
@@ -60,7 +60,7 @@
     </style>
 
 </head>
-<body class="bg-white text-gray-600 work-sans leading-normal text-base tracking-normal">
+<body class="bg-white text-gray-600 leading-normal text-base tracking-normal">
 
 <!--Nav-->
 <nav id="header" class="w-full z-30 top-0 py-1 bg-white border-b" style="position: fixed; top: 0;">
@@ -333,7 +333,6 @@
     var password = '{{ $errors->first('password') }}';
     var status = '{{ session('status') }}';
     var name = '{{ $errors->first('name') }}';
-    var wishlist_status = '{{ session('wishlist') }}';
 
     show_info();
 
@@ -349,9 +348,6 @@
         if (name){
             $("#modal-info-user").show();
             toggle_info_user();
-        }
-        if (wishlist_status){
-            showSearch();
         }
     }
 

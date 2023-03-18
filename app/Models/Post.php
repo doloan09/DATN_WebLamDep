@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use App\Enum\PostStatus;
+use CyrildeWit\EloquentViewable\Contracts\Viewable;
+use CyrildeWit\EloquentViewable\InteractsWithViews;
 use Doloan09\Comments\Commentable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -20,8 +22,9 @@ use Orchid\Screen\AsSource;
  *
  */
 
-class Post extends Model
+class Post extends Model implements Viewable
 {
+    use InteractsWithViews;
     use HasFactory, AsSource;
     use Commentable;
 

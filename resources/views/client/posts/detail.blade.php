@@ -22,10 +22,40 @@
         </div>
     </div>
 
+    @php
+        $user_wishlist = $post->wishlist()->where('id_user', \Illuminate\Support\Facades\Auth::id())->first(); // kiem tra xem user da thich bai viet nay chua
+        $posts_wishlist = $post->wishlist()->get();
+        $count_wishlist = count($posts_wishlist);
+    @endphp
     <div class="grid grid-cols-12 gap-8 mt-3 md:mt-10">
         <div class="col-span-12 md:col-span-9">
             <h1 class="uppercase text-center font-light text-lg md:text-2xl">{{ $post->title }}</h1>
             <p class="text-center font-light my-6"><span class="py-5 px-10 text-sm md:text-base border-purple border-t">{{ $post->created_at->toFormattedDateString() }}</span></p>
+            <div class="flex justify-end my-3">
+                <div class="text-sm flex font-light">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-1">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                    {{ views($post)->count() }}
+                </div>
+                <form method="POST" action="{{ route('wishlist.store', ['id_post' => $post->id, 'id_user' => \Illuminate\Support\Facades\Auth::id()]) }}">
+                    @csrf
+                    <button class="flex mx-3 text-sm cursor-pointer hover:text-purple" type="submit">
+                        @if($user_wishlist)
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-1">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" fill="#723F5FFF"/>
+                            </svg>
+                        @else
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 mr-1">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                            </svg>
+                        @endif
+                        {{ $count_wishlist }}
+                    </button>
+                </form>
+            </div>
+
             <div class="text-sm">
                 {!! $post->content !!}
             </div>
@@ -34,15 +64,21 @@
                 <div class="grid grid-cols-3 mb-8">
                     <div><hr class="border-purple mt-3"></div>
                     <div class="text-center uppercase text-base md:text-lg">
-                        Bài viết yêu thích
+                        Bài viết liên quan
                     </div>
                     <div><hr class="border-purple mt-3"></div>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
-                    @isset($posts_hot)
-                        @foreach($posts_hot as $item)
+                <div class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-10">
+                    @php
+                        $posts = $category->posts()->paginate(10);
+                        if (count($posts) > 4){
+                            $posts = $posts->random(4);
+                        }
+                    @endphp
+                    @isset($posts)
+                        @foreach($posts as $item)
                             <div class="md:mb-5 border hover:text-purple flex flex-col hover:grow hover:shadow-lg">
-                                <div class="md:h-72">
+                                <div class="h-44 md:h-72">
                                     <a href="{{ route('posts.show', $item->slug) }}">
                                         <img class="max-h-72" src="{{ $item->link_image }}">
                                     </a>

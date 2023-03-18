@@ -66,6 +66,7 @@ class PostController extends Controller
     {
         $posts_hot = Post::query()->where('status', PostStatus::Active)->limit(4)->get();
         $post = Post::query()->where('slug', $slug)->first();
+        views($post)->record();
         $categories = Category::query()->get();
         $category = Category::query()->findOrFail($post->id_category);
         $user = Auth::user();
