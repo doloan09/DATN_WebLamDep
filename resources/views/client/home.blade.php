@@ -310,7 +310,6 @@
             $('#posts_hot').show();
             $('#wish_list').hide();
             $('#results').hide();
-            $('#title').text('Bài viết nổi bật');
             window.location.href = '{{ route('home') }}';
         }
 

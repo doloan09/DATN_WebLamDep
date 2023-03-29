@@ -32,7 +32,7 @@
 <div class="text-center md:p-4 lg:p-8 mt-10 border border-purple">
     <p class="pb-5"><span class="uppercase py-2 text-sm lg:text-base border-b-2 border-purple">Newest Video</span></p>
     <div class="flex flex-wrap justify-center mt-4">
-        <iframe width="315" height="190" src="https://www.youtube.com/embed/vHt-9M85M90" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        <iframe width="315" height="190" src="https://www.youtube.com/embed/videoseries?list=PLAo5DDtsurkYjymWN9vEppKV0o4onPyCo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
     </div>
 </div>
 <div class="mt-10">
