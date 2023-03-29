@@ -14,10 +14,6 @@
                 <li>2 button (Giữa danh mục bên trái và phần nội dung chính, giữa header và nội dung chính) dùng để ẩn/hiện phần bên trái và header.</li>
             </ul>
         </div>
-        <div class="d-none d-lg-block col align-self-center text-end text-muted p-4">
-            <img height="100%" width="200px" alt="logo"
-                 src="https://res.cloudinary.com/dsh5japr1/image/upload/v1676299035/Shoppe/g1fxdwcmk1bgbywe9uf3.png">
-        </div>
     </div>
 </div>
 
