@@ -5,6 +5,7 @@ namespace App\Orchid\Screens\Post;
 use App\Models\Category;
 use App\Models\Post;
 use App\Orchid\Layouts\Post\ImagePostEditLayout;
+use App\Orchid\Layouts\Post\PostFilterLayout;
 use App\Orchid\Layouts\Post\PostListLayout;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Http\Request;
@@ -23,7 +24,10 @@ class PostListScreen extends Screen
     public function query(): iterable
     {
         return [
-            'posts' => Post::query()->orderByDesc('created_at')->paginate(),
+            'posts' => Post::query()
+                ->filters(PostFilterLayout::class)
+                ->orderByDesc('created_at')
+                ->paginate(),
         ];
     }
 
@@ -70,6 +74,7 @@ class PostListScreen extends Screen
     public function layout(): iterable
     {
         return [
+            PostFilterLayout::class,
             PostListLayout::class,
 
             Layout::modal('showImage', ImagePostEditLayout::class)

@@ -9,6 +9,7 @@ use Doloan09\Comments\Commentable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Orchid\Filters\Filterable;
 use Orchid\Screen\AsSource;
 
 /**
@@ -26,7 +27,7 @@ class Post extends Model implements Viewable
 {
     use InteractsWithViews;
     use HasFactory, AsSource;
-    use Commentable;
+    use Commentable, Filterable;
 
     protected $fillable = [
         'title',

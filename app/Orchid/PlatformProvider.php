@@ -88,13 +88,10 @@ class PlatformProvider extends OrchidServiceProvider
         return [
             ItemPermission::group(__('System'))
                 ->addPermission('platform.systems.roles', __('Roles'))
-                ->addPermission('platform.systems.users', __('Users')),
-
-            ItemPermission::group('Quyền')
+                ->addPermission('platform.systems.users', __('Users'))
                 ->addPermission('systems.categories', 'Danh mục')
                 ->addPermission('systems.posts', 'Bài viết')
-                ->addPermission('systems.images', 'Hình ảnh')
-
+                ->addPermission('systems.images', 'Hình ảnh'),
 
         ];
     }

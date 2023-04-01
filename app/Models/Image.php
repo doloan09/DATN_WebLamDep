@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Orchid\Filters\Filterable;
 use Orchid\Screen\AsSource;
 
 /**
@@ -17,7 +18,7 @@ use Orchid\Screen\AsSource;
 
 class Image extends Model
 {
-    use HasFactory, AsSource;
+    use HasFactory, AsSource, Filterable;
 
     protected $fillable = [
         'real_name',

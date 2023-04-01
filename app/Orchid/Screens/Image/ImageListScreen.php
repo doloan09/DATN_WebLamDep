@@ -5,6 +5,7 @@ namespace App\Orchid\Screens\Image;
 use App\Models\FolderImage;
 use App\Models\Image;
 use App\Orchid\Layouts\Image\ImageEditLayout;
+use App\Orchid\Layouts\Image\ImageFilterLayout;
 use App\Orchid\Layouts\Image\ImageListLayout;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Http\Request;
@@ -25,7 +26,10 @@ class ImageListScreen extends Screen
     public function query(): iterable
     {
         return [
-            'images' => Image::query()->orderByDesc('id')->paginate(),
+            'images' => Image::query()
+                ->filters(ImageFilterLayout::class)
+                ->orderByDesc('id')
+                ->paginate(),
         ];
     }
 
@@ -78,6 +82,7 @@ class ImageListScreen extends Screen
     public function layout(): iterable
     {
         return [
+            ImageFilterLayout::class,
             ImageListLayout::class,
 
             Layout::modal('imageModal', [
