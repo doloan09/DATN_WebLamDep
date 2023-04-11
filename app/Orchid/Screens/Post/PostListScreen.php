@@ -4,6 +4,7 @@ namespace App\Orchid\Screens\Post;
 
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\Wishlist;
 use App\Orchid\Layouts\Post\ImagePostEditLayout;
 use App\Orchid\Layouts\Post\PostFilterLayout;
 use App\Orchid\Layouts\Post\PostListLayout;
@@ -96,12 +97,18 @@ class PostListScreen extends Screen
         $static = Post::query()->find($id);
 
         if ($static) {
-            $delete = Post::query()->where('id', $id)->delete();
+            try {
+                Wishlist::query()->where('id_post', $id)->delete();
 
-            if ($delete) {
-                Toast::success('Đã xóa thành công bài viết có id: ' . $id);
-            } else {
-                Toast::error('Có lỗi khi xóa bài viết có id: ' . $id);
+                $delete = $static->delete();
+
+                if ($delete) {
+                    Toast::success('Đã xóa thành công bài viết có id: ' . $id);
+                } else {
+                    Toast::error('Có lỗi khi xóa bài viết có id: ' . $id);
+                }
+            }catch (\Exception $e){
+                Toast::error('Có lỗi!');
             }
         }else{
             Toast::error('Not found!');

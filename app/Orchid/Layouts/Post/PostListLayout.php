@@ -107,7 +107,7 @@ class PostListLayout extends Table
                         ->confirm("Bạn có chắc muốn xóa?")
                         ->icon('close')
                         ->method('delete', [
-                            'id' => $post
+                            'id' => $post->id
                         ]);
                 }),
 

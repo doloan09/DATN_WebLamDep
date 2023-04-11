@@ -4,13 +4,13 @@ namespace App\Orchid\Screens\Post;
 
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\Wishlist;
 use App\Orchid\Layouts\Post\PostEditLayout;
 use App\Orchid\Screens\BaseScreen;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Orchid\Screen\Actions\Button;
-use Orchid\Support\Facades\Alert;
 use Orchid\Support\Facades\Toast;
 
 class PostEditScreen extends BaseScreen
@@ -186,10 +186,12 @@ class PostEditScreen extends BaseScreen
      */
     public function delete(Post $posts)
     {
+        Wishlist::query()->where('id_post', $posts->id)->delete();
+
         $posts->delete();
 
-        Alert::success(__('Posts was removed'));
-        return redirect()->route('platform.systems.posts');
+        Toast::success('Xóa bài viết thành công!');
+        return redirect()->route('posts.index');
     }
 
 }
