@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-use App\Orchid\Screens\Examples\ExampleCardsScreen;
-use App\Orchid\Screens\Examples\ExampleChartsScreen;
-use App\Orchid\Screens\Examples\ExampleFieldsAdvancedScreen;
-use App\Orchid\Screens\Examples\ExampleFieldsScreen;
-use App\Orchid\Screens\Examples\ExampleLayoutsScreen;
-use App\Orchid\Screens\Examples\ExampleScreen;
-use App\Orchid\Screens\Examples\ExampleTextEditorsScreen;
+use App\Orchid\Screens\Category\CategoryListScreen;
+use App\Orchid\Screens\FolderImage\FolderImageListScreen;
+use App\Orchid\Screens\Image\ImageListScreen;
 use App\Orchid\Screens\PlatformScreen;
+use App\Orchid\Screens\Post\PostEditScreen;
+use App\Orchid\Screens\Post\PostListScreen;
 use App\Orchid\Screens\Role\RoleEditScreen;
 use App\Orchid\Screens\Role\RoleListScreen;
 use App\Orchid\Screens\User\UserEditScreen;
 use App\Orchid\Screens\User\UserListScreen;
 use App\Orchid\Screens\User\UserProfileScreen;
+use App\Orchid\Screens\Video\VideoEditScreeen;
+use App\Orchid\Screens\Video\VideoListScreeen;
 use Illuminate\Support\Facades\Route;
 use Tabuna\Breadcrumbs\Trail;
 
@@ -85,7 +85,7 @@ Route::screen('roles', RoleListScreen::class)
 
 //// Platform > System > Categories
 Route::prefix('categories')->group(function () {
-    Route::screen('/', \App\Orchid\Screens\Category\CategoryListScreen::class)
+    Route::screen('/', CategoryListScreen::class)
         ->name('categories.index')
         ->breadcrumbs(function (Trail $trail) {
             return $trail
@@ -97,7 +97,7 @@ Route::prefix('categories')->group(function () {
 
 //// Platform > System > Posts
 Route::prefix('posts')->group(function () {
-    Route::screen('/', \App\Orchid\Screens\Post\PostListScreen::class)
+    Route::screen('/', PostListScreen::class)
         ->name('posts.index')
         ->breadcrumbs(function (Trail $trail) {
             return $trail
@@ -105,7 +105,7 @@ Route::prefix('posts')->group(function () {
                 ->push(__('Bài viết'), route('posts.index'));
         });
 
-    Route::screen('/create', \App\Orchid\Screens\Post\PostEditScreen::class)
+    Route::screen('/create', PostEditScreen::class)
         ->name('posts.create')
         ->breadcrumbs(function (Trail $trail) {
             return $trail
@@ -113,7 +113,7 @@ Route::prefix('posts')->group(function () {
                 ->push(__('Add'), route('posts.create'));
         });
 
-    Route::screen('/{post}/edit', \App\Orchid\Screens\Post\PostEditScreen::class)
+    Route::screen('/{post}/edit', PostEditScreen::class)
         ->name('posts.edit')
         ->breadcrumbs(function (Trail $trail, $post) {
             return $trail
@@ -125,7 +125,7 @@ Route::prefix('posts')->group(function () {
 //// image
 ///
 Route::prefix('images')->group(function () {
-    Route::screen('/', \App\Orchid\Screens\Image\ImageListScreen::class)
+    Route::screen('/', ImageListScreen::class)
         ->name('images.index')
         ->breadcrumbs(function (Trail $trail) {
             return $trail
@@ -137,7 +137,7 @@ Route::prefix('images')->group(function () {
 
 // folder cloudinary
 Route::prefix('folders')->group(function () {
-    Route::screen('/', \App\Orchid\Screens\FolderImage\FolderImageListScreen::class)
+    Route::screen('/', FolderImageListScreen::class)
         ->name('folders.index')
         ->breadcrumbs(function (Trail $trail) {
             return $trail
@@ -145,4 +145,31 @@ Route::prefix('folders')->group(function () {
                 ->push(__('Thư mục ảnh'), route('folders.index'));
         });
 
+});
+
+//// Platform > System > Videos
+Route::prefix('videos')->group(function () {
+    Route::screen('/', VideoListScreeen::class)
+        ->name('videos.index')
+        ->breadcrumbs(function (Trail $trail) {
+            return $trail
+                ->parent('platform.index')
+                ->push(__('Video'), route('videos.index'));
+        });
+
+    Route::screen('/create', VideoEditScreeen::class)
+        ->name('videos.create')
+        ->breadcrumbs(function (Trail $trail) {
+            return $trail
+                ->parent('videos.index')
+                ->push(__('Add'), route('videos.create'));
+        });
+
+    Route::screen('/{video}/edit', VideoEditScreeen::class)
+        ->name('videos.edit')
+        ->breadcrumbs(function (Trail $trail, $post) {
+            return $trail
+                ->parent('videos.index')
+                ->push(__('Edit'), route('videos.edit', $post));
+        });
 });

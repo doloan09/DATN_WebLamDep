@@ -65,6 +65,11 @@ class PlatformProvider extends OrchidServiceProvider
                 ])
                 ->permission('systems.images'),
 
+            Menu::make('Video')
+                ->icon('notebook')
+                ->route('videos.index')
+                ->permission('systems.videos'),
+
         ];
     }
 
@@ -91,7 +96,8 @@ class PlatformProvider extends OrchidServiceProvider
                 ->addPermission('platform.systems.users', __('Users'))
                 ->addPermission('systems.categories', 'Danh mục')
                 ->addPermission('systems.posts', 'Bài viết')
-                ->addPermission('systems.images', 'Hình ảnh'),
+                ->addPermission('systems.images', 'Hình ảnh')
+                ->addPermission('systems.videos', 'Video'),
 
         ];
     }
