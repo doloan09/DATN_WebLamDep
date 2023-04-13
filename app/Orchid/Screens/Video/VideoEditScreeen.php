@@ -2,11 +2,11 @@
 
 namespace App\Orchid\Screens\Video;
 
-use App\Http\Requests\VideoRequest;
 use App\Models\Video;
-use App\Orchid\Layouts\Video\VideoEditLayout;
 use Orchid\Screen\Actions\Button;
+use Orchid\Screen\Actions\Link;
 use Orchid\Screen\Screen;
+use Orchid\Support\Facades\Layout;
 use Orchid\Support\Facades\Toast;
 
 class VideoEditScreeen extends Screen
@@ -38,7 +38,7 @@ class VideoEditScreeen extends Screen
      */
     public function name(): ?string
     {
-        return 'Cập nhật thông tin';
+        return $this->video->title;
     }
 
     /**
@@ -49,9 +49,9 @@ class VideoEditScreeen extends Screen
     public function commandBar(): iterable
     {
         return [
-            Button::make('Cập nhật')
-                ->icon('check')
-                ->method('update'),
+            Link::make('Quay lại')
+            ->route('videos.index')
+            ->icon('refresh'),
 
             Button::make('Xóa')
                 ->icon('trash')
@@ -68,35 +68,9 @@ class VideoEditScreeen extends Screen
     public function layout(): iterable
     {
         return [
-            VideoEditLayout::class,
-
-//            Layout::view('admin.components.create-video'),
+            Layout::view('admin.components.create-video'),
 
         ];
-    }
-
-    /**
-     * @param VideoRequest $request
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function update(VideoRequest $request)
-    {
-        try {
-            Video::query()->findOrFail($request->get('id'));
-
-            $update = Video::query()
-                ->where('id', $request->get('id'))
-                ->update([]);
-
-            if ($update) {
-                Toast::success('Cập nhật thành công!');
-                return redirect()->route('videos.index');
-            }
-            Toast::error('Lỗi khi cập nhât!');
-        } catch (\Exception) {
-            return abort(404);
-        }
     }
 
     /**
