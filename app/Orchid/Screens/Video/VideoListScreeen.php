@@ -123,12 +123,24 @@ class VideoListScreeen extends Screen
 
         if ($findH){
             $duration = str_replace('H', ':', $duration);
-        }if ($findM){
-            $duration = str_replace('M', ':', $duration);
+            if ($findM){
+                $duration = str_replace('M', ':', $duration);
+            }else{
+                $duration = str_replace(':', ':0:', $duration);
+            }
             if ($findS){
                 $duration = str_replace('S', '', $duration);
             }else{
                 $duration .= '0';
+            }
+        }else{
+            if ($findM){
+                $duration = str_replace('M', ':', $duration);
+                if ($findS){
+                    $duration = str_replace('S', '', $duration);
+                }else{
+                    $duration .= '0';
+                }
             }
         }
 
