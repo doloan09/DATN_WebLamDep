@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Client;
 
 use App\Enum\PostStatus;
+use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
@@ -32,7 +33,7 @@ class PostController extends Controller
 
         $posts = $posts->paginate();
 
-        return view('client.home', compact('posts_hot', 'categories', 'user', 'wishlist', 'posts'));
+        return view('client.searchs.search', compact('posts_hot', 'categories', 'user', 'wishlist', 'posts'));
     }
 
     /**

@@ -1,22 +1,26 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Client;
 
+use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class CategoryController extends Controller
+class VideoController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $categories = Category::query()->get();
+        $user = Auth::user();
+
+        return view('client.videos.list', compact('categories', 'user'));
     }
 
     /**
@@ -46,15 +50,9 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($slug)
+    public function show($id)
     {
-        $posts_hot = Post::query()->where('status', 1)->limit(4)->get();
-        $categories = Category::query()->get();
-        $category = Category::query()->where('slug', $slug)->first();
-        $posts = $category->posts()->paginate(12);
-        $user = Auth::user();
-
-        return view('client.posts.list', compact('posts', 'posts_hot', 'category', 'user', 'categories'));
+        //
     }
 
     /**

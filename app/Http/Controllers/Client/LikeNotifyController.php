@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Client;
 
+use App\Http\Controllers\Controller;
 use App\Models\Notification;
-use Illuminate\Http\Request;
 
 class LikeNotifyController extends Controller
 {

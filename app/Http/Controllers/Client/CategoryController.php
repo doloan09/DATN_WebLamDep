@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Client;
 
+use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Post;
-use App\Models\User;
-use App\Models\Wishlist;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class WishlistController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -37,25 +38,7 @@ class WishlistController extends Controller
      */
     public function store(Request $request)
     {
-        try {
-            User::query()->findOrFail($request->get('id_user'));
-            Post::query()->findOrFail($request->get('id_post'));
-
-            $wishlist = Wishlist::query()->where('id_post', $request->get('id_post'))->where('id_user', $request->get('id_user'))->first();
-            if ($wishlist){
-                $wishlist->delete();
-                return back()->with(['wishlist' => 'Thêm thành công vào danh sách yêu thích!']);
-            }
-
-            Wishlist::query()->insert([
-                'id_post' => $request->get('id_post'),
-                'id_user' => $request->get('id_user')
-            ]);
-
-            return back()->with(['wishlist' => 'Thêm thành công vào danh sách yêu thích!']);
-        }catch (\Exception){
-            return abort(404);
-        }
+        //
     }
 
     /**
@@ -64,9 +47,15 @@ class WishlistController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
-        //
+        $posts_hot = Post::query()->where('status', 1)->limit(4)->get();
+        $categories = Category::query()->get();
+        $category = Category::query()->where('slug', $slug)->first();
+        $posts = $category->posts()->paginate(12);
+        $user = Auth::user();
+
+        return view('client.posts.list', compact('posts', 'posts_hot', 'category', 'user', 'categories'));
     }
 
     /**
@@ -98,7 +87,7 @@ class WishlistController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy($id)
     {
         //
     }
