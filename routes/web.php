@@ -4,10 +4,12 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\ResetPassController;
 use App\Http\Controllers\Auth\UserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\LikeNotifyController;
-use App\Http\Controllers\PostController;
-use App\Http\Controllers\WishlistController;
+use App\Http\Controllers\Client\CategoryController;
+use App\Http\Controllers\Client\HomeController;
+use App\Http\Controllers\Client\LikeNotifyController;
+use App\Http\Controllers\Client\PostController;
+use App\Http\Controllers\Client\VideoController;
+use App\Http\Controllers\Client\WishlistController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -47,7 +49,6 @@ Route::get('/reset-password/{token}', [ResetPassController::class, 'showResetPas
 Route::post('/reset-password', [ResetPassController::class, 'resetPass'])->middleware('guest')->name('password.update'); // reset pass
 
 //user
-Route::get('/gioi-thieu', [UserController::class, 'about'])->name('about');
 Route::post('/update-password/{id}', [UserController::class, 'update'])->name('update.password'); // thay đổi mật khẩu
 Route::post('/update-info/{id}', [UserController::class, 'update_info'])->name('update.info'); // cập nhật thông tin
 
@@ -57,10 +58,17 @@ Route::post('/wishlist', [WishlistController::class, 'store'])->name('wishlist.s
 // Notify like
 Route::get('/notification/{notify}/{slug}', [LikeNotifyController::class, 'store'])->name('notification');
 
-//
+// trang chu
 Route::get('/', [PostController::class, 'index'])->name('home');
-Route::get('/trang-chu', [PostController::class, 'index'])->name('home');
+Route::get('/trang-chu', [HomeController::class, 'index'])->name('home');
+
+// tim kiem
 Route::get('/trang-chu/search', [PostController::class, 'index'])->name('search');
 Route::get('/trang-chu/danh-sach-yeu-thich', [PostController::class, 'index'])->name('wishlist');
+
+// bai viet theo danh muc
 Route::get('/danh-muc/{category}', [CategoryController::class, 'show'])->name('categories.show'); // danh sach bai viet theo theo loai
 Route::get('/bai-viet/{slug}', [PostController::class, 'show'])->name('posts.show'); // chi tiet 1 bai viet
+
+// video
+Route::get('/video', [VideoController::class, 'index'])->name('video.list');

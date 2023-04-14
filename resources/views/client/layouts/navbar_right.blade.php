@@ -38,18 +38,16 @@
 <div class="mt-10">
     <p><span class="uppercase font-bold pb-2 color-purple border-b-2 border-purple">Bài viết nổi bật</span></p>
     <div class="mt-10">
-        @foreach($posts_hot as $item)
-            <a href="{{ route('posts.show', $item->slug) }}" class="grid grid-cols-3 gap-4 mb-4 hover:text-purple border-b border-purple">
-                <div class="col-span-1 aspect-square">
-                    <img class="max-h-28" src="{{ $item->link_image }}">
+        <div class="flex flex-col divide-y divide-gray-700">
+            @foreach($posts_hot as $item)
+                <div class="flex px-1 py-4">
+                    <img alt="" class="flex-shrink-0 object-cover w-20 h-20 mr-4 dark:bg-gray-500" src="{{ $item->link_image }}">
+                    <div class="flex flex-col flex-grow">
+                        <a rel="noopener noreferrer" href="{{ route('posts.show', $item->slug) }}" class="font-serif hover:underline">{{ $item->title }}</a>
+                        <p class="mt-auto text-xs dark:text-gray-400">{{ $item->created_at->toFormattedDateString() }}</p>
+                    </div>
                 </div>
-                <div class="col-span-2">
-                    <p class="uppercase font-light text-sm" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden;">
-                        {{ $item->title }}
-                    </p>
-                    <p class="text-xs md:mt-3 lg:mt-6 font-light">{{ $item->created_at->toFormattedDateString() }}</p>
-                </div>
-            </a>
-        @endforeach
+            @endforeach
+        </div>
     </div>
 </div>

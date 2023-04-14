@@ -28,13 +28,13 @@
                                     $count_wishlist = count($posts_wishlist); // tong so luot thich bai viet cua tat ca user
                                 @endphp
                                 <div class="md:mb-5 border hover:text-purple flex flex-col hover:grow hover:shadow-lg">
-                                    <div class="md:h-72">
+                                    <div class="">
                                         <a href="{{ route('posts.show', $item->slug) }}">
-                                            <img class="max-h-96" src="{{ $item->link_image }}">
+                                            <img class="object-cover w-full h-52 dark:bg-gray-500" src="{{ $item->link_image }}">
                                         </a>
                                     </div>
                                     <div class="bg-white p-4 mx-2">
-                                        <a href="{{ route('posts.show', $item->slug) }}" class="uppercase text-sm" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden;">
+                                        <a href="{{ route('posts.show', $item->slug) }}" class="uppercase text-sm" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;">
                                             {{ $item->title }}
                                         </a>
                                         <form class="flex justify-between font-light text-sm mt-2" method="POST" action="{{ route('wishlist.store', ['id_post' => $item->id, 'id_user' => \Illuminate\Support\Facades\Auth::id()]) }}">
