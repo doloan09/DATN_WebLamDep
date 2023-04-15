@@ -27,10 +27,10 @@
                                     $posts_wishlist = $item->wishlist()->get(); // tat ca luot thich cua tat ca user
                                     $count_wishlist = count($posts_wishlist); // tong so luot thich bai viet cua tat ca user
                                 @endphp
-                                <div class="md:mb-5 border hover:text-purple flex flex-col hover:grow hover:shadow-lg">
+                                <div class="md:mb-5 border hover:text-purple flex flex-col hover:grow hover:shadow-lg rounded-lg">
                                     <div class="">
                                         <a href="{{ route('posts.show', $item->slug) }}">
-                                            <img class="object-cover w-full h-52 dark:bg-gray-500" src="{{ $item->link_image }}">
+                                            <img class="object-cover w-full h-52 dark:bg-gray-500 rounded-t-lg" src="{{ $item->link_image }}">
                                         </a>
                                     </div>
                                     <div class="bg-white p-4 mx-2">

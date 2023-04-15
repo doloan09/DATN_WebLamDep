@@ -3,75 +3,15 @@
 @section('title', 'Amara Store')
 
 @section('content')
-    <div class="carousel relative container mx-auto mt-20" style="max-width:1600px;">
+    <div class="carousel relative container mx-auto -mt-60" style="max-width:1600px;">
         <div class="carousel-inner relative overflow-hidden w-full">
-            <!--Slide 1-->
             <input class="carousel-open" type="radio" id="carousel-1" name="carousel" aria-hidden="true" hidden="" checked="checked">
             <div class="carousel-item absolute opacity-0" style="height:50vh;">
-                <div class="block h-full w-full mx-auto flex pt-6 md:pt-0 md:items-center bg-cover bg-right" style="background-image: url('https://images.unsplash.com/photo-1422190441165-ec2956dc9ecc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1600&q=80');">
-
-                    <div class="container mx-auto">
-                        <div class="flex flex-col w-full lg:w-1/2 md:ml-16 items-center md:items-start px-6 tracking-wide">
-                            <p class="text-black text-2xl my-4">Stripy Zig Zag Jigsaw Pillow and Duvet Set</p>
-                            <a class="text-xl inline-block no-underline border-b border-gray-600 leading-relaxed hover:text-black hover:border-black" href="#">view product</a>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-            <label for="carousel-3" class="prev control-1 w-10 h-10 ml-2 md:ml-10 absolute cursor-pointer hidden text-3xl font-bold text-black hover:text-white rounded-full bg-white hover:bg-gray-900 leading-tight text-center z-10 inset-y-0 left-0 my-auto">‹</label>
-            <label for="carousel-2" class="next control-1 w-10 h-10 mr-2 md:mr-10 absolute cursor-pointer hidden text-3xl font-bold text-black hover:text-white rounded-full bg-white hover:bg-gray-900 leading-tight text-center z-10 inset-y-0 right-0 my-auto">›</label>
-
-            <!--Slide 2-->
-            <input class="carousel-open" type="radio" id="carousel-2" name="carousel" aria-hidden="true" hidden="">
-            <div class="carousel-item absolute opacity-0 bg-cover bg-right" style="height:50vh;">
                 <div class="block h-full w-full mx-auto flex pt-6 md:pt-0 md:items-center bg-cover bg-right" style="background-image: url('https://images.unsplash.com/photo-1533090161767-e6ffed986c88?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjM0MTM2fQ&auto=format&fit=crop&w=1600&q=80');">
-
-                    <div class="container mx-auto">
-                        <div class="flex flex-col w-full lg:w-1/2 md:ml-16 items-center md:items-start px-6 tracking-wide">
-                            <p class="text-black text-2xl my-4">Real Bamboo Wall Clock</p>
-                            <a class="text-xl inline-block no-underline border-b border-gray-600 leading-relaxed hover:text-black hover:border-black" href="#">view product</a>
-                        </div>
-                    </div>
-
                 </div>
             </div>
-            <label for="carousel-1" class="prev control-2 w-10 h-10 ml-2 md:ml-10 absolute cursor-pointer hidden text-3xl font-bold text-black hover:text-white rounded-full bg-white hover:bg-gray-900  leading-tight text-center z-10 inset-y-0 left-0 my-auto">‹</label>
-            <label for="carousel-3" class="next control-2 w-10 h-10 mr-2 md:mr-10 absolute cursor-pointer hidden text-3xl font-bold text-black hover:text-white rounded-full bg-white hover:bg-gray-900  leading-tight text-center z-10 inset-y-0 right-0 my-auto">›</label>
-
-            <!--Slide 3-->
-            <input class="carousel-open" type="radio" id="carousel-3" name="carousel" aria-hidden="true" hidden="">
-            <div class="carousel-item absolute opacity-0" style="height:50vh;">
-                <div class="block h-full w-full mx-auto flex pt-6 md:pt-0 md:items-center bg-cover bg-bottom" style="background-image: url('https://images.unsplash.com/photo-1519327232521-1ea2c736d34d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1600&q=80');">
-
-                    <div class="container mx-auto">
-                        <div class="flex flex-col w-full lg:w-1/2 md:ml-16 items-center md:items-start px-6 tracking-wide">
-                            <p class="text-black text-2xl my-4">Brown and blue hardbound book</p>
-                            <a class="text-xl inline-block no-underline border-b border-gray-600 leading-relaxed hover:text-black hover:border-black" href="#">view product</a>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-            <label for="carousel-2" class="prev control-3 w-10 h-10 ml-2 md:ml-10 absolute cursor-pointer hidden text-3xl font-bold text-black hover:text-white rounded-full bg-white hover:bg-gray-900  leading-tight text-center z-10 inset-y-0 left-0 my-auto">‹</label>
-            <label for="carousel-1" class="next control-3 w-10 h-10 mr-2 md:mr-10 absolute cursor-pointer hidden text-3xl font-bold text-black hover:text-white rounded-full bg-white hover:bg-gray-900  leading-tight text-center z-10 inset-y-0 right-0 my-auto">›</label>
-
-            <!-- Add additional indicators for each slide-->
-            <ol class="carousel-indicators">
-                <li class="inline-block mr-3">
-                    <label for="carousel-1" class="carousel-bullet cursor-pointer block text-4xl text-gray-400 hover:text-gray-900">•</label>
-                </li>
-                <li class="inline-block mr-3">
-                    <label for="carousel-2" class="carousel-bullet cursor-pointer block text-4xl text-gray-400 hover:text-gray-900">•</label>
-                </li>
-                <li class="inline-block mr-3">
-                    <label for="carousel-3" class="carousel-bullet cursor-pointer block text-4xl text-gray-400 hover:text-gray-900">•</label>
-                </li>
-            </ol>
-
         </div>
     </div>
-
 
     <div class="bg-white py-8">
         <div class="container mx-auto flex items-center flex-wrap pt-4 pb-12">
@@ -117,10 +57,10 @@
                         $posts_wishlist = $item->wishlist()->get(); // tat ca luot thich cua tat ca user
                         $count_wishlist = count($posts_wishlist); // tong so luot thich bai viet cua tat ca user
                     @endphp
-                    <div class="md:mb-5 border hover:text-purple flex flex-col hover:grow hover:shadow-lg">
+                    <div class="md:mb-5 border hover:text-purple flex flex-col hover:grow hover:shadow-lg rounded-lg">
                         <div class="">
                             <a href="{{ route('posts.show', $item->slug) }}">
-                                <img class="object-cover w-full h-52 dark:bg-gray-500" src="{{ $item->link_image }}">
+                                <img class="object-cover w-full h-52 dark:bg-gray-500 rounded-t-lg" src="{{ $item->link_image }}">
                             </a>
                         </div>
                         <div class="bg-white p-4 mx-2">
@@ -151,17 +91,17 @@
             {{--    bài viết yêu thích        --}}
             @if(count($wishlist) > 0)
                 <div id="wish_list" style="display: none;">
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-20">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
                         @foreach($wishlist as $wl)
                             @php
                                 $post = \App\Models\Post::query()->findOrFail($wl->id_post);
                                 $posts_wishlist = $post->wishlist()->get();
                                 $count_wishlist = count($posts_wishlist);
                             @endphp
-                            <div class="md:mb-5 hover:text-purple flex flex-col hover:grow hover:shadow-lg">
+                            <div class="md:mb-5 border hover:text-purple flex flex-col hover:grow hover:shadow-lg rounded-lg">
                                 <div class="">
                                     <a href="{{ route('posts.show', $wl->slug) }}">
-                                        <img class="object-cover w-full h-52 dark:bg-gray-500" src="{{ $wl->link_image }}">
+                                        <img class="object-cover w-full h-52 dark:bg-gray-500 rounded-t-lg" src="{{ $wl->link_image }}">
                                     </a>
                                 </div>
                                 <div class="bg-white p-4 mx-2">
@@ -171,19 +111,19 @@
                                     <form class="flex justify-between font-light text-sm mt-2" method="POST" action="{{ route('wishlist.store', ['id_post' => $wl->id, 'id_user' => \Illuminate\Support\Facades\Auth::id()]) }}">
                                         @csrf
                                         <p class="mt-3">{{ $wl->created_at->toFormattedDateString() }}</p>
-                                        <div class="bg-white pl-3 py-3 rounded-tl-2xl flex text-purple cursor-pointer" onclick="alert('xxx');">
+                                        <button type="submit" class="bg-white pl-3 py-3 rounded-tl-2xl flex text-purple cursor-pointer"">
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" fill="#723F5FFF"/>
                                             </svg>
                                             <p class="ml-2">{{ $count_wishlist }}</p>
-                                        </div>
+                                        </button>
                                     </form>
                                 </div>
                             </div>
                         @endforeach
                     </div>
-                    {{--        Pagination    --}}
-                    <div class="mt-10 my-10">
+                    {{--  Pagination  --}}
+                    <div class="">
                         {{ $wishlist->links('pagination::tailwind') }}
                     </div>
                 </div>
@@ -193,19 +133,20 @@
             <div id="results" style="display: none;">
                 @isset($posts)
                     @if(count($posts) > 0)
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-20">
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
                             @foreach($posts as $item)
                                 @php
                                     $post = \App\Models\Post::query()->where('id', $item->id_post)->first();
+                                    $user_wishlist = $item->wishlist()->where('id_user', \Illuminate\Support\Facades\Auth::id())->first(); // kiem tra xem user da thich bai viet nay chua
                                     if ($post){
                                         $posts_wishlist = $post->wishlist()->get();
                                         $count_wishlist = count($posts_wishlist);
                                     }
                                 @endphp
-                                <div class="md:mb-5 hover:text-purple flex flex-col hover:grow hover:shadow-lg">
+                                <div class="md:mb-5 hover:text-purple flex flex-col hover:grow hover:shadow-lg rounded-lg">
                                     <div class="">
                                         <a href="{{ route('posts.show', $item->slug) }}">
-                                            <img class="object-cover w-full h-52 dark:bg-gray-500" src="{{ $item->link_image }}">
+                                            <img class="object-cover w-full h-52 dark:bg-gray-500 rounded-t-lg" src="{{ $item->link_image }}">
                                         </a>
                                     </div>
                                     <div class="bg-white p-4 mx-2">
@@ -215,23 +156,29 @@
                                         <form class="flex justify-between font-light text-sm mt-2" method="POST" action="{{ route('wishlist.store', ['id_post' => $item->id, 'id_user' => \Illuminate\Support\Facades\Auth::id()]) }}">
                                             @csrf
                                             <p class="mt-3">{{ $item->created_at->toFormattedDateString() }}</p>
-                                            <div class="bg-white pl-3 py-3 rounded-tl-2xl flex text-purple cursor-pointer" onclick="alert('xxx');">
-                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" fill="#723F5FFF"/>
-                                                </svg>
+                                            <button type="submit" class="bg-white pl-3 py-3 rounded-tl-2xl flex text-purple cursor-pointer">
+                                                @if($user_wishlist)
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" fill="#723F5FFF"/>
+                                                    </svg>
+                                                @else
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                                                    </svg>
+                                                @endif
                                                 <p class="ml-2">{{ $count_wishlist }}</p>
-                                            </div>
+                                            </button>
                                         </form>
                                     </div>
                                 </div>
                             @endforeach
                         </div>
                         {{--        Pagination    --}}
-                        <div class="mt-10 my-10">
+                        <div class="">
                             {{ $posts->links('pagination::tailwind') }}
                         </div>
                     @else
-                        <div class="ml-6 mb-20">
+                        <div class="ml-6 mb-96">
                             Không tìm thấy kết quả phù hợp ...
                         </div>
                     @endif

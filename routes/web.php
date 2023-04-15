@@ -59,7 +59,7 @@ Route::post('/wishlist', [WishlistController::class, 'store'])->name('wishlist.s
 Route::get('/notification/{notify}/{slug}', [LikeNotifyController::class, 'store'])->name('notification');
 
 // trang chu
-Route::get('/', [PostController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/trang-chu', [HomeController::class, 'index'])->name('home');
 
 // tim kiem

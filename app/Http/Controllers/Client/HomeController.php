@@ -13,26 +13,20 @@ class HomeController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function index(Request $request)
     {
         $posts_hot = Post::query()->where('status', 1)->limit(4)->get();
         $categories = Category::query()->get();
         $user = Auth::user();
-        $wishlist = [];
-        if ($user){
-            $wishlist = $user->wishlist()->join('posts', 'posts.id', '=', 'wishlists.id_post')->paginate(4);
-        }
 
-        $posts = Post::query();
-        if ($request->get('title')){
-            $posts = $posts->where('title', 'like', '%' . $request->get('title') . '%');
-        }
+        $posts = Post::query()->inRandomOrder()->limit(6)->get();
+        $posts = $posts->chunk(2);
 
-        $posts = $posts->paginate();
+        $posts_3 = Post::query()->inRandomOrder()->limit(3)->get();
 
-        return view('client.home', compact('posts_hot', 'categories', 'user', 'wishlist', 'posts'));
+        return view('client.home', compact('posts_hot', 'categories', 'user', 'posts', 'posts_3'));
     }
 
     /**

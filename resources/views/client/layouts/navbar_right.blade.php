@@ -1,10 +1,10 @@
-<div class="text-center md:p-4 lg:p-8 border border-purple">
+<div class="text-center md:p-4 lg:p-8 border border-purple rounded-md">
     <p class="pb-5"><span class="uppercase py-2 text-sm lg:text-base border-b-2 border-purple">Wellcome</span></p>
     <p class="font-light md:text-sm">
         Xin chào, tôi là Lan Mít. Tôi sinh năm 1996. Blog của tôi đã được ra đời năm 2023, khi tôi quyết định dừng công việc văn phòng và theo đuổi ước mơ và sở thích của mình. Đây là nơi tôi sẽ chia sẻ với bạn trải nghiệm & cảm nhận của tôi về tất cả những thứ tôi yêu thích, học hỏi và khám phá!
     </p>
 </div>
-<div class="text-center md:p-4 lg:p-8 mt-10 border border-purple">
+<div class="text-center md:p-4 lg:p-8 mt-10 border border-purple rounded-md">
     <p class="pb-5"><span class="uppercase py-2 text-sm lg:text-base border-b-2 border-purple">Keep in touch</span></p>
     <div class="flex flex-wrap justify-center mt-4">
         <a href="https://www.facebook.com/www.lanmit" class="w-5 h-5 mx-3 md:mb-3" target="_blank">
@@ -29,7 +29,7 @@
         </a>
     </div>
 </div>
-<div class="text-center md:p-4 lg:p-8 mt-10 border border-purple">
+<div class="text-center md:p-4 lg:p-8 mt-10 border border-purple rounded-md">
     <p class="pb-5"><span class="uppercase py-2 text-sm lg:text-base border-b-2 border-purple">Newest Video</span></p>
     <div class="flex flex-wrap justify-center mt-4">
         <iframe width="315" height="190" src="https://www.youtube.com/embed/videoseries?list=PLAo5DDtsurkYjymWN9vEppKV0o4onPyCo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
@@ -41,7 +41,7 @@
         <div class="flex flex-col divide-y divide-gray-700">
             @foreach($posts_hot as $item)
                 <div class="flex px-1 py-4">
-                    <img alt="" class="flex-shrink-0 object-cover w-20 h-20 mr-4 dark:bg-gray-500" src="{{ $item->link_image }}">
+                    <img alt="" class="flex-shrink-0 object-cover w-20 h-20 mr-4 dark:bg-gray-500 rounded-md" src="{{ $item->link_image }}">
                     <div class="flex flex-col flex-grow">
                         <a rel="noopener noreferrer" href="{{ route('posts.show', $item->slug) }}" class="font-serif hover:underline">{{ $item->title }}</a>
                         <p class="mt-auto text-xs dark:text-gray-400">{{ $item->created_at->toFormattedDateString() }}</p>

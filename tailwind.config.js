@@ -13,6 +13,10 @@ module.exports = {
             },
             height:{
                 '48r': '48rem',
+                '36r': '36rem',
+            },
+            maxHeight: {
+                '36r': '36rem',
             },
             colors: {
                 'purple': '#723F5FFF',
