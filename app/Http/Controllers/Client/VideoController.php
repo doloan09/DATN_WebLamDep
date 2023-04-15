@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
-use App\Models\Post;
+use App\Models\Video;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,7 +20,11 @@ class VideoController extends Controller
         $categories = Category::query()->get();
         $user = Auth::user();
 
-        return view('client.videos.list', compact('categories', 'user'));
+        $videos_main = Video::query()->inRandomOrder()->limit(1)->get();
+        $videos_nav = Video::query()->inRandomOrder()->limit(5)->get();
+        $videos = Video::query()->paginate(4);  // danh sach phat
+
+        return view('client.videos.list', compact('categories', 'user', 'videos', 'videos_nav', 'videos_main'));
     }
 
     /**
