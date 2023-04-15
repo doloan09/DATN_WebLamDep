@@ -156,7 +156,7 @@
     </section>
 
     <section class="p-4 lg:p-8 dark:bg-gray-800 dark:text-gray-100 mt-20">
-        <div class="container mx-auto space-y-12">
+        <div class="container p-6 mx-auto space-y-12">
             <div class="flex flex-col overflow-hidden rounded-md shadow-sm lg:flex-row">
                 <img src="{{ $posts_3[0]->link_image }}" alt="" class="h-80 dark:bg-gray-500 aspect-video rounded-lg object-cover">
                 <div class="flex flex-col justify-center flex-1 p-6 dark:bg-gray-900">
