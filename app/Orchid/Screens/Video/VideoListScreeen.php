@@ -141,6 +141,13 @@ class VideoListScreeen extends Screen
                 }else{
                     $duration .= '0';
                 }
+            }else{
+                if ($findS){
+                    $duration = str_replace('S', '', $duration);
+                }else{
+                    $duration .= '0';
+                }
+                $duration = '00:' . $duration;
             }
         }
 
