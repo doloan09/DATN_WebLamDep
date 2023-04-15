@@ -37,7 +37,7 @@ class ImageListLayout extends Table
             TD::make('Hình ảnh')
                 ->width(200)
                 ->alignCenter()
-                ->render(fn(Image $image) => '<a href="' . $image->link . '" target="_blank"><img src=' . $image->link . ' alt="" width="150" height="85"></a>'),
+                ->render(fn(Image $image) => '<a href="' . $image->link . '" target="_blank"><img src=' . $image->link . ' alt="" style="width: 100%; max-height: 150px; object-fit: cover;"></a>'),
 
             TD::make('real_name', 'Tên')
                 ->width(200)

@@ -77,7 +77,7 @@ class PostListLayout extends Table
                 ->alignCenter()
                 ->width(250)
                 ->render(function (Post $post){
-                    return $post->link_image ? '<img src="'. $post->link_image .'" style="width: 250px; max-height: 150px;">' : "";
+                    return $post->link_image ? '<img src="'. $post->link_image .'" style="width: 100%; max-height: 150px; object-fit: cover;">' : "";
                 }),
 
             TD::make()->render(function (Post $post) {
