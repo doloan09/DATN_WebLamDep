@@ -72,3 +72,4 @@ Route::get('/bai-viet/{slug}', [PostController::class, 'show'])->name('posts.sho
 
 // video
 Route::get('/video', [VideoController::class, 'index'])->name('video.list');
+Route::get('/video/{slug}', [VideoController::class, 'show'])->name('video.show');

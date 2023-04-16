@@ -22,9 +22,10 @@ class VideoController extends Controller
 
         $videos_main = Video::query()->inRandomOrder()->limit(1)->get();
         $videos_nav = Video::query()->inRandomOrder()->limit(5)->get();
-        $videos = Video::query()->paginate(4);  // danh sach phat
+        $videos_list = Video::query()->where('link_video', 'like', '%&list=%')->inRandomOrder()->limit(6)->get();  // danh sach phat
+        $videos = Video::query()->where('link_video', 'not like', '%&list=%')->paginate(9);
 
-        return view('client.videos.list', compact('categories', 'user', 'videos', 'videos_nav', 'videos_main'));
+        return view('client.videos.list', compact('categories', 'user', 'videos_list', 'videos_nav', 'videos_main', 'videos'));
     }
 
     /**
@@ -54,9 +55,23 @@ class VideoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
-        //
+        try {
+            $categories = Category::query()->get();
+            $user = Auth::user();
+
+            $videos_main = Video::query()->where('slug', $slug)->first();
+            $videos_nav = Video::query()->inRandomOrder()->limit(5)->get();
+
+            if ($videos_main) {
+                return view('client.videos.show', compact('categories', 'user', 'videos_nav', 'videos_main'));
+            }else{
+                return abort(404);
+            }
+        }catch (\Exception $exception){
+            return abort(500);
+        }
     }
 
     /**

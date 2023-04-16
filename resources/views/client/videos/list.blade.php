@@ -34,18 +34,59 @@
                 <div class="mt-10">
                     <p><span class="uppercase font-bold pb-2 color-purple border-b-2 border-purple">Danh sách phát</span></p>
                     <div class="mt-6">
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-10" id="posts_hot">
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-10" id="posts_hot">
+                            @foreach($videos_list as $item)
+                                @php
+                                    $thumbnail = json_decode($item->thumbnail);
+                                @endphp
+                                <div class="md:mb-5 border hover:text-purple flex flex-col hover:grow hover:shadow-lg rounded-lg">
+                                    <div class="relative">
+                                        <a href="{{ route('video.show', ['slug' => $item->slug]) }}">
+                                            <img class="object-cover w-full h-52 dark:bg-gray-500 rounded-t-lg" src="{{ $thumbnail->medium->url }}">
+                                        </a>
+                                        <div class="flex justify-center -bottom-10 py-1" style="background-color: rgba(89, 82, 46, 0.8);">
+                                            <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" class="style-scope yt-icon" style="pointer-events: none; display: block; width: 30px; height: 30px;">
+                                                <g class="style-scope yt-icon">
+                                                    <path d="M10.5,14.41V9.6l4.17,2.4L10.5,14.41z M8.48,8.45L7.77,7.75C6.68,8.83,6,10.34,6,12s0.68,3.17,1.77,4.25l0.71-0.71 C7.57,14.64,7,13.39,7,12S7.57,9.36,8.48,8.45z M16.23,7.75l-0.71,0.71C16.43,9.36,17,10.61,17,12s-0.57,2.64-1.48,3.55l0.71,0.71 C17.32,15.17,18,13.66,18,12S17.32,8.83,16.23,7.75z M5.65,5.63L4.95,4.92C3.13,6.73,2,9.24,2,12s1.13,5.27,2.95,7.08l0.71-0.71 C4.02,16.74,3,14.49,3,12S4.02,7.26,5.65,5.63z M19.05,4.92l-0.71,0.71C19.98,7.26,21,9.51,21,12s-1.02,4.74-2.65,6.37l0.71,0.71 C20.87,17.27,22,14.76,22,12S20.87,6.73,19.05,4.92z" fill="#fff">
+                                                    </path>
+                                                </g>
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    <a href="{{ route('video.show', ['slug' => $item->slug]) }}" class="bg-white p-4 mx-2">
+                                        <p class="uppercase text-sm" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;">
+                                            {{ $item->title }}
+                                        </p>
+                                        <div class="flex justify-between font-light text-sm mt-2">
+                                            <div class="flex justify-between font-light text-sm mt-2">
+                                                <span class="flex items-center text-sm">
+                                                    {{ kFormatter($item->view_count) }} lượt xem • {{ \Carbon\Carbon::parse($item->public_at)->diffForHumans() }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-10">
+                    <p><span class="uppercase font-bold pb-2 color-purple border-b-2 border-purple">Video</span></p>
+                    <div class="mt-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-10" id="posts_hot">
                             @foreach($videos as $item)
                                 @php
                                     $thumbnail = json_decode($item->thumbnail);
                                 @endphp
                                 <div class="md:mb-5 border hover:text-purple flex flex-col hover:grow hover:shadow-lg rounded-lg">
-                                    <div class="">
-                                        <a href="#">
+                                    <div class="relative">
+                                        <a href="{{ route('video.show', ['slug' => $item->slug]) }}">
                                             <img class="object-cover w-full h-52 dark:bg-gray-500 rounded-t-lg" src="{{ $thumbnail->medium->url }}">
                                         </a>
+                                        <p class="absolute right-0 bottom-1 bg-gray-800 text-sm text-white px-1 rounded-md">{{ $item->duration }}</p>
                                     </div>
-                                    <div class="bg-white p-4 mx-2">
+                                    <a href="{{ route('video.show', ['slug' => $item->slug]) }}" class="bg-white p-4 mx-2">
                                         <p class="uppercase text-sm" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;">
                                             {{ $item->title }}
                                         </p>
@@ -70,9 +111,13 @@
                                                 {{ kFormatter($item->comment_count) }}
                                             </span>
                                         </div>
-                                    </div>
+                                    </a>
                                 </div>
                             @endforeach
+                        </div>
+                        {{--  Pagination  --}}
+                        <div class="">
+                            {{ $videos->links('pagination::tailwind') }}
                         </div>
                     </div>
                 </div>
