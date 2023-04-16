@@ -27,7 +27,7 @@
                       <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                     </svg>
                 </span>
-                <p class="text-purple">{{ $videos_main->title }}</p>
+                <p class="text-purple px-3">{{ $videos_main->title }}</p>
             </div>
         </div>
 
@@ -37,7 +37,7 @@
                     <iframe class="w-full aspect-video" src="//www.youtube.com/embed/{{ $videos_main->video_id }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                 </div>
                 <div class="bg-white my-4">
-                    <p class="font-medium text-2xl" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;">
+                    <p class="font-medium text-xl md:text-2xl" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;">
                         {{ $videos_main->title }}
                     </p>
                     <div class="flex justify-between mt-3">
@@ -45,10 +45,10 @@
                             $thumbnail = json_decode($videos_main->thumbnail);
                         @endphp
                         <div class="flex">
-                            <img src="{{ $thumbnail->medium->url }}" class="w-12 h-12 rounded-full">
-                            <a href="{{ 'https://www.youtube.com/channel/' . $videos_main->channel_id }}" target="_blank" class="mx-3 mt-2 font-bold text-xl">{{ $videos_main->channel_title }}</a>
+                            <img src="{{ $thumbnail->medium->url }}" class="w-10 h-10 md:w-12 md:h-12 rounded-full">
+                            <a href="{{ 'https://www.youtube.com/channel/' . $videos_main->channel_id }}" target="_blank" class="mx-3 md:mt-2 font-bold text-base md:text-xl">{{ $videos_main->channel_title }}</a>
                         </div>
-                        <div class="flex justify-between font-light text-base mt-2">
+                        <div class="flex justify-between font-light text-sm md:text-base mt-2">
                             <span class="flex items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
@@ -79,7 +79,7 @@
                         $list_comment = \Alaouy\Youtube\Facades\Youtube::getCommentThreadsByVideoId($videos_main->video_id);
                     @endphp
                     <div class="p-4 mt-4 border-b">
-                        <p class="font-medium text-xl">{{ count($list_comment) }} bình luận</p>
+                        <p class="font-medium text-lg md:text-xl">{{ count($list_comment) }} bình luận</p>
                     </div>
                     <div class="mt-6">
                         @foreach($list_comment as $item)
@@ -87,7 +87,7 @@
                                 <img src="{{ $item->snippet->topLevelComment->snippet->authorProfileImageUrl }}" class="w-12 h-12 rounded-full">
                                 <div class="ml-4">
                                     <p class="font-medium">{{ $item->snippet->topLevelComment->snippet->authorDisplayName }}</p>
-                                    <p onclick="showCmt({{ "'". $item->id . "'"}})" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden;" id="cmt-{{ $item->id }}">{{ $item->snippet->topLevelComment->snippet->textDisplay }}</p>
+                                    <p onclick="showCmt({{ "'". $item->id . "'"}})" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden;" id="cmt-{{ $item->id }}">{!! $item->snippet->topLevelComment->snippet->textDisplay !!}</p>
                                     <p class="font-bold text-right text-sm mt-2" style="display: none;" onclick="hideCmt({{"'" . $item->id . "'"}})" id="cmt-hide-{{ $item->id }}">Ẩn bớt</p>
                                 </div>
                             </div>

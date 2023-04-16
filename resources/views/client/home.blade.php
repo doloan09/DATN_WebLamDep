@@ -7,14 +7,14 @@
     <div class="justify-center items-center">
         <div class="2xl:mx-auto 2xl:container lg:px-20 lg:py-16 md:py-12 md:px-6 py-9 px-4 w-96 sm:w-auto">
             <div role="main" class="flex flex-col items-center justify-center">
-                <h1 class="text-4xl font-semibold leading-9 text-center">Tại sao?</h1>
+                <h1 class="text-3xl md:text-4xl font-semibold leading-9 text-center">Tại sao?</h1>
                 <p class="text-sm leading-normal text-center text-gray-600 dark:text-white mt-4 lg:w-1/2 md:w-10/12 w-11/12">Phụ nữ không nhất thiết phải là người đẹp nhất, cũng không cần phải đẹp hơn người này người kia. Vẻ đẹp toát ra từ sự nỗ lục, hoàn thiện bản thân mỗi ngày. Hãy luôn hành động để trở thành phiên bản đẹp hơn của chính mình.</p>
             </div>
             <div class="lg:flex items-stretch md:mt-12 mt-8">
                 <div class="lg:w-1/2">
                     <div class="sm:flex items-center justify-between xl:gap-x-8 gap-x-6">
                         @foreach($posts[0] as $item)
-                            <div class="sm:w-1/2 relative">
+                            <div class="sm:w-1/2 relative mb-2 md:mb-0">
                                 <div>
                                     <p class="p-6 text-white absolute top-0 right-0">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -80,7 +80,7 @@
                     </div>
                     <div class="sm:flex items-center justify-between xl:gap-x-8 gap-x-6 md:mt-6 mt-4">
                         @foreach($posts[2] as $item)
-                            <div class="sm:w-1/2 relative">
+                            <div class="sm:w-1/2 relative mb-2 md:mb-0">
                                 <div>
                                     <p class="p-6 text-white absolute top-0 right-0">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -108,9 +108,9 @@
     </div>
 
     <section class="dark:bg-gray-800 dark:text-gray-100">
-        <div class="container p-6 mx-auto space-y-8">
+        <div class="container p-2 md:p-6 mx-auto space-y-8">
             <div class="space-y-2 text-center">
-                <h2 class="text-3xl">Những điều được mọi người quan tâm</h2>
+                <h2 class="text-2xl md:text-3xl">Những điều được mọi người quan tâm</h2>
                 <p class="font-serif text-sm dark:text-gray-400">Mọi người đang quan tâm đến vấn đề gì? Sức khỏe, sắc đẹp, tiền tài hay sự vui vẻ, bình yên? Mọi thứ đều quan trọng nếu chúng ta biết cách hoàn thiện và cân bằng chúng!</p>
             </div>
             <div class="grid grid-cols-1 gap-x-4 gap-y-8 md:grid-cols-2 lg:grid-cols-4">
@@ -155,13 +155,13 @@
         </div>
     </section>
 
-    <section class="p-4 lg:p-8 dark:bg-gray-800 dark:text-gray-100 mt-20">
-        <div class="container p-6 mx-auto space-y-12">
+    <section class="p-2 md:p-4 lg:p-8 dark:bg-gray-800 dark:text-gray-100 mt-20">
+        <div class="container md:p-6 mx-auto space-y-12">
             <div class="flex flex-col overflow-hidden rounded-md shadow-sm lg:flex-row">
                 <img src="{{ $posts_3[0]->link_image }}" alt="" class="h-80 dark:bg-gray-500 aspect-video rounded-lg object-cover">
                 <div class="flex flex-col justify-center flex-1 p-6 dark:bg-gray-900">
-                    <h3 class="text-2xl uppercase">{{ $posts_3[0]->title }}</h3>
-                    <p class="my-3 dark:text-gray-400" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden;">{{ $posts_3[0]->description }}</p>
+                    <h3 class="text-lg md:text-2xl uppercase">{{ $posts_3[0]->title }}</h3>
+                    <p class="text-sm md:text-base my-3 dark:text-gray-400" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden;">{{ $posts_3[0]->description }}</p>
                     <a href="{{ route('posts.show', $posts_3[0]->slug) }}" class="focus:outline-none focus:underline flex items-center mt-4 cursor-pointer hover:text-purple hover:underline">
                         <p class="pr-2 text-sm">Xem thêm</p>
                         <svg class="fill-stroke" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -173,8 +173,8 @@
             <div class="flex flex-col overflow-hidden rounded-md shadow-sm lg:flex-row-reverse">
                 <img src="{{ $posts_3[1]->link_image }}" alt="" class="h-80 dark:bg-gray-500 aspect-video rounded-lg object-cover">
                 <div class="flex flex-col justify-center flex-1 p-6 dark:bg-gray-900">
-                    <h3 class="text-2xl uppercase">{{ $posts_3[1]->title }}</h3>
-                    <p class="my-3 dark:text-gray-400" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden;">{{ $posts_3[1]->description }}</p>
+                    <h3 class="text-lg md:text-2xl uppercase">{{ $posts_3[1]->title }}</h3>
+                    <p class="text-sm md:text-base my-3 dark:text-gray-400" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden;">{{ $posts_3[1]->description }}</p>
                     <a href="{{ route('posts.show', $posts_3[1]->slug) }}" class="focus:outline-none focus:underline flex items-center mt-4 cursor-pointer hover:text-purple hover:underline">
                         <p class="pr-2 text-sm">Xem thêm</p>
                         <svg class="fill-stroke" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -186,8 +186,8 @@
             <div class="flex flex-col overflow-hidden rounded-md shadow-sm lg:flex-row">
                 <img src="{{ $posts_3[2]->link_image }}" alt="" class="h-80 dark:bg-gray-500 aspect-video rounded-lg object-cover">
                 <div class="flex flex-col justify-center flex-1 p-6 dark:bg-gray-900">
-                    <h3 class="text-2xl uppercase">{{ $posts_3[2]->title }}</h3>
-                    <p class="my-3 dark:text-gray-400" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden;">{{ $posts_3[2]->description }}</p>
+                    <h3 class="text-lg md:text-2xl uppercase">{{ $posts_3[2]->title }}</h3>
+                    <p class="text-sm md:text-base my-3 dark:text-gray-400" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden;">{{ $posts_3[2]->description }}</p>
                     <a href="{{ route('posts.show', $posts_3[2]->slug) }}" class="focus:outline-none focus:underline flex items-center mt-4 cursor-pointer hover:text-purple hover:underline">
                         <p class="pr-2 text-sm">Xem thêm</p>
                         <svg class="fill-stroke" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -199,7 +199,7 @@
         </div>
     </section>
 
-    <section class="py-6 dark:bg-gray-800">
+    <section class="py-6 dark:bg-gray-800 hidden md:block">
         <div class="container flex flex-col justify-center p-4 mx-auto">
             <div class="grid grid-cols-1 gap-4 lg:grid-cols-4 sm:grid-cols-2">
                 <img class="object-cover w-full dark:bg-gray-500 aspect-square rounded-lg" src="https://source.unsplash.com/random/300x300/?1">
