@@ -1,6 +1,10 @@
 @extends('client.layouts.master')
 
 @section('title', $post->title . ' - Amara Store')
+@section('meta_url', env('APP_URL') . '/bai-viet/' . $post->slug)
+@section('meta_title', $post->title)
+@section('meta_image', $post->link_image)
+@section('meta_description', $post->description)
 
 <style>
     .tooltiptext {
@@ -88,6 +92,16 @@
 
             <div class="text-sm">
                 {!! $post->content !!}
+            </div>
+
+            <!-- Load Facebook SDK for JavaScript --><!-- Your share button code -->
+            <div id="fb-root" class="flex justify-end">
+                <div class="fb-share-button" data-href="{{ route('posts.show', $post->slug) }}" data-layout="button_count" data-size="">
+                    <a target="_blank" href="#" class="fb-xfbml-parse-ignore">Chia sẻ</a>
+                </div>
+                <div class="ml-2">
+                    <div class="fb-save" data-uri="{{ route('posts.show', $post->slug) }}" data-size="small"></div>
+                </div>
             </div>
 
             <div class="mt-10">
