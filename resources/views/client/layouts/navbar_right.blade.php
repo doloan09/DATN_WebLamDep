@@ -7,7 +7,7 @@
 <div class="text-center md:p-4 lg:p-8 mt-10 border border-purple rounded-md">
     <p class="pb-5"><span class="uppercase py-2 text-sm lg:text-base border-b-2 border-purple">Keep in touch</span></p>
     <div class="flex flex-wrap justify-center mt-4">
-        <a href="https://www.facebook.com/www.lanmit" class="w-5 h-5 mx-3 md:mb-3" target="_blank">
+        <a href="https://www.facebook.com/lanchamlam" class="w-5 h-5 mx-3 md:mb-3" target="_blank">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                 <path d="M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z"/>
             </svg>
@@ -29,7 +29,15 @@
         </a>
     </div>
 </div>
-<div class="text-center md:p-4 lg:p-8 mt-10 border border-purple rounded-md">
+<div class="text-center p-4 mt-10 border border-purple rounded-md">
+    {{--  fb SDK Javascript   --}}
+    <div id="fb-root">
+        <div class="fb-page" style="max-width: 100%;" data-href="https://www.facebook.com/lanchamlam" data-tabs="timeline, events" data-width="" data-height="" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true">
+            <blockquote cite="https://www.facebook.com/lanchamlam" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/lanchamlam">Lan Chăm Làm</a></blockquote>
+        </div>
+    </div>
+</div>
+<div class="text-center p-4 mt-10 border border-purple rounded-md">
     <p class="pb-5"><span class="uppercase py-2 text-sm lg:text-base border-b-2 border-purple">Newest Video</span></p>
     <div class="flex flex-wrap justify-center mt-4">
         <iframe style="max-width: 100%;" width="315" height="190" src="https://www.youtube.com/embed/{{ $video[0]->video_id }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
@@ -51,3 +59,8 @@
         </div>
     </div>
 </div>
+
+@push('scripts')
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v16.0&appId=3257865314487186&autoLogAppEvents=1" nonce="gYXxr7k1"></script>
+
+@endpush
