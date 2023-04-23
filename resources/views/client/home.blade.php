@@ -1,6 +1,6 @@
 @extends('client.layouts.master')
 
-@section('title', 'Amara Store')
+@section('title', 'Trang chủ - Amara Store')
 
 @section('content')
 <div class="bg-white py-8 mt-6">

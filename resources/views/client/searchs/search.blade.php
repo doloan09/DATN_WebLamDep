@@ -1,6 +1,6 @@
 @extends('client.layouts.master')
 
-@section('title', 'Amara Store')
+@section('title', 'Tìm kiếm - Amara Store')
 
 @section('content')
     <div class="carousel relative container mx-auto -mt-60" style="max-width:1600px;">

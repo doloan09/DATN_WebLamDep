@@ -6,6 +6,7 @@ use App\Enum\PostStatus;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\Video;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -78,7 +79,9 @@ class PostController extends Controller
         $category = Category::query()->findOrFail($post->id_category);
         $user = Auth::user();
 
-        return view('client.posts.detail', compact('post', 'category', 'posts_hot', 'user', 'categories'));
+        $video = Video::query()->orderByDesc('id')->paginate(1);
+
+        return view('client.posts.detail', compact('post', 'category', 'posts_hot', 'user', 'categories', 'video'));
     }
 
     /**

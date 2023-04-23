@@ -3,7 +3,7 @@
 @section('title', $category->name . ' - Amara Store')
 
 @section('content')
-    <div class="mx-auto container px-3 md:px-2 mt-20">
+    <div class="mx-auto container px-3 md:px-2 mt-20 md:mt-28 lg:mt-20">
         <div class="py-4">
             <div class="flex flex-wrap border-l-4 border-purple">
                 <a href="{{ route('home') }}" class="px-3 hover:text-purple">Trang chủ</a>

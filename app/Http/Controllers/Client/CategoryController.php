@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Client;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Post;
+use App\Models\Video;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -55,7 +56,9 @@ class CategoryController extends Controller
         $posts = $category->posts()->paginate(12);
         $user = Auth::user();
 
-        return view('client.posts.list', compact('posts', 'posts_hot', 'category', 'user', 'categories'));
+        $video = Video::query()->orderByDesc('id')->paginate(1);
+
+        return view('client.posts.list', compact('posts', 'posts_hot', 'category', 'user', 'categories', 'video'));
     }
 
     /**
