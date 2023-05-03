@@ -90,7 +90,7 @@
 
             {{--    bài viết yêu thích        --}}
             @if(count($wishlist) > 0)
-                <div id="wish_list" style="display: none;">
+                <div id="wish_list" style="display: none;" class="w-full">
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
                         @foreach($wishlist as $wl)
                             @php
@@ -130,7 +130,7 @@
             @endif
 
             {{--    kết quả tìm kiếm        --}}
-            <div id="results" style="display: none;">
+            <div id="results" style="display: none;" class="w-full">
                 @isset($posts)
                     @if(count($posts) > 0)
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
@@ -221,6 +221,13 @@
                 $('#title-post').focus();
             }
         }
+
+        $('#title-post').keypress(function(event){
+            var keycode = (event.keyCode ? event.keyCode : event.which);
+            if (keycode == '13') {
+                checkSearchMain();
+            }
+        });
 
         function showWishList(){
             $('#posts_hot').hide();
