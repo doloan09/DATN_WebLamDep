@@ -34,7 +34,7 @@
         <div class="grid grid-cols-12 gap-8 mt-3 md:mt-10">
             <div class="col-span-12 md:col-span-9">
                 <div>
-                    <iframe class="w-full aspect-video" src="//www.youtube.com/embed/{{ $videos_main->video_id }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    <iframe class="w-full aspect-video" src="//www.youtube.com/embed/{{ $videos_main->video_id }}?rel=0&autoplay=1" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                 </div>
                 <div class="bg-white my-4">
                     <p class="font-medium text-xl md:text-2xl" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;">

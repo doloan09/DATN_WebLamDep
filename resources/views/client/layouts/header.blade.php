@@ -45,11 +45,11 @@
         <div class="hidden md:flex md:items-center md:w-auto w-full order-3 md:order-2" id="menu">
             <nav>
                 <ul class="md:flex items-center justify-between text-base text-gray-700 pt-4 md:pt-0">
-                    <li><a class="inline-block no-underline hover:text-purple hover:underline py-2 px-4" href="{{ route('home') }}">Trang chủ</a></li>
+                    <li id="li_home"><a class="inline-block no-underline hover:text-purple py-2 px-4" href="{{ route('home') }}">Trang chủ</a></li>
                     @foreach($categories as $i)
-                        <li><a class="inline-block no-underline hover:text-purple hover:underline py-2 px-4" href="{{ route('categories.show', $i->slug) }}">{{ $i->name }}</a></li>
+                        <li id="li_{{ $i->slug }}"><a class="inline-block no-underline hover:text-purple py-2 px-4" href="{{ route('categories.show', $i->slug) }}">{{ $i->name }}</a></li>
                     @endforeach
-                    <li><a class="inline-block no-underline hover:text-purple hover:underline py-2 px-4" href="{{ route('video.list') }}">Video</a></li>
+                    <li id="li_video"><a class="inline-block no-underline hover:text-purple py-2 px-4" href="{{ route('video.list') }}">Video</a></li>
                 </ul>
             </nav>
         </div>
@@ -369,6 +369,21 @@
 
     function hidden_info(){
         $("#modal-info-user").hide();
+    }
+
+    /// menu
+    checkPath();
+
+    function checkPath(path_page = 'home') {
+        let path = location.pathname;
+        if (path.includes('lam-dep')) path = 'lam-dep';
+        else if (path.includes('cuoc-song')) path = 'cuoc-song';
+        else if (path.includes('suc-khoe')) path = 'suc-khoe';
+        else if (path.includes('tham-khao')) path = 'tham-khao';
+        else if (path.includes('video')) path = 'video';
+        else path = 'home';
+
+        $("#li_" + path).css({"color": "purple", "border-bottom": "2px purple solid"});
     }
 
 </script>

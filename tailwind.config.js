@@ -14,8 +14,11 @@ module.exports = {
             height:{
                 '48r': '48rem',
                 '36r': '36rem',
+                '29r': '29rem',
             },
             maxHeight: {
+                '29r': '29rem',
+                '30r': '30rem',
                 '36r': '36rem',
             },
             colors: {
@@ -26,5 +29,7 @@ module.exports = {
             'roboto': ['Roboto', 'sans-serif'],
         }
     },
-    plugins: [],
+    plugins: [
+        require('tailwind-scrollbar-hide'),
+    ],
 }

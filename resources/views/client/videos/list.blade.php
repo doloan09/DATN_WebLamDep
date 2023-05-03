@@ -28,21 +28,18 @@
         <div class="grid grid-cols-12 gap-8 mt-3 md:mt-10">
             <div class="col-span-12 md:col-span-9">
                 <div>
-                    <iframe class="w-full aspect-video" src="//www.youtube.com/embed/{{ $videos_main[0]->video_id }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    <iframe class="w-full aspect-video" src="//www.youtube.com/embed/{{ $videos_main[0]->video_id }}?rel=0&autoplay=1" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                 </div>
 
                 <div class="mt-10">
                     <p><span class="uppercase font-bold pb-2 color-purple border-b-2 border-purple">Danh sách phát</span></p>
                     <div class="mt-6">
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-10" id="posts_hot">
-                            @foreach($videos_list as $item)
-                                @php
-                                    $thumbnail = json_decode($item->thumbnail);
-                                @endphp
+                            @foreach($play_lists as $item)
                                 <div class="md:mb-5 border hover:text-purple flex flex-col hover:grow hover:shadow-lg rounded-lg">
                                     <div class="relative">
-                                        <a href="{{ route('video.show', ['slug' => $item->slug]) }}">
-                                            <img class="object-cover w-full h-52 dark:bg-gray-500 rounded-t-lg" src="{{ $thumbnail->medium->url }}">
+                                        <a href="{{ route('video.show', ['slug' => $videos_list[$item->id]->slug]) }}">
+                                            <img class="object-cover w-full h-52 dark:bg-gray-500 rounded-t-lg" src="{{ json_decode($videos_list[$item->id]->thumbnail)->medium->url }}">
                                         </a>
                                         <div class="flex justify-center -bottom-10 py-1" style="background-color: rgba(89, 82, 46, 0.8);">
                                             <svg viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet" focusable="false" class="style-scope yt-icon" style="pointer-events: none; display: block; width: 30px; height: 30px;">
@@ -53,14 +50,14 @@
                                             </svg>
                                         </div>
                                     </div>
-                                    <a href="{{ route('video.show', ['slug' => $item->slug]) }}" class="bg-white p-4 mx-2">
+                                    <a href="{{ route('video.show', ['slug' => $videos_list[$item->id]->slug]) }}" class="bg-white p-4 mx-2">
                                         <p class="uppercase text-sm" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;">
-                                            {{ $item->title }}
+                                            {{ $videos_list[$item->id]->title }}
                                         </p>
                                         <div class="flex justify-between font-light text-sm mt-2">
                                             <div class="flex justify-between font-light text-sm mt-2">
                                                 <span class="flex items-center text-sm">
-                                                    {{ kFormatter($item->view_count) }} lượt xem • {{ \Carbon\Carbon::parse($item->public_at)->diffForHumans() }}
+                                                    {{ kFormatter($videos_list[$item->id]->view_count) }} lượt xem • {{ \Carbon\Carbon::parse($videos_list[$item->id]->public_at)->diffForHumans() }}
                                                 </span>
                                             </div>
                                         </div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Playlist;
 use App\Models\Video;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,10 +23,20 @@ class VideoController extends Controller
 
         $videos_main = Video::query()->inRandomOrder()->limit(1)->get();
         $videos_nav = Video::query()->inRandomOrder()->limit(5)->get();
-        $videos_list = Video::query()->where('link_video', 'like', '%&list=%')->inRandomOrder()->limit(6)->get();  // danh sach phat
-        $videos = Video::query()->where('link_video', 'not like', '%&list=%')->paginate(9);
+        $videos = Video::query()->where('id_playlist', null)->paginate(9); // video don
+        $play_lists = [];  // danh sach phat
+        $videos_list = []; // video dau tien trong danh sach phat
 
-        return view('client.videos.list', compact('categories', 'user', 'videos_list', 'videos_nav', 'videos_main', 'videos'));
+        $playlists = Playlist::query()->get();
+        foreach ($playlists as $playlist){
+            $list = Video::query()->where('id_playlist', $playlist->id)->where('id_playlist', '<>', null)->orderByDesc('public_at')->get();
+            if (count($list)) {
+                $play_lists[] = $playlist;
+                $videos_list[$playlist->id] = $list[0];
+            }
+        }
+
+        return view('client.videos.list', compact('categories', 'user', 'videos_list', 'videos_nav', 'videos_main', 'videos', 'play_lists'));
     }
 
     /**
@@ -63,9 +74,10 @@ class VideoController extends Controller
 
             $videos_main = Video::query()->where('slug', $slug)->first();
             $videos_nav = Video::query()->inRandomOrder()->limit(5)->get();
+            $playlist = Video::query()->where('id_playlist', $videos_main->id_playlist)->where('id_playlist', '<>', null)->orderByDesc('public_at')->get();
 
             if ($videos_main) {
-                return view('client.videos.show', compact('categories', 'user', 'videos_nav', 'videos_main'));
+                return view('client.videos.show', compact('categories', 'user', 'videos_nav', 'videos_main', 'playlist'));
             }else{
                 return abort(404);
             }
