@@ -50,6 +50,7 @@ class Video extends Model
         'dislike_count',
         'comment_count',
         'slug',
+        'id_playlist',
     ];
 
 }
