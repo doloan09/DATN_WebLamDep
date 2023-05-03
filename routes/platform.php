@@ -6,6 +6,7 @@ use App\Orchid\Screens\Category\CategoryListScreen;
 use App\Orchid\Screens\FolderImage\FolderImageListScreen;
 use App\Orchid\Screens\Image\ImageListScreen;
 use App\Orchid\Screens\PlatformScreen;
+use App\Orchid\Screens\Playlist\PlaylistListScreen;
 use App\Orchid\Screens\Post\PostEditScreen;
 use App\Orchid\Screens\Post\PostListScreen;
 use App\Orchid\Screens\Role\RoleEditScreen;
@@ -13,6 +14,7 @@ use App\Orchid\Screens\Role\RoleListScreen;
 use App\Orchid\Screens\User\UserEditScreen;
 use App\Orchid\Screens\User\UserListScreen;
 use App\Orchid\Screens\User\UserProfileScreen;
+use App\Orchid\Screens\Video\VideoCreateScreen;
 use App\Orchid\Screens\Video\VideoEditScreeen;
 use App\Orchid\Screens\Video\VideoListScreeen;
 use Illuminate\Support\Facades\Route;
@@ -157,7 +159,7 @@ Route::prefix('videos')->group(function () {
                 ->push(__('Video'), route('videos.index'));
         });
 
-    Route::screen('/create', VideoEditScreeen::class)
+    Route::screen('/create', VideoCreateScreen::class)
         ->name('videos.create')
         ->breadcrumbs(function (Trail $trail) {
             return $trail
@@ -165,11 +167,32 @@ Route::prefix('videos')->group(function () {
                 ->push(__('Add'), route('videos.create'));
         });
 
-    Route::screen('/{video}/edit', VideoEditScreeen::class)
-        ->name('videos.edit')
-        ->breadcrumbs(function (Trail $trail, $post) {
+    Route::screen('/{video}/show', VideoEditScreeen::class)
+        ->name('videos.show')
+        ->breadcrumbs(function (Trail $trail, $playlist) {
             return $trail
                 ->parent('videos.index')
-                ->push(__('Edit'), route('videos.edit', $post));
+                ->push(__('Show'), route('videos.show', $playlist));
         });
+
+    Route::screen('/{video}/edit', VideoCreateScreen::class)
+        ->name('videos.edit')
+        ->breadcrumbs(function (Trail $trail, $playlist) {
+            return $trail
+                ->parent('videos.index')
+                ->push(__('Edit'), route('videos.edit', $playlist));
+        });
+
+});
+
+/// playlist
+Route::prefix('playlists')->group(function () {
+    Route::screen('/', PlaylistListScreen::class)
+        ->name('playlists.index')
+        ->breadcrumbs(function (Trail $trail) {
+            return $trail
+                ->parent('platform.index')
+                ->push(__('Video'), route('playlists.index'));
+        });
+
 });

@@ -55,8 +55,17 @@ class VideoListLayout extends Table
                 ->width(50)
                 ->alignCenter()
                 ->render(function (Video $video) {
-                    return Link::make('Xem')
+                    return Link::make('Sửa')
                         ->route('videos.edit', $video->id)
+                        ->icon('pencil');
+                }),
+
+            TD::make()
+                ->width(50)
+                ->alignCenter()
+                ->render(function (Video $video) {
+                    return Link::make('Xem')
+                        ->route('videos.show', $video->id)
                         ->icon('eye');
                 }),
 

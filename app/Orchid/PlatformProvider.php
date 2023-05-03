@@ -66,8 +66,19 @@ class PlatformProvider extends OrchidServiceProvider
                 ->permission('systems.images'),
 
             Menu::make('Video')
-                ->icon('notebook')
-                ->route('videos.index')
+                ->icon('social-youtube')
+                ->list([
+                    Menu::make('Danh sách phát')
+                        ->icon('control-start')
+                        ->route('playlists.index')
+                        ->permission('systems.videos'),
+
+                    Menu::make('Video')
+                        ->icon('social-youtube')
+                        ->route('videos.index')
+                        ->permission('systems.videos'),
+
+                ])
                 ->permission('systems.videos'),
 
         ];

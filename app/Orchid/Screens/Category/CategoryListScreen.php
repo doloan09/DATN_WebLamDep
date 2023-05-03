@@ -133,7 +133,7 @@ class CategoryListScreen extends Screen
 
             Toast::success('Cập nhật thành công!');
         } catch (\Exception) {
-            Toast::error('Lỗi khi cập nhật thông tin nhóm câu hỏi');
+            Toast::error('Lỗi khi cập nhật thông tin danh mục!');
         }
     }
 
