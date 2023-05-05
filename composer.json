@@ -10,14 +10,18 @@
         "bensampo/laravel-enum": "^6.3",
         "cloudinary-labs/cloudinary-laravel": "^2.0",
         "cyrildewit/eloquent-viewable": "^6.1",
+        "doloan09/laravel-model-expires": "^1.0",
         "doloan09/package_laravel_comment": "^3.2",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
         "laravel/socialite": "^5.6",
         "laravel/tinker": "^2.7",
+        "livewire/livewire": "^2.12",
         "orchid/platform": "^13.9",
-        "pusher/pusher-php-server": "^7.2"
+        "pusher/pusher-php-server": "^7.2",
+        "spatie/crawler": "^7.1",
+        "symfony/dom-crawler": "^6.2"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.8",

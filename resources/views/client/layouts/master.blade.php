@@ -17,6 +17,13 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.0/slick/slick.min.js"></script>
 
+    <meta property="og:url"           content="@yield('meta_url')" />
+    <meta property="og:type"          content="website" />
+    <meta property="og:title"         content="@yield('meta_title')" />
+    <meta property="og:description"   content="@yield('meta_description')" />
+    <meta property="og:image"         content="@yield('meta_image')" />
+    @livewireStyles
+
 </head>
 <body>
 @include('client.layouts.header')
@@ -26,3 +33,5 @@
 @stack('scripts')
 
 @include('client.layouts.footer')
+
+@livewireScripts

@@ -19,22 +19,17 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
-        $posts_hot = Post::query()->where('status', 1)->limit(4)->get();
         $categories = Category::query()->get();
         $user = Auth::user();
-        $wishlist = [];
-        if ($user){
-            $wishlist = $user->wishlist()->join('posts', 'posts.id', '=', 'wishlists.id_post')->paginate(4);
-        }
 
         $posts = Post::query();
         if ($request->get('title')){
-            $posts = $posts->where('title', 'like', '%' . $request->get('title') . '%');
+            $posts = $posts->where('title', 'like', '%' . $request->get('title') . '%')->get();
+        }else {
+            $posts = Post::query()->where('status', 1)->get();
         }
 
-        $posts = $posts->paginate();
-
-        return view('client.searchs.search', compact('posts_hot', 'categories', 'user', 'wishlist', 'posts'));
+        return view('client.searchs.search', compact( 'categories', 'user', 'posts'));
     }
 
     /**

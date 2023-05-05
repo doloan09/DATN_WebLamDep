@@ -20,6 +20,7 @@ module.exports = {
                 '29r': '29rem',
                 '30r': '30rem',
                 '36r': '36rem',
+                '43r': '43rem',
             },
             colors: {
                 'purple': '#723F5FFF',
