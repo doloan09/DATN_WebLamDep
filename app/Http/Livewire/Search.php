@@ -12,19 +12,6 @@ class Search extends Component
     public $str = 'Bài viết nổi bật';
     public $wishlist = false;
 
-    public function searchPost(string $title)
-    {
-        $this->str = 'Kết quả tìm kiếm';
-        $this->wishlist = false;
-        $this->posts = Post::query();
-        if ($title){
-            $this->posts = $this->posts->where('title', 'like', '%' . $title . '%');
-            $this->posts = $this->posts->get();
-        }else{
-            $this->posts = [];
-        }
-    }
-
     public function wishlist()
     {
         $this->str = 'Danh mục yêu thích';

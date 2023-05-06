@@ -3,7 +3,7 @@
 @section('title', 'Tìm kiếm - Amara Store')
 
 @section('content')
-    <div class="carousel relative container mx-auto" style="max-width:1600px;">
+    <div class="carousel relative container mx-auto -mt-60" style="max-width:1600px;">
         <div class="carousel-inner relative overflow-hidden w-full">
             <input class="carousel-open" type="radio" id="carousel-1" name="carousel" aria-hidden="true" hidden="" checked="checked">
             <div class="carousel-item absolute opacity-0" style="height:50vh;">
