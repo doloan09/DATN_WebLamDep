@@ -86,7 +86,7 @@
                         </button>
                     </div>
 
-                    <div class="overflow-y-scroll scrollbar-none space-y-3 lg:w-96 text-center" style="height: calc(100vh - 150px) !important;" id="list-new-notify">
+                    <div class="overflow-y-scroll scrollbar-hide space-y-3 lg:w-96 text-center" style="height: calc(100vh - 150px) !important;" id="list-new-notify">
                         @foreach($user->notifications as $notification)
                             <a href="{{ route('notification', [$notification, $notification['data']['slug']]) }}" class="flex hover:bg-gray-200 px-1 py-2 rounded-lg">
                                 <img src="{{ $user->avatar ?? "https://1.bp.blogspot.com/-HhU9edRL9Q8/YU1CjMlHZvI/AAAAAAAANt4/RKMHAtXYD_MqJOr3UbkiGN7ZkCz8Oy95gCLcBGAsYHQ/w800-h800-p-k-no-nu/Mailovesbeauty_LifeStyle%2BBlog.JPG" }}" class="w-8 h-8 rounded-full">
