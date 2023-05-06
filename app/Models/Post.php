@@ -31,6 +31,7 @@ class Post extends Model implements Viewable
 
     protected $fillable = [
         'title',
+        'slug',
         'content',
         'id_category',
         'status',

@@ -40,15 +40,6 @@ class PostListLayout extends Table
             TD::make('slug', 'Slug')
                 ->width(200),
 
-            TD::make('description', 'Mô tả')
-                ->width(300),
-
-            TD::make('content', 'Nội dung')
-                ->width(500)
-                ->render(function (Post $post) {
-                    return '<div style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden; width: 500px;">' . $post->content . '</div>';
-                }),
-
             TD::make('id_category', 'Danh mục')
                 ->width(100)
                 ->render(function (Post $post) {

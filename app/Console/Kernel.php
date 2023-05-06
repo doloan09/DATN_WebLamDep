@@ -16,6 +16,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
+        $schedule->command('crawl-site')->everyTwoHours()->withoutOverlapping(); // app/Console/Commands/crawlSite.php
     }
 
     /**
