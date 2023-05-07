@@ -42,7 +42,15 @@ class ConsoleObserver extends SpatieCrawlObserver
         $crawler = new Crawler((string)$response->getBody());
 
         $title = $this->crawlData('.post-title', $crawler);
+
+        /// content
         $content = $this->crawlDataHtml('.post-body', $crawler);
+        $content_list = explode('<h3 class="post-title entry-title" itemprop="name">', $content);
+        $str = strstr($content_list[1], '</span></h2>');
+        $str =  str_replace('</span></h2>', '', $str);
+        $content = $content_list[0] . $str;
+
+        //
         $link_image = "https://res.cloudinary.com/dsh5japr1/image/upload/v1682324127/L%C3%A0m%20%C4%91%E1%BA%B9p/y3itq6gmhik9gzojqmic.jpg";
 
         $id_category = Category::query()->where('slug', 'tham-khao')->first();
