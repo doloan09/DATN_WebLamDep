@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use App\Orchid\Screens\Category\CategoryListScreen;
+use App\Orchid\Screens\CrawlSite\CrawlSiteListScreen;
 use App\Orchid\Screens\FolderImage\FolderImageListScreen;
 use App\Orchid\Screens\Image\ImageListScreen;
 use App\Orchid\Screens\PlatformScreen;
@@ -193,6 +194,18 @@ Route::prefix('playlists')->group(function () {
             return $trail
                 ->parent('platform.index')
                 ->push(__('Video'), route('playlists.index'));
+        });
+
+});
+
+// crawl site
+Route::prefix('crawl-site')->group(function () {
+    Route::screen('/', CrawlSiteListScreen::class)
+        ->name('crawl-site.index')
+        ->breadcrumbs(function (Trail $trail) {
+            return $trail
+                ->parent('platform.index')
+                ->push(__('Thư mục ảnh'), route('crawl-site.index'));
         });
 
 });

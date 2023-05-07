@@ -81,6 +81,11 @@ class PlatformProvider extends OrchidServiceProvider
                 ])
                 ->permission('systems.videos'),
 
+            Menu::make('Thu thập dữ liệu')
+                ->icon('android')
+                ->route('crawl-site.index')
+                ->permission('systems.crawl-site'),
+
         ];
     }
 
@@ -108,7 +113,8 @@ class PlatformProvider extends OrchidServiceProvider
                 ->addPermission('systems.categories', 'Danh mục')
                 ->addPermission('systems.posts', 'Bài viết')
                 ->addPermission('systems.images', 'Hình ảnh')
-                ->addPermission('systems.videos', 'Video'),
+                ->addPermission('systems.videos', 'Video')
+                ->addPermission('systems.crawl-site', 'Thu thập dữ liệu'),
 
         ];
     }
