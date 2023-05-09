@@ -64,7 +64,6 @@ Route::get('/trang-chu', [HomeController::class, 'index'])->name('home');
 
 // tim kiem
 Route::get('/trang-chu/search', [PostController::class, 'index'])->name('search');
-Route::get('/trang-chu/danh-sach-yeu-thich', [PostController::class, 'index'])->name('wishlist');
 
 // bai viet theo danh muc
 Route::get('/danh-muc/{category}', [CategoryController::class, 'show'])->name('categories.show'); // danh sach bai viet theo theo loai
