@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Doloan09\Comments\Commentable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Orchid\Filters\Filterable;
@@ -28,7 +29,7 @@ use Orchid\Screen\AsSource;
  */
 class Video extends Model
 {
-    use HasFactory, AsSource, Filterable;
+    use HasFactory, AsSource, Filterable, Commentable;
 
     /**
      * @var string[]

@@ -79,7 +79,7 @@
                         $list_comment = \Alaouy\Youtube\Facades\Youtube::getCommentThreadsByVideoId($videos_main->video_id);
                     @endphp
                     <div class="p-4 mt-4 border-b">
-                        <p class="font-medium text-lg md:text-xl">{{ count($list_comment) }} bình luận</p>
+                        <p class="font-medium text-lg md:text-xl">{{ count($list_comment) }} bình luận ( youtube )</p>
                     </div>
                     <div class="mt-6">
                         @foreach($list_comment as $item)
@@ -94,6 +94,17 @@
                         @endforeach
                     </div>
                 </div>
+                <div class="grid grid-cols-3 mb-5 mt-20">
+                    <div><hr class="border-purple mt-6 md:mt-3"></div>
+                    <div class="text-center font-light text-lg md:text-xl flex flex-wrap justify-center">
+                        <p>Bình luận Video</p>
+                    </div>
+                    <div><hr class="border-purple mt-6 md:mt-3"></div>
+                </div>
+                <div>
+                    @comments(['model' => $videos_main])
+                </div>
+
             </div>
             <div class="hidden md:block col-span-3">
                 @include('client.layouts.navbar_video')
