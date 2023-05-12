@@ -4,6 +4,7 @@ namespace App\Orchid\Layouts\FolderImage;
 
 use App\Models\FolderImage;
 use Carbon\Carbon;
+use Orchid\Screen\Actions\DropDown;
 use Orchid\Screen\Actions\ModalToggle;
 use Orchid\Screen\Layouts\Table;
 use Orchid\Screen\TD;
@@ -37,20 +38,23 @@ class FolderImageListLayout extends Table
                     return Carbon::parse($folder->created_at)->format('Y-m-d H:i:s');
                 }),
 
-            TD::make('Thao tác')
-                ->alignCenter()
-                ->width(150)
-                ->render(function (FolderImage $folder) {
+            TD::make(__('Thao tác'))
+                ->align(TD::ALIGN_CENTER)
+                ->width('100px')
+                ->render(fn (FolderImage $folder) => DropDown::make()
+                    ->icon('options-vertical')
+                    ->list([
 
-                    return ModalToggle::make('Sửa')
-                        ->icon('pencil')
-                        ->modal('asyncEditFolderModal')
-                        ->modalTitle('Thư mục ảnh')
-                        ->method('save')
-                        ->asyncParameters([
-                            'group' => $folder->id,
-                        ]);
-                }),
+                        ModalToggle::make('Sửa')
+                            ->icon('pencil')
+                            ->set('style', 'color: blue')
+                            ->modal('asyncEditFolderModal')
+                            ->modalTitle('Thư mục ảnh')
+                            ->method('save')
+                            ->asyncParameters([
+                                'group' => $folder->id,
+                            ]),
+                    ])),
         ];
     }
 }

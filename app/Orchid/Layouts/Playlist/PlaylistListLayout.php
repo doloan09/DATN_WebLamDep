@@ -5,6 +5,7 @@ namespace App\Orchid\Layouts\Playlist;
 use App\Models\Playlist;
 use Carbon\Carbon;
 use Orchid\Screen\Actions\Button;
+use Orchid\Screen\Actions\DropDown;
 use Orchid\Screen\Actions\ModalToggle;
 use Orchid\Screen\Layouts\Table;
 use Orchid\Screen\TD;
@@ -40,29 +41,30 @@ class PlaylistListLayout extends Table
                     return Carbon::parse($playlist->created_at)->format('Y-m-d H:i:s');
                 }),
 
-            TD::make('Thao tác')
-                ->alignCenter()
-                ->width(150)
-                ->render(function (Playlist $playlist) {
-                    return ModalToggle::make('Sửa')
-                        ->icon('pencil')
-                        ->modal('asyncEditPlaylistModal')
-                        ->modalTitle('Danh sách phát')
-                        ->method('save')
-                        ->asyncParameters([
-                            'playlist' => $playlist->id,
-                        ]);
-                }),
+            TD::make(__('Thao tác'))
+                ->align(TD::ALIGN_CENTER)
+                ->width('100px')
+                ->render(fn (Playlist $playlist) => DropDown::make()
+                    ->icon('options-vertical')
+                    ->list([
 
-            TD::make()
-                ->width(150)
-                ->alignCenter()
-                ->render(function (Playlist $playlist) {
-                    return Button::make('Xóa')
-                        ->confirm('Nếu bạn xóa danh sách phát này, tất cả video thuộc danh sách phát này sẽ đồng thời bi xóa!')
-                        ->method('delete', ['id' => $playlist->id])
-                        ->icon('close');
-                }),
+                        ModalToggle::make('Sửa')
+                            ->icon('pencil')
+                            ->set('style', 'color: blue')
+                            ->modal('asyncEditPlaylistModal')
+                            ->modalTitle('Danh sách phát')
+                            ->method('save')
+                            ->asyncParameters([
+                                'playlist' => $playlist->id,
+                            ]),
+
+                        Button::make('Xóa')
+                            ->set('style', 'color: red')
+                            ->confirm('Nếu bạn xóa danh sách phát này, tất cả video thuộc danh sách phát này sẽ đồng thời bi xóa!')
+                            ->method('delete', ['id' => $playlist->id])
+                            ->icon('trash')
+
+                    ])),
         ];
     }
 }

@@ -75,7 +75,7 @@ class RoleEditScreen extends Screen
     public function commandBar(): iterable
     {
         return [
-            Button::make('Sửa')
+            Button::make('Lưu')
                 ->icon('check')
                 ->method('save'),
 

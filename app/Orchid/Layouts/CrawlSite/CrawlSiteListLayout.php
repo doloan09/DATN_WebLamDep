@@ -5,6 +5,7 @@ namespace App\Orchid\Layouts\CrawlSite;
 use App\Enum\CrawlSiteStatus;
 use App\Models\CrawlSite;
 use Orchid\Screen\Actions\Button;
+use Orchid\Screen\Actions\DropDown;
 use Orchid\Screen\Layouts\Table;
 use Orchid\Screen\TD;
 
@@ -33,38 +34,39 @@ class CrawlSiteListLayout extends Table
             TD::make('link', 'Link')->width(500),
 
             TD::make('status', 'Trạng thái')
-                ->width(100)
-                ->render(function (CrawlSite $post) {
-                    if ($post->status->is(CrawlSiteStatus::Stop)) {
-                        return $post->status->description;
+                ->render(function (CrawlSite $crawlSite) {
+                    if ($crawlSite->status->is(CrawlSiteStatus::Stop)) {
+                        return $crawlSite->status->description;
                     }
 
-                    return $post->status->description;
+                    return $crawlSite->status->description;
                 }),
 
-            TD::make('Thao tác')
-                ->width(30)
-                ->render(function (CrawlSite $post) {
-                    if ($post->status->is(CrawlSiteStatus::Stop)) {
-                        return Button::make('Crawl')
+            TD::make(__('Thao tác'))
+                ->alignCenter()
+                ->width('100px')
+                ->render(fn (CrawlSite $crawlSite) => DropDown::make()
+                    ->icon('options-vertical')
+                    ->list([
+                        Button::make('Crawl')
+                            ->set('style', 'color: green')
                             ->icon('arrow-down-circle')
-                            ->method('update', ['id' => $post->id, 'status' => 1]);
-                    }
+                            ->method('update', ['id' => $crawlSite->id, 'status' => 1])
+                            ->canSee($crawlSite->status->is(CrawlSiteStatus::Stop)),
 
-                    return Button::make('Stop')
-                        ->icon('ban')
-                        ->method('update', ['id' => $post->id, 'status' => 0]);
-                }),
+                        Button::make('Stop')
+                            ->set('style', 'color: orange')
+                            ->icon('ban')
+                            ->method('update', ['id' => $crawlSite->id, 'status' => 0])
+                            ->canSee($crawlSite->status->is(CrawlSiteStatus::Crawl)),
 
-            TD::make()
-                ->width(30)
-                ->render(function (CrawlSite $post) {
-                    return Button::make('Xóa')
-                        ->confirm("Bạn có chắc muốn xóa?")
-                        ->icon('close')
-                        ->method('delete', ['id' => $post->id]);
+                        Button::make('Xóa')
+                            ->set('style', 'color: red')
+                            ->confirm("Bạn có chắc muốn xóa?")
+                            ->icon('trash')
+                            ->method('delete', ['id' => $crawlSite->id]),
 
-                }),
+                    ])),
 
         ];
     }

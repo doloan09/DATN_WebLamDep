@@ -4,6 +4,7 @@ namespace App\Orchid\Layouts\Video;
 
 use App\Models\Video;
 use Orchid\Screen\Actions\Button;
+use Orchid\Screen\Actions\DropDown;
 use Orchid\Screen\Actions\Link;
 use Orchid\Screen\Layouts\Table;
 use Orchid\Screen\TD;
@@ -45,41 +46,38 @@ class VideoListLayout extends Table
 
             TD::make('view_count', 'Lượt xem'),
 
-            TD::make('like_count', 'Lượt thích'),
+            TD::make('like_count', 'Lượt thích')->alignCenter(),
 
-            TD::make('dislike_count', 'Không thích'),
+            TD::make('dislike_count', 'Không thích')->alignCenter(),
 
-            TD::make('comment_count', 'Số bình luận'),
+            TD::make('comment_count', 'Số bình luận')->alignCenter(),
 
-            TD::make('Thao tác')
-                ->width(50)
-                ->alignCenter()
-                ->render(function (Video $video) {
-                    return Link::make('Sửa')
-                        ->route('videos.edit', $video->id)
-                        ->icon('pencil');
-                }),
+            TD::make(__('Thao tác'))
+                ->align(TD::ALIGN_CENTER)
+                ->width('100px')
+                ->render(fn (Video $video) => DropDown::make()
+                    ->icon('options-vertical')
+                    ->list([
 
-            TD::make()
-                ->width(50)
-                ->alignCenter()
-                ->render(function (Video $video) {
-                    return Link::make('Xem')
-                        ->route('videos.show', $video->id)
-                        ->icon('eye');
-                }),
+                        Link::make('Sửa')
+                            ->set('style', 'color: blue')
+                            ->route('videos.edit', $video->id)
+                            ->icon('pencil'),
 
-            TD::make()
-                ->width(50)
-                ->alignCenter()
-                ->render(function (Video $video) {
-                    return Button::make('Xóa')
-                        ->confirm("Bạn có chắc muốn xóa?")
-                        ->icon('close')
-                        ->method('delete', [
-                            'id' => $video->id
-                        ]);
-                }),
+                        Link::make('Xem')
+                            ->set('style', 'color: orange')
+                            ->route('videos.show', $video->id)
+                            ->icon('eye'),
+
+                        Button::make('Xóa')
+                            ->set('style', 'color: red')
+                            ->confirm("Bạn có chắc muốn xóa?")
+                            ->icon('trash')
+                            ->method('delete', [
+                                'id' => $video->id
+                            ]),
+
+                    ])),
 
         ];
     }

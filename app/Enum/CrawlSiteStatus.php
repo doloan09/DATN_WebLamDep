@@ -7,9 +7,9 @@ use BenSampo\Enum\Enum;
 
 class CrawlSiteStatus extends Enum
 {
-    #[Description('Crawl')]
+    #[Description('Đang được thu thập dữ liệu')]
     public const Crawl = 1;
 
-    #[Description('Stopped')]
+    #[Description('Đã dừng thu thập dữ liệu')]
     public const Stop = 0;
 }

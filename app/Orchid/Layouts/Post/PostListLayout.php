@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Post;
 use Carbon\Carbon;
 use Orchid\Screen\Actions\Button;
+use Orchid\Screen\Actions\DropDown;
 use Orchid\Screen\Actions\Link;
 use Orchid\Screen\Actions\ModalToggle;
 use Orchid\Screen\Layouts\Table;
@@ -49,7 +50,6 @@ class PostListLayout extends Table
 
             TD::make('status', 'Bài viết nổi bật')
                 ->width(200)
-                ->alignCenter()
                 ->render(function (Post $post) {
                     if ($post->status->is(PostStatus::UnActive)) {
                         return $post->status->description;
@@ -81,41 +81,44 @@ class PostListLayout extends Table
                     ]);
             })->alignCenter(),
 
-            TD::make('Thao tác')
-                ->width(50)
-                ->alignCenter()
-                ->render(function (Post $post) {
-                    return Link::make('Sửa')
-                        ->route('posts.edit', $post->id)
-                        ->icon('pencil');
-                }),
-
-            TD::make()
-                ->width(50)
-                ->alignCenter()
-                ->render(function (Post $post) {
-                    return Button::make('Xóa')
-                        ->confirm("Bạn có chắc muốn xóa?")
-                        ->icon('close')
-                        ->method('delete', [
-                            'id' => $post->id
-                        ]);
-                }),
-
-            TD::make()
+            TD::make('Trạng thái')
                 ->width(50)
                 ->alignCenter()
                 ->render(function (Post $post) {
                     if ($post->status->is(PostStatus::UnActive)) {
                         return Button::make('Active')
                             ->icon('check')
+                            ->set('style', 'color: green')
                             ->method('update', ['id' => $post->id]);
                     }
 
                     return Button::make('UnActive')
                         ->icon('close')
+                        ->set('style', 'color: red')
                         ->method('update', ['id' => $post->id]);
                 }),
+
+            TD::make(__('Thao tác'))
+                ->align(TD::ALIGN_CENTER)
+                ->width('100px')
+                ->render(fn (Post $post) => DropDown::make()
+                    ->icon('options-vertical')
+                    ->list([
+
+                        Link::make('Sửa')
+                            ->route('posts.edit', $post->id)
+                            ->set('style', 'color: blue')
+                            ->icon('pencil'),
+
+                        Button::make('Xóa')
+                            ->confirm("Bạn có chắc muốn xóa?")
+                            ->icon('trash')
+                            ->set('style', 'color: red')
+                            ->method('delete', [
+                                'id' => $post->id
+                            ]),
+
+                    ])),
         ];
     }
 }

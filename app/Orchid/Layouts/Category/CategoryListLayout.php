@@ -5,6 +5,7 @@ namespace App\Orchid\Layouts\Category;
 use App\Models\Category;
 use Carbon\Carbon;
 use Orchid\Screen\Actions\Button;
+use Orchid\Screen\Actions\DropDown;
 use Orchid\Screen\Actions\ModalToggle;
 use Orchid\Screen\Layouts\Table;
 use Orchid\Screen\TD;
@@ -40,31 +41,29 @@ class CategoryListLayout extends Table
                     return Carbon::parse($category->created_at)->format('Y-m-d H:i:s');
                 }),
 
-            TD::make('Thao tác')
-                ->alignCenter()
-                ->width(150)
-                ->render(function (Category $category) {
+            TD::make(__('Thao tác'))
+                ->align(TD::ALIGN_CENTER)
+                ->width('100px')
+                ->render(fn (Category $category) => DropDown::make()
+                    ->icon('options-vertical')
+                    ->list([
 
-                    return ModalToggle::make('Sửa')
-                        ->icon('pencil')
-                        ->modal('asyncEditCategoryModal')
-                        ->modalTitle('Danh mục')
-                        ->method('save')
-                        ->asyncParameters([
-                            'group' => $category->id,
-                        ]);
-                }),
+                        ModalToggle::make('Sửa')
+                            ->icon('pencil')
+                            ->set('style', 'color: blue')
+                            ->modal('asyncEditCategoryModal')
+                            ->modalTitle('Danh mục')
+                            ->method('save')
+                            ->asyncParameters([
+                                'group' => $category->id,
+                            ]),
 
-            TD::make()
-                ->width(150)
-                ->alignCenter()
-                ->render(function (Category $category) {
-                    return Button::make('Xóa')
-                        ->confirm('Nếu bạn xóa danh mục này, tất cả bài viết thuộc danh mục này sẽ đồng thời bi xóa!')
-                        ->method('delete', ['id' => $category->id])
-                        ->icon('close');
-                }),
-
+                        Button::make('Xóa')
+                            ->set('style', 'color: red')
+                            ->confirm('Nếu bạn xóa danh mục này, tất cả bài viết thuộc danh mục này sẽ đồng thời bi xóa!')
+                            ->method('delete', ['id' => $category->id])
+                            ->icon('trash'),
+                    ])),
         ];
     }
 }

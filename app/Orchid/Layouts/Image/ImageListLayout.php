@@ -30,7 +30,6 @@ class ImageListLayout extends Table
     {
         return [
             TD::make('id', 'ID')
-                ->alignCenter()
                 ->width(100)
                 ->render(fn(Image $image) => $image->id),
 
@@ -52,6 +51,7 @@ class ImageListLayout extends Table
                 }),
 
             TD::make('link', 'Link')
+                ->width(750)
                 ->render(fn(Image $image) => '<a target="_blank" href="' . $image->link . '" style="color: blue">' . $image->link . '</a>'),
 
             TD::make('', 'Actions')->render(function (Image $image) {
