@@ -45,7 +45,7 @@ class WishlistController extends Controller
             $wishlist = Wishlist::query()->where('id_post', $request->get('id_post'))->where('id_user', $request->get('id_user'))->first();
             if ($wishlist){
                 $wishlist->delete();
-                return back()->with(['wishlist' => 'Thêm thành công vào danh sách yêu thích!']);
+                return back()->with(['wishlist' => 'Xóa thành công vào danh sách yêu thích!']);
             }
 
             Wishlist::query()->insert([
@@ -55,7 +55,7 @@ class WishlistController extends Controller
 
             return back()->with(['wishlist' => 'Thêm thành công vào danh sách yêu thích!']);
         }catch (\Exception){
-            return abort(404);
+            return back()->with(['wishlist_err' => 'Vui lòng đăng nhập để thêm bài viết vào mục yêu thích!']);
         }
     }
 

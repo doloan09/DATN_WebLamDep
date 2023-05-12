@@ -21,7 +21,8 @@
         "orchid/platform": "^13.9",
         "pusher/pusher-php-server": "^7.2",
         "spatie/crawler": "^7.1",
-        "symfony/dom-crawler": "^6.2"
+        "symfony/dom-crawler": "^6.2",
+        "yoeunes/toastr": "^2.3"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.8",

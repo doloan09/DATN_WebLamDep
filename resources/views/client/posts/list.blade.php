@@ -72,3 +72,14 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script>
+        check();
+        function check(){
+            if ('{{ session('wishlist_err') }}'){
+                alert('{{ session('wishlist_err') }}');
+            }
+        }
+    </script>
+@endpush
