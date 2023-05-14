@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Orchid\Layouts\User;
 
+use Carbon\Carbon;
 use Orchid\Platform\Models\User;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Actions\DropDown;
@@ -47,7 +48,7 @@ class UserListLayout extends Table
 
             TD::make('updated_at', __('Lần chỉnh sửa cuối'))
                 ->sort()
-                ->render(fn (User $user) => $user->updated_at->toDateTimeString()),
+                ->render(fn (User $user) => Carbon::parse($user->updated_at)->format('d-m-Y H:i:s')),
 
             TD::make(__('Thao tác'))
                 ->align(TD::ALIGN_CENTER)

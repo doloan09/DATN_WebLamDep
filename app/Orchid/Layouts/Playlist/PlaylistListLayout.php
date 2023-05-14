@@ -38,7 +38,7 @@ class PlaylistListLayout extends Table
 
             TD::make('created_at', 'Thời gian tạo')
                 ->render(function (Playlist $playlist){
-                    return Carbon::parse($playlist->created_at)->format('Y-m-d H:i:s');
+                    return Carbon::parse($playlist->created_at)->format('d-m-Y H:i:s');
                 }),
 
             TD::make(__('Thao tác'))

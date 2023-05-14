@@ -35,7 +35,7 @@ class FolderImageListLayout extends Table
 
             TD::make('created_at', 'Thời gian tạo')
                 ->render(function (FolderImage $folder){
-                    return Carbon::parse($folder->created_at)->format('Y-m-d H:i:s');
+                    return Carbon::parse($folder->created_at)->format('d-m-Y H:i:s');
                 }),
 
             TD::make(__('Thao tác'))

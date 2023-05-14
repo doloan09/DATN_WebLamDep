@@ -4,6 +4,7 @@ namespace App\Orchid\Layouts\CrawlSite;
 
 use App\Enum\CrawlSiteStatus;
 use App\Models\CrawlSite;
+use Carbon\Carbon;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Actions\DropDown;
 use Orchid\Screen\Layouts\Table;
@@ -42,10 +43,15 @@ class CrawlSiteListLayout extends Table
                     return $crawlSite->status->description;
                 }),
 
+            TD::make('Ngày tạo')
+                ->render(function (CrawlSite $crawlSite) {
+                    return Carbon::parse($crawlSite->created_at)->format('d-m-Y H:i:s');
+                }),
+
             TD::make(__('Thao tác'))
                 ->alignCenter()
                 ->width('100px')
-                ->render(fn (CrawlSite $crawlSite) => DropDown::make()
+                ->render(fn(CrawlSite $crawlSite) => DropDown::make()
                     ->icon('options-vertical')
                     ->list([
                         Button::make('Crawl')

@@ -51,17 +51,13 @@ class PostListLayout extends Table
             TD::make('status', 'Bài viết nổi bật')
                 ->width(200)
                 ->render(function (Post $post) {
-                    if ($post->status->is(PostStatus::UnActive)) {
-                        return $post->status->description;
-                    }
-
                     return $post->status->description;
                 }),
 
             TD::make('created_at', 'Ngày tạo')
                 ->alignCenter()
                 ->render(function (Post $post) {
-                    return Carbon::parse($post->created_at)->format('Y-m-d H:i:s');
+                    return Carbon::parse($post->created_at)->format('d-m-Y H:i:s');
                 }),
 
             TD::make('link_image', 'Hình nền')

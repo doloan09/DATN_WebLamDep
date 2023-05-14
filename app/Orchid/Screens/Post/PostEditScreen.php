@@ -16,7 +16,7 @@ use Orchid\Support\Facades\Toast;
 class PostEditScreen extends BaseScreen
 {
     protected bool $useTurbo = false;
-    public Post    $posts;
+    public Post    $post;
     public bool    $edit;
 
     /**
@@ -53,7 +53,7 @@ class PostEditScreen extends BaseScreen
      */
     public function name(): ?string
     {
-        return $this->edit ? 'Edit Posts' : 'Create Posts';
+        return $this->edit ? $this->post->title : 'Thêm mới bài viết';
     }
 
     /**
@@ -142,7 +142,7 @@ class PostEditScreen extends BaseScreen
     }
 
     /**
-     * @param Post $posts
+     * @param Post $post
      * @param Request $request
      *
      * @return \Illuminate\Http\RedirectResponse
@@ -178,17 +178,17 @@ class PostEditScreen extends BaseScreen
     }
 
     /**
-     * @param Post $posts
+     * @param Post $post
      *
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
      *
      */
-    public function delete(Post $posts)
+    public function delete(Post $post)
     {
-        Wishlist::query()->where('id_post', $posts->id)->delete();
+        Wishlist::query()->where('id_post', $post->id)->delete();
 
-        $posts->delete();
+        $post->delete();
 
         Toast::success('Xóa bài viết thành công!');
         return redirect()->route('posts.index');
