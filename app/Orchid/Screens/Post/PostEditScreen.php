@@ -64,18 +64,21 @@ class PostEditScreen extends BaseScreen
     public function commandBar(): iterable
     {
         return [
-            Button::make('Thêm mới')
+            Button::make('Lưu')
                 ->icon('plus')
                 ->method('store')
+                ->set('style', 'color: white; background-color: orange; border-radius: 5px;')
                 ->canSee(!$this->edit),
 
             Button::make('Cập nhật')
                 ->icon('check')
+                ->set('style', 'color: white; background-color: orange; border-radius: 5px;')
                 ->method('update')
                 ->canSee($this->edit),
 
             Button::make('Xóa')
                 ->icon('trash')
+                ->set('style', 'color: white; background-color: red; border-radius: 5px;')
                 ->confirm(__('Bạn có chắc muốn xóa bài viết này không?'))
                 ->method('delete')
                 ->canSee($this->edit),

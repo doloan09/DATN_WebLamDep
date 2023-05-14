@@ -59,7 +59,8 @@ class PlaylistListScreen extends Screen
                 ->modal('playlistModal')
                 ->modalTitle('Thêm mới danh sách phát')
                 ->method('store')
-                ->icon('plus'),
+                ->icon('plus')
+                ->set('style', 'color: white; background-color: orange; border-radius: 5px;'),
         ];
     }
 

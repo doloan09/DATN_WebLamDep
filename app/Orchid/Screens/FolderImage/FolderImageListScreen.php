@@ -58,7 +58,8 @@ class FolderImageListScreen extends Screen
                 ->modal('folderModal')
                 ->modalTitle('Thêm mới thư mục')
                 ->method('store')
-                ->icon('plus'),
+                ->icon('plus')
+                ->set('style', 'color: white; background-color: orange; border-radius: 5px;'),
 
         ];
     }

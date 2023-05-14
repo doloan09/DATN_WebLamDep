@@ -61,7 +61,8 @@ class CategoryListScreen extends Screen
                 ->modal('categoryModal')
                 ->modalTitle('Thêm mới danh mục')
                 ->method('store')
-                ->icon('plus'),
+                ->icon('plus')
+                ->set('style', 'color: white; background-color: orange; border-radius: 5px;'),
 
         ];
     }

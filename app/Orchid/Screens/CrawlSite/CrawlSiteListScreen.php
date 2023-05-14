@@ -57,7 +57,8 @@ class CrawlSiteListScreen extends Screen
                 ->modal('createModal')
                 ->modalTitle('Thêm mới site')
                 ->method('store')
-                ->icon('plus'),
+                ->icon('plus')
+                ->set('style', 'color: white; background-color: orange; border-radius: 5px;'),
 
         ];
     }

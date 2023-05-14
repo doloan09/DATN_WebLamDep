@@ -57,7 +57,8 @@ class VideoListScreeen extends Screen
         return [
             Link::make('Thêm mới')
                 ->icon('plus')
-                ->route('videos.create'),
+                ->route('videos.create')
+                ->set('style', 'color: white; background-color: orange; border-radius: 5px;'),
 
         ];
     }

@@ -52,7 +52,7 @@ class UserEditScreen extends Screen
      */
     public function name(): ?string
     {
-        return $this->user->exists ? 'Edit User' : 'Create User';
+        return $this->user->exists ? 'Chỉnh sửa thông tin' : 'Thêm mới người dùng';
     }
 
     /**
@@ -83,20 +83,22 @@ class UserEditScreen extends Screen
     public function commandBar(): iterable
     {
         return [
-            Button::make(__('Impersonate user'))
-                ->icon('login')
-                ->confirm(__('You can revert to your original state by logging out.'))
-                ->method('loginAs')
-                ->canSee($this->user->exists && \request()->user()->id !== $this->user->id),
+//            Button::make(__('Impersonate user'))
+//                ->icon('login')
+//                ->confirm(__('You can revert to your original state by logging out.'))
+//                ->method('loginAs')
+//                ->canSee($this->user->exists && \request()->user()->id !== $this->user->id),
 
-            Button::make(__('Remove'))
+            Button::make(__('Xóa'))
                 ->icon('trash')
+                ->set('style', 'color: white; background-color: red; border-radius: 5px;')
                 ->confirm(__('Once the account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.'))
                 ->method('remove')
                 ->canSee($this->user->exists),
 
-            Button::make(__('Save'))
+            Button::make(__('Lưu'))
                 ->icon('check')
+                ->set('style', 'color: white; background-color: orange; border-radius: 5px;')
                 ->method('save'),
         ];
     }
@@ -112,7 +114,7 @@ class UserEditScreen extends Screen
                 ->title(__('Profile Information'))
                 ->description(__('Update your account\'s profile information and email address.'))
                 ->commands(
-                    Button::make(__('Save'))
+                    Button::make(__('Lưu'))
                         ->type(Color::DEFAULT())
                         ->icon('check')
                         ->canSee($this->user->exists)
@@ -123,7 +125,7 @@ class UserEditScreen extends Screen
                 ->title(__('Password'))
                 ->description(__('Ensure your account is using a long, random password to stay secure.'))
                 ->commands(
-                    Button::make(__('Save'))
+                    Button::make(__('Lưu'))
                         ->type(Color::DEFAULT())
                         ->icon('check')
                         ->canSee($this->user->exists)
@@ -134,7 +136,7 @@ class UserEditScreen extends Screen
                 ->title(__('Roles'))
                 ->description(__('A Role defines a set of tasks a user assigned the role is allowed to perform.'))
                 ->commands(
-                    Button::make(__('Save'))
+                    Button::make(__('Lưu'))
                         ->type(Color::DEFAULT())
                         ->icon('check')
                         ->canSee($this->user->exists)
@@ -145,7 +147,7 @@ class UserEditScreen extends Screen
                 ->title(__('Permissions'))
                 ->description(__('Allow the user to perform some actions that are not provided for by his roles'))
                 ->commands(
-                    Button::make(__('Save'))
+                    Button::make(__('Lưu'))
                         ->type(Color::DEFAULT())
                         ->icon('check')
                         ->canSee($this->user->exists)

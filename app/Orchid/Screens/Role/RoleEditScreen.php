@@ -77,10 +77,12 @@ class RoleEditScreen extends Screen
         return [
             Button::make('Lưu')
                 ->icon('check')
+                ->set('style', 'color: white; background-color: orange; border-radius: 5px;')
                 ->method('save'),
 
             Button::make('Xóa')
                 ->icon('trash')
+                ->set('style', 'color: white; background-color: red; border-radius: 5px;')
                 ->method('remove')
                 ->canSee($this->role->exists),
         ];

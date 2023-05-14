@@ -72,6 +72,7 @@ class UserListScreen extends Screen
         return [
             Link::make('Thêm mới')
                 ->icon('plus')
+                ->set('style', 'color: white; background-color: orange; border-radius: 5px;')
                 ->route('platform.systems.users.create'),
         ];
     }

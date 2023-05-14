@@ -51,12 +51,14 @@ class VideoEditScreeen extends Screen
         return [
             Link::make('Quay lại')
             ->route('videos.index')
-            ->icon('refresh'),
+            ->icon('refresh')
+                ->set('style', 'color: white; background-color: blue; border-radius: 5px;'),
 
             Button::make('Xóa')
                 ->icon('trash')
                 ->confirm(__('Bạn có chắc muốn xóa video này không?'))
-                ->method('delete'),
+                ->method('delete')
+                ->set('style', 'color: white; background-color: red; border-radius: 5px;'),
         ];
     }
 

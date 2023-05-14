@@ -51,15 +51,17 @@ class ImageListScreen extends Screen
     public function commandBar(): iterable
     {
         return [
-            Button::make('Xóa')
-                ->icon('close')
-                ->method('delete'),
-
             ModalToggle::make('Thêm mới')
                 ->modal('imageModal')
                 ->modalTitle('Thêm mới hình ảnh')
                 ->method('submit')
+                ->set('style', 'color: white; background-color: orange; border-radius: 5px;')
                 ->icon('plus'),
+
+            Button::make('Xóa')
+                ->icon('trash')
+                ->set('style', 'color: white; background-color: red; border-radius: 5px;')
+                ->method('delete'),
 
         ];
     }

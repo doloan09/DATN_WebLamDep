@@ -64,17 +64,20 @@ class VideoCreateScreen extends Screen
             Button::make('Lưu')
                 ->icon('plus')
                 ->method('store')
+                ->set('style', 'color: white; background-color: orange; border-radius: 5px;')
                 ->canSee(!$this->edit),
 
             Button::make('Cập nhật')
                 ->icon('check')
                 ->method('update')
+                ->set('style', 'color: white; background-color: orange; border-radius: 5px;')
                 ->canSee($this->edit),
 
             Button::make('Xóa')
                 ->icon('trash')
                 ->confirm(__('Bạn có chắc muốn xóa video này không?'))
                 ->method('delete')
+                ->set('style', 'color: white; background-color: red; border-radius: 5px;')
                 ->canSee($this->edit),
         ];
     }

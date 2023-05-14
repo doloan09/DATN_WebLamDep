@@ -64,6 +64,7 @@ class RoleListScreen extends Screen
         return [
             Link::make('Thêm mới')
                 ->icon('plus')
+                ->set('style', 'color: white; background-color: orange; border-radius: 5px;')
                 ->href(route('platform.systems.roles.create')),
         ];
     }
