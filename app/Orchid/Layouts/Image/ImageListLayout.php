@@ -4,7 +4,6 @@ namespace App\Orchid\Layouts\Image;
 
 use App\Models\FolderImage;
 use App\Models\Image;
-use Orchid\Screen\Actions\ModalToggle;
 use Orchid\Screen\Fields\CheckBox;
 use Orchid\Screen\Layouts\Table;
 use Orchid\Screen\TD;
@@ -30,40 +29,10 @@ class ImageListLayout extends Table
     {
         return [
             TD::make('id', 'ID')
-                ->width(100)
+                ->width(60)
                 ->render(fn(Image $image) => $image->id),
 
-            TD::make('Hình ảnh')
-                ->width(200)
-                ->alignCenter()
-                ->render(fn(Image $image) => '<a href="' . $image->link . '" target="_blank"><img src=' . $image->link . ' alt="" style="width: 100%; max-height: 150px; object-fit: cover;"></a>'),
-
-            TD::make('real_name', 'Tên')
-                ->width(200)
-                ->render(fn(Image $image) => $image->real_name),
-
-            TD::make('folder', 'Thư mục')
-                ->alignCenter()
-                ->width(150)
-                ->render(function (Image $image) {
-                    $folder = FolderImage::query()->findOrFail($image->id_folder);
-                    return $folder->name;
-                }),
-
-            TD::make('link', 'Link')
-                ->width(750)
-                ->render(fn(Image $image) => '<a target="_blank" href="' . $image->link . '" style="color: blue">' . $image->link . '</a>'),
-
-            TD::make('', 'Actions')->render(function (Image $image) {
-                return ModalToggle::make('Xem')
-                    ->modal('showImage')
-                    ->icon('full-screen')
-                    ->parameters([
-                        'image' => $image->link,
-                    ]);
-            })->alignCenter(),
-
-            TD::make('Chọn')
+            TD::make()
                 ->width(20)
                 ->render(function (Image $image) {
                     return
@@ -72,6 +41,23 @@ class ImageListLayout extends Table
                             ->value($image->id)
                             ->checked(false);
                 }),
+
+            TD::make('Hình ảnh')
+                ->width(200)
+                ->alignCenter()
+                ->render(fn(Image $image) => '<a href="' . $image->link . '" target="_blank"><img src=' . $image->link . ' alt="" style="width: 100%; max-height: 150px; object-fit: cover;"></a>'),
+
+            TD::make('real_name', 'Tên')
+                ->render(fn(Image $image) => $image->real_name),
+
+            TD::make('folder', 'Thư mục')
+                ->render(function (Image $image) {
+                    $folder = FolderImage::query()->findOrFail($image->id_folder);
+                    return $folder->name;
+                }),
+
+            TD::make('link', 'Link')
+                ->render(fn(Image $image) => '<a target="_blank" href="' . $image->link . '" style="color: blue">' . $image->link . '</a>'),
 
         ];
     }

@@ -60,6 +60,7 @@ class ImageListScreen extends Screen
 
             Button::make('Xóa')
                 ->icon('trash')
+                ->confirm('Bạn có chắc chắn muốn xóa hình ảnh này không?')
                 ->set('style', 'color: white; background-color: red; border-radius: 5px;')
                 ->method('delete'),
 
@@ -91,19 +92,6 @@ class ImageListScreen extends Screen
                 ImageEditLayout::class
             ])->applyButton('Thêm mới'),
 
-            Layout::modal('showImage', Layout::view('admin.components.image'))
-                ->async('asyncGetData')
-                ->title('Hình ảnh')
-                ->size(Modal::SIZE_LG)
-                ->withoutApplyButton()
-                ->withoutCloseButton(),
-        ];
-    }
-
-    public function asyncGetData(string $image): iterable
-    {
-        return [
-            'image' => $image,
         ];
     }
 
