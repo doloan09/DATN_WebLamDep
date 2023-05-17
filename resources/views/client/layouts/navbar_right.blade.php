@@ -39,9 +39,11 @@
 </div>
 <div class="text-center p-4 mt-10 border border-purple rounded-md">
     <p class="pb-5"><span class="uppercase py-2 text-sm lg:text-base border-b-2 border-purple">Newest Video</span></p>
-    <div class="flex flex-wrap justify-center mt-4">
-        <iframe style="max-width: 100%;" width="315" height="190" src="https://www.youtube.com/embed/{{ $video[0]->video_id }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-    </div>
+    @isset($video[0])
+        <div class="flex flex-wrap justify-center mt-4">
+            <iframe style="max-width: 100%;" width="315" height="190" src="https://www.youtube.com/embed/{{ $video[0]->video_id }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+    @endisset
 </div>
 <div class="mt-10">
     <p><span class="uppercase font-bold pb-2 color-purple border-b-2 border-purple">Bài viết nổi bật</span></p>

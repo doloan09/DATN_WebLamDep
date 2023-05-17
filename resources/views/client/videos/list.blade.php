@@ -27,9 +27,11 @@
 
         <div class="grid grid-cols-12 gap-8 mt-3 md:mt-10">
             <div class="col-span-12 md:col-span-9">
+                @isset($videos_main[0])
                 <div>
                     <iframe class="w-full aspect-video" src="//www.youtube.com/embed/{{ $videos_main[0]->video_id }}?rel=0&autoplay=1" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                 </div>
+                @endisset
 
                 <div class="mt-10">
                     <p><span class="uppercase font-bold pb-2 color-purple border-b-2 border-purple">Danh sách phát</span></p>

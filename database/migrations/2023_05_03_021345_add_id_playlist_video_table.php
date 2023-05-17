@@ -14,7 +14,6 @@ return new class extends Migration
     public function up()
     {
         Schema::table('videos', function (Blueprint $table) {
-            $table->string('description')->nullable()->change();
             $table->unsignedInteger('id_playlist')->nullable();
         });
     }
