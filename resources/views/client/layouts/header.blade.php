@@ -376,11 +376,11 @@
 
     function checkPath(path_page = 'home') {
         let path = location.pathname;
-        if (path.includes('lam-dep')) path = 'lam-dep';
-        else if (path.includes('cuoc-song')) path = 'cuoc-song';
-        else if (path.includes('suc-khoe')) path = 'suc-khoe';
-        else if (path.includes('tham-khao')) path = 'tham-khao';
-        else if (path.includes('video')) path = 'video';
+        if (path.includes('/lam-dep')) path = 'lam-dep';
+        else if (path.includes('/cuoc-song')) path = 'cuoc-song';
+        else if (path.includes('/suc-khoe')) path = 'suc-khoe';
+        else if (path.includes('/tham-khao')) path = 'tham-khao';
+        else if (path.includes('/video')) path = 'video';
         else path = 'home';
 
         $("#li_" + path).css({"color": "purple", "border-bottom": "2px purple solid"});
