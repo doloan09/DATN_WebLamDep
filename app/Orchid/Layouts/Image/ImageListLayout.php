@@ -48,9 +48,11 @@ class ImageListLayout extends Table
                 ->render(fn(Image $image) => '<a href="' . $image->link . '" target="_blank"><img src=' . $image->link . ' alt="" style="width: 100%; max-height: 150px; object-fit: cover;"></a>'),
 
             TD::make('real_name', 'Tên')
+                ->width(250)
                 ->render(fn(Image $image) => $image->real_name),
 
             TD::make('folder', 'Thư mục')
+                ->width(100)
                 ->render(function (Image $image) {
                     $folder = FolderImage::query()->findOrFail($image->id_folder);
                     return $folder->name;

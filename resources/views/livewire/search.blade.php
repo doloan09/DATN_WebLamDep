@@ -33,7 +33,7 @@
             </div>
         </nav>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-10 w-full overflow-y-auto scrollbar-hide max-h-43r">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-10 w-full overflow-y-auto scrollbar-hide max-h-70r">
             @isset($posts)
                 @if(count($posts))
                     @foreach($posts as $item)

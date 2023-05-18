@@ -53,7 +53,7 @@ class CategoryController extends Controller
         $posts_hot = Post::query()->where('status', 1)->limit(4)->get();
         $categories = Category::query()->get();
         $category = Category::query()->where('slug', $slug)->first();
-        $posts = $category->posts()->paginate(12);
+        $posts = $category->posts()->paginate(16);
         $user = Auth::user();
 
         $video = Video::query()->orderByDesc('id')->paginate(1);
