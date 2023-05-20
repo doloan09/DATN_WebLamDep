@@ -65,7 +65,7 @@ class UserListLayout extends Table
                         Button::make(__('Xóa'))
                             ->icon('trash')
                             ->set('style', 'color: red')
-                            ->confirm(__('Once the account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.'))
+                            ->confirm(__('Khi tài khoản bị xóa, tất cả tài nguyên và dữ liệu của tài khoản đó sẽ bị xóa vĩnh viễn.'))
                             ->method('remove', [
                                 'id' => $user->id,
                             ]),

@@ -3,9 +3,11 @@
 namespace App\Orchid\Screens\FolderImage;
 
 use App\Models\FolderImage;
+use App\Models\Image;
 use App\Orchid\Layouts\FolderImage\FolderImageEditLayout;
 use App\Orchid\Layouts\FolderImage\FolderImageListLayout;
 use Carbon\Carbon;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Http\Request;
 use Orchid\Screen\Actions\ModalToggle;
 use Orchid\Screen\Screen;
@@ -99,7 +101,7 @@ class FolderImageListScreen extends Screen
         ]);
 
         $group = FolderImage::query()->insert([
-            'name' => $request->get('name'),
+            'name'       => $request->get('name'),
             'created_at' => Carbon::now(),
         ]);
 
@@ -126,6 +128,26 @@ class FolderImageListScreen extends Screen
             Toast::success('Cập nhật thành công!');
         } catch (\Exception) {
             Toast::error('Lỗi khi cập nhật thông tin nhóm câu hỏi');
+        }
+    }
+
+    public function delete(Request $request)
+    {
+        try {
+            $list_image = Image::query()->where('id_folder', $request->get('id'))->get();
+
+            foreach ($list_image as $item) {
+                $token  = explode('/', $item->link);
+                $token2 = explode('.', $token[sizeof($token) - 1]);
+
+                Cloudinary::destroy($token[7] . '/' . $token2[0]); // ten folder: $token[7], ten anh: $token2[0]
+                $item->delete();
+            }
+
+            FolderImage::query()->findOrFail($request->get('id'))->delete();
+            Toast::success('Xóa thư mục thành công!');
+        } catch (\Exception $exception) {
+            Toast::error('Xảy ra lỗi khi xóa thư mục hình ảnh!');
         }
     }
 

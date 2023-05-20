@@ -4,6 +4,7 @@ namespace App\Orchid\Layouts\FolderImage;
 
 use App\Models\FolderImage;
 use Carbon\Carbon;
+use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Actions\DropDown;
 use Orchid\Screen\Actions\ModalToggle;
 use Orchid\Screen\Layouts\Table;
@@ -34,14 +35,14 @@ class FolderImageListLayout extends Table
             TD::make('name', 'Tên thư mục'),
 
             TD::make('created_at', 'Thời gian tạo')
-                ->render(function (FolderImage $folder){
+                ->render(function (FolderImage $folder) {
                     return Carbon::parse($folder->created_at)->format('d-m-Y H:i:s');
                 }),
 
             TD::make(__('Thao tác'))
                 ->align(TD::ALIGN_CENTER)
                 ->width('100px')
-                ->render(fn (FolderImage $folder) => DropDown::make()
+                ->render(fn(FolderImage $folder) => DropDown::make()
                     ->icon('options-vertical')
                     ->list([
 
@@ -54,6 +55,13 @@ class FolderImageListLayout extends Table
                             ->asyncParameters([
                                 'group' => $folder->id,
                             ]),
+
+                        Button::make('Xóa')
+                            ->icon('close')
+                            ->confirm('Nếu bạn xóa thư mục này, tất cả hình ảnh trong thư mục sẽ bị xóa!')
+                            ->set('style', 'color: red')
+                            ->method('delete', ['id' => $folder->id]),
+
                     ])),
         ];
     }
