@@ -160,7 +160,7 @@ class AuthController extends Controller
         ], [
             'name' => $githubUser->name,
             'email' => $githubUser->email,
-            'password' => '12345678',
+            'password' => Hash::make('12345678'),
             'avatar' => $githubUser->avatar,
             'facebook_token' => $githubUser->token,
             'facebook_refresh_token' => $githubUser->refreshToken,
