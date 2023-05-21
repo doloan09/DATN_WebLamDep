@@ -90,14 +90,14 @@ class AuthController extends Controller
             $validate = $request->validated();
 
             $validate['password'] = Hash::make($validate['password']);
-            $validate['created_at'] = Carbon::now();
-            $validate['updated_at'] = Carbon::now();
-            User::query()->insert($validate);
+            $user = User::query()->create($validate);
 
             $req = $request->only('email', 'password');
             Auth::attempt($req);
 
-            return redirect()->route('home')->with('message', 'Bạn đã đăng ký tài khoản thành công!');
+            event(new Registered($user));
+
+            return redirect()->route('home')->with('message', 'Bạn đã đăng ký tài khoản thành công! Vui lòng kiểm tra email để xác thực tài khoản của bạn!');
         }catch (\Exception $e){
             $err = $e->errors();
             return redirect()->route('register.show')->with('errorName', $err['name'][0] ?? '')->with('errorEmail', $err['email'][0] ?? '')->with('errorPassword', $err['password'][0] ?? '');
