@@ -67,7 +67,7 @@ Route::get('/trang-chu/search', [PostController::class, 'index'])->name('search'
 
 // bai viet theo danh muc
 Route::get('/danh-muc/{category}', [CategoryController::class, 'show'])->name('categories.show'); // danh sach bai viet theo theo loai
-Route::get('/bai-viet/{slug}', [PostController::class, 'show'])->name('posts.show'); // chi tiet 1 bai viet
+Route::get('{category}/bai-viet/{slug}', [PostController::class, 'show'])->name('posts.show'); // chi tiet 1 bai viet
 
 // video
 Route::get('/video', [VideoController::class, 'index'])->name('video.list');

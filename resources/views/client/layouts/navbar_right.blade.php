@@ -53,7 +53,7 @@
                 <div class="flex px-1 py-4">
                     <img alt="" class="flex-shrink-0 object-cover w-20 h-20 mr-4 dark:bg-gray-500 rounded-md" src="{{ $item->link_image }}">
                     <div class="flex flex-col flex-grow">
-                        <a rel="noopener noreferrer" href="{{ route('posts.show', $item->slug) }}" class="font-serif hover:underline">{{ $item->title }}</a>
+                        <a rel="noopener noreferrer" href="{{ route('posts.show', ['category' => $item->category->slug, 'slug' => $item->slug]) }}" class="font-serif hover:underline">{{ $item->title }}</a>
                         <p class="mt-auto text-xs dark:text-gray-400">{{ $item->created_at->toFormattedDateString() }}</p>
                     </div>
                 </div>

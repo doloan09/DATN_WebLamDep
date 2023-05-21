@@ -22,7 +22,6 @@ use Orchid\Screen\AsSource;
  * @property string $link_image
  *
  */
-
 class Post extends Model implements Viewable
 {
     use InteractsWithViews;
@@ -50,5 +49,10 @@ class Post extends Model implements Viewable
     public function wishlist(): HasMany
     {
         return $this->hasMany(Wishlist::class, 'id_post');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'id_category');
     }
 }

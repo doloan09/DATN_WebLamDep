@@ -25,7 +25,7 @@
                                         <div class="absolute bottom-0 left-0 p-6">
                                             <h2 class="text-base font-semibold 5 text-white uppercase" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 1; overflow: hidden;">{{ $item->title }}</h2>
                                             <p class="text-sm leading-4 text-white mt-2">{{ $item->created_at->toFormattedDateString() }}</p>
-                                            <a href="{{ route('posts.show', $item->slug) }}" class="focus:outline-none focus:underline flex items-center mt-4 cursor-pointer text-white hover:text-gray-200 hover:underline">
+                                            <a href="{{ route('posts.show', ['category' => $item->category->slug, 'slug' => $item->slug]) }}" class="focus:outline-none focus:underline flex items-center mt-4 cursor-pointer text-white hover:text-gray-200 hover:underline">
                                                 <p class="pr-2 text-sm">Xem thêm</p>
                                                 <svg class="fill-stroke" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M5.75 12.5L10.25 8L5.75 3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -49,7 +49,7 @@
                                 <div class="absolute bottom-0 left-0 md:p-10 p-6">
                                     <h2 class="text-base font-semibold 5 text-white uppercase" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 1; overflow: hidden;">{{ $posts[1][2]->title }}</h2>
                                     <p class="text-sm leading-4 text-white mt-2">{{ $posts[1][2]->created_at->toFormattedDateString() }}</p>
-                                    <a href="{{ route('posts.show', $posts[1][2]->slug) }}" class="focus:outline-none focus:underline flex items-center mt-4 cursor-pointer text-white hover:text-gray-200 hover:underline">
+                                    <a href="{{ route('posts.show', ['category' => $posts[1][2]->category->slug, 'slug' => $posts[1][2]->slug]) }}" class="focus:outline-none focus:underline flex items-center mt-4 cursor-pointer text-white hover:text-gray-200 hover:underline">
                                         <p class="pr-2 text-sm">Xem thêm</p>
                                         <svg class="fill-stroke" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M5.75 12.5L10.25 8L5.75 3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -73,7 +73,7 @@
                                 <div class="absolute bottom-0 left-0 md:p-10 p-6">
                                     <h2 class="text-base font-semibold 5 text-white uppercase" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 1; overflow: hidden;">{{ $posts[1][3]->title }}</h2>
                                     <p class="text-sm leading-4 text-white mt-2">{{ $posts[1][3]->created_at->toFormattedDateString() }}</p>
-                                    <a href="{{ route('posts.show', $posts[1][3]->slug) }}" class="focus:outline-none focus:underline flex items-center mt-4 cursor-pointer text-white hover:text-gray-200 hover:underline">
+                                    <a href="{{ route('posts.show', ['category' => $posts[1][3]->category->slug, 'slug' => $posts[1][3]->slug]) }}" class="focus:outline-none focus:underline flex items-center mt-4 cursor-pointer text-white hover:text-gray-200 hover:underline">
                                         <p class="pr-2 text-sm">Xem thêm</p>
                                         <svg class="fill-stroke" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M5.75 12.5L10.25 8L5.75 3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -97,7 +97,7 @@
                                         <div class="absolute bottom-0 left-0 p-6">
                                             <h2 class="text-base font-semibold 5 text-white uppercase" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 1; overflow: hidden;">{{ $item->title }}</h2>
                                             <p class="text-sm leading-4 text-white mt-2">{{ $item->created_at->toFormattedDateString() }}</p>
-                                            <a href="{{ route('posts.show', $item->slug) }}" class="focus:outline-none focus:underline flex items-center mt-4 cursor-pointer text-white hover:text-gray-200 hover:underline">
+                                            <a href="{{ route('posts.show', ['category' => $item->category->slug, 'slug' => $item->slug]) }}" class="focus:outline-none focus:underline flex items-center mt-4 cursor-pointer text-white hover:text-gray-200 hover:underline">
                                                 <p class="pr-2 text-sm">Xem thêm</p>
                                                 <svg class="fill-stroke" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M5.75 12.5L10.25 8L5.75 3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -131,12 +131,12 @@
                         @endphp
                         <div class="md:mb-5 border hover:text-purple flex flex-col hover:grow hover:shadow-lg rounded-lg">
                             <div class="">
-                                <a href="{{ route('posts.show', $item->slug) }}">
+                                <a href="{{ route('posts.show', ['category' => $item->category->slug, 'slug' => $item->slug]) }}">
                                     <img class="object-cover w-full h-52 dark:bg-gray-500 rounded-t-lg" src="{{ $item->link_image }}">
                                 </a>
                             </div>
                             <div class="bg-white p-4 mx-2">
-                                <a href="{{ route('posts.show', $item->slug) }}" class="uppercase text-sm" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;">
+                                <a href="{{ route('posts.show', ['category' => $item->category->slug, 'slug' => $item->slug]) }}" class="uppercase text-sm" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;">
                                     {{ $item->title }}
                                 </a>
                                 <form class="flex justify-between font-light text-sm mt-2" method="POST" action="{{ route('wishlist.store', ['id_post' => $item->id, 'id_user' => \Illuminate\Support\Facades\Auth::id()]) }}">
@@ -171,7 +171,7 @@
                     <div class="flex flex-col justify-center flex-1 p-6 dark:bg-gray-900">
                         <h3 class="text-lg md:text-2xl uppercase">{{ $posts_3[0]->title }}</h3>
                         <p class="text-sm md:text-base my-3 dark:text-gray-400" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden;">{{ $posts_3[0]->description }}</p>
-                        <a href="{{ route('posts.show', $posts_3[0]->slug) }}" class="focus:outline-none focus:underline flex items-center mt-4 cursor-pointer hover:text-purple hover:underline">
+                        <a href="{{ route('posts.show', ['category' => $posts_3[0]->category->slug, 'slug' => $posts_3[0]->slug]) }}" class="focus:outline-none focus:underline flex items-center mt-4 cursor-pointer hover:text-purple hover:underline">
                             <p class="pr-2 text-sm">Xem thêm</p>
                             <svg class="fill-stroke" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M5.75 12.5L10.25 8L5.75 3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -186,7 +186,7 @@
                     <div class="flex flex-col justify-center flex-1 p-6 dark:bg-gray-900">
                         <h3 class="text-lg md:text-2xl uppercase">{{ $posts_3[1]->title }}</h3>
                         <p class="text-sm md:text-base my-3 dark:text-gray-400" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden;">{{ $posts_3[1]->description }}</p>
-                        <a href="{{ route('posts.show', $posts_3[1]->slug) }}" class="focus:outline-none focus:underline flex items-center mt-4 cursor-pointer hover:text-purple hover:underline">
+                        <a href="{{ route('posts.show', ['category' => $posts_3[1]->category->slug, 'slug' => $posts_3[1]->slug]) }}" class="focus:outline-none focus:underline flex items-center mt-4 cursor-pointer hover:text-purple hover:underline">
                             <p class="pr-2 text-sm">Xem thêm</p>
                             <svg class="fill-stroke" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M5.75 12.5L10.25 8L5.75 3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -201,7 +201,7 @@
                     <div class="flex flex-col justify-center flex-1 p-6 dark:bg-gray-900">
                         <h3 class="text-lg md:text-2xl uppercase">{{ $posts_3[2]->title }}</h3>
                         <p class="text-sm md:text-base my-3 dark:text-gray-400" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden;">{{ $posts_3[2]->description }}</p>
-                        <a href="{{ route('posts.show', $posts_3[2]->slug) }}" class="focus:outline-none focus:underline flex items-center mt-4 cursor-pointer hover:text-purple hover:underline">
+                        <a href="{{ route('posts.show', ['category' => $posts_3[2]->category->slug, 'slug' => $posts_3[2]->slug]) }}" class="focus:outline-none focus:underline flex items-center mt-4 cursor-pointer hover:text-purple hover:underline">
                             <p class="pr-2 text-sm">Xem thêm</p>
                             <svg class="fill-stroke" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M5.75 12.5L10.25 8L5.75 3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />

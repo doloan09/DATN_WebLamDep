@@ -96,11 +96,11 @@
 
             <!-- Load Facebook SDK for JavaScript --><!-- Your share button code -->
             <div id="fb-root" class="flex justify-end">
-                <div class="fb-share-button" data-href="{{ route('posts.show', $post->slug) }}" data-layout="button_count" data-size="">
+                <div class="fb-share-button" data-href="{{ route('posts.show', ['category' => $post->category->slug, 'slug' => $post->slug]) }}" data-layout="button_count" data-size="">
                     <a target="_blank" href="#" class="fb-xfbml-parse-ignore">Chia sẻ</a>
                 </div>
                 <div class="ml-2">
-                    <div class="fb-save" data-uri="{{ route('posts.show', $post->slug) }}" data-size="small"></div>
+                    <div class="fb-save" data-uri="{{ route('posts.show', ['category' => $post->category->slug, 'slug' => $post->slug]) }}" data-size="small"></div>
                 </div>
             </div>
 
@@ -123,12 +123,12 @@
                         @foreach($posts as $item)
                             <div class="md:mb-5 border hover:text-purple flex flex-col hover:grow hover:shadow-lg rounded-lg">
                                 <div class="">
-                                    <a href="{{ route('posts.show', $item->slug) }}">
+                                    <a href="{{ route('posts.show', ['category' => $item->category->slug, 'slug' => $item->slug]) }}">
                                         <img class="object-cover w-full h-52 dark:bg-gray-500 rounded-t-lg" src="{{ $item->link_image }}">
                                     </a>
                                 </div>
                                 <div class="bg-white p-4 mx-2">
-                                    <a href="{{ route('posts.show', $item->slug) }}" class="uppercase text-sm" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;">
+                                    <a href="{{ route('posts.show', ['category' => $item->category->slug, 'slug' => $item->slug]) }}" class="uppercase text-sm" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;">
                                         {{ $item->title }}
                                     </a>
                                     <p class="font-light text-sm mt-5">{{ $item->created_at->toFormattedDateString() }}</p>

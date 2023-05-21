@@ -59,7 +59,7 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($slug)
+    public function show($category, $slug)
     {
         $posts_hot = Post::query()->where('status', PostStatus::Active)->limit(4)->get();
         $post = Post::query()->where('slug', $slug)->first();

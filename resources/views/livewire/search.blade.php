@@ -53,12 +53,12 @@
                         @endif
                         <div class="md:mb-5 border hover:text-purple flex flex-col hover:grow hover:shadow-lg rounded-lg">
                             <div class="">
-                                <a href="{{ route('posts.show', $item->slug) }}">
+                                <a href="{{ route('posts.show', ['category' => ($wishlist == false ? $item->category->slug : $post->category->slug), 'slug' => $item->slug]) }}">
                                     <img class="object-cover w-full h-52 dark:bg-gray-500 rounded-t-lg" src="{{ $item->link_image }}">
                                 </a>
                             </div>
                             <div class="bg-white p-4 mx-2">
-                                <a href="{{ route('posts.show', $item->slug) }}" class="uppercase text-sm" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;">
+                                <a href="{{ route('posts.show', ['category' => ($wishlist == false ? $item->category->slug : $post->category->slug), 'slug' => $item->slug]) }}" class="uppercase text-sm" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;">
                                     {{ $item->title }}
                                 </a>
                                 <form class="flex justify-between font-light text-sm mt-2" method="POST" action="{{ route('wishlist.store', ['id_post' => $item->id, 'id_user' => \Illuminate\Support\Facades\Auth::id()]) }}">
