@@ -46,12 +46,22 @@ class ConsoleObserver extends SpatieCrawlObserver
         /// content
         $content = $this->crawlDataHtml('.post-body', $crawler);
         $content_list = explode('<h3 class="post-title entry-title" itemprop="name">', $content);
-        $str = strstr($content_list[1], '</span></h2>');
-        $str =  str_replace('</span></h2>', '', $str);
-        $content = $content_list[0] . $str;
+        if (isset($content_list[1])) {
+            $str     = strstr($content_list[1], '</span></h2>');
+            $str     = str_replace('</span></h2>', '', $str);
+            $content = $content_list[0] . $str;
+        }
 
-        //
-        $link_image = "https://res.cloudinary.com/dsh5japr1/image/upload/v1682324127/L%C3%A0m%20%C4%91%E1%BA%B9p/y3itq6gmhik9gzojqmic.jpg";
+        /// hinh nen
+        $link_image = "https://res.cloudinary.com/dsh5japr1/image/upload/v1684383562/N%E1%BB%95i%20b%E1%BA%ADt/rk4i6aobv2pywtnlov7n.jpg";
+        $img = $this->crawlDataHtml('.separator', $crawler);
+        $img_2 = explode('src="', $img);
+        if (isset($img_2[1])) {
+            $img_3 = explode('"><' ?? '', $img_2[1]);
+            if (count($img_3) == 2) {
+                $link_image = $img_3[0] ?? "https://res.cloudinary.com/dsh5japr1/image/upload/v1684383562/N%E1%BB%95i%20b%E1%BA%ADt/rk4i6aobv2pywtnlov7n.jpg";
+            }
+        }
 
         $id_category = Category::query()->where('slug', 'tham-khao')->first();
         if ($title) {
