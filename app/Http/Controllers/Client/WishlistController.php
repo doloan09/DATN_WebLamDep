@@ -55,6 +55,7 @@ class WishlistController extends Controller
 
             return back()->with(['wishlist' => 'Thêm thành công vào danh sách yêu thích!']);
         }catch (\Exception){
+            toastr()->error('Vui lòng đăng nhập để thêm bài viết vào danh mục yêu thích!', 'Thông báo');
             return back()->with(['wishlist_err' => 'Vui lòng đăng nhập để thêm bài viết vào mục yêu thích!']);
         }
     }

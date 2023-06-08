@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Orchid\Screens\User;
 
+use App\Models\Notification;
+use App\Models\Wishlist;
 use App\Orchid\Layouts\User\UserEditLayout;
 use App\Orchid\Layouts\User\UserFiltersLayout;
 use App\Orchid\Layouts\User\UserListLayout;
@@ -107,7 +109,7 @@ class UserListScreen extends Screen
 
     /**
      * @param Request $request
-     * @param User    $user
+     * @param User $user
      */
     public function saveUser(Request $request, User $user): void
     {
@@ -128,8 +130,14 @@ class UserListScreen extends Screen
      */
     public function remove(Request $request): void
     {
-        User::findOrFail($request->get('id'))->delete();
+        try {
+            Wishlist::where('id_user', $request->get('id'))->detele();
+            Notification::where('notifiable_id', $request->get('id'))->delete();
+            User::findOrFail($request->get('id'))->delete();
 
-        Toast::info(__('User was removed'));
+            Toast::info('Xóa tài khoản người dùng thành công!');
+        } catch (\Exception $exception) {
+            Toast::error('Có lỗi xảy ra! Xóa tài khoản không thành công!');
+        }
     }
 }

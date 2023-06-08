@@ -134,9 +134,12 @@ class PostListScreen extends Screen
 
     public function changeImage(Request $request){
         try {
+            $post = Post::query()->findOrFail($request->get('id'));
+            $check = substr_count($post->link_image, "https://res.cloudinary.com");
+
             // xóa ảnh cũ trên cloudinary
-            if ($request->get('link_image') != '') {
-                $token  = explode('/', $request->get('link_image'));
+            if ($check) {
+                $token  = explode('/', $post->link_image);
                 $token2 = explode('.', $token[sizeof($token) - 1]);
 
                 Cloudinary::destroy($token[7] . '/' . $token2[0]); // ten folder: $token[7], ten anh: $token2[0]
@@ -155,12 +158,12 @@ class PostListScreen extends Screen
                 ]
             ])->getSecurePath();
 
-            Post::query()->findOrFail($request->get('id'))->update([
+            $post->update([
                 'link_image' => $resizedImage,
             ]);
             Toast::success('Thay đổi thành công!');
         }catch (\Exception){
-            Toast::error('Lỗi!');
+            Toast::error('Lỗi! Không tìm thấy ảnh nền cũ trên cloudinary! Không thể xóa ảnh nền cũ!');
         }
     }
 }

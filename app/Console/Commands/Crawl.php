@@ -61,8 +61,8 @@ class Crawl extends Command
         Crawler::create()
             ->setParseableMimeTypes(['text/html', 'text/plain'])
             ->addCrawlObserver(new ConsoleObserver($this))
-            ->setCurrentCrawlLimit(20)
-            ->setConcurrency(20)
+            ->setCurrentCrawlLimit(10)
+            ->setConcurrency(10)
             ->setCrawlQueue($queue)
             ->setCrawlProfile(new CrawlInternalUrls($site))
             ->startCrawling($site);
