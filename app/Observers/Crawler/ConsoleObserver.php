@@ -75,6 +75,8 @@ class ConsoleObserver extends SpatieCrawlObserver
             $name = 'Review';
         }elseif (substr_count($title, 'PREVIEW')){
             $name = 'Preview';
+        }elseif (substr_count($title, 'SKINCARE')){
+            $name = 'Skincare';
         }else{
             $name = 'Sharing';
         }
