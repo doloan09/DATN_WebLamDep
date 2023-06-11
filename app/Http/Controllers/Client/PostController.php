@@ -19,7 +19,8 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
-        $categories = Category::query()->get();
+        $categories = Category::query()->whereNull('child_id')->whereNot('slug', 'tham-khao')->get();
+        $category_child = Category::query()->whereNotNull('child_id')->get();
         $user = Auth::user();
 
         $posts = Post::query();
@@ -29,7 +30,7 @@ class PostController extends Controller
             $posts = Post::query()->where('status', 1)->get();
         }
 
-        return view('client.searchs.search', compact( 'categories', 'user', 'posts'));
+        return view('client.searchs.search', compact( 'categories', 'user', 'posts', 'category_child'));
     }
 
     /**
@@ -70,13 +71,14 @@ class PostController extends Controller
             ->cooldown($expiresAt)
             ->record();
 
-        $categories = Category::query()->get();
+        $categories = Category::query()->whereNull('child_id')->whereNot('slug', 'tham-khao')->get();
+        $category_child = Category::query()->whereNotNull('child_id')->get();
         $category = Category::query()->findOrFail($post->id_category);
         $user = Auth::user();
 
         $video = Video::query()->orderByDesc('id')->paginate(1);
 
-        return view('client.posts.detail', compact('post', 'category', 'posts_hot', 'user', 'categories', 'video'));
+        return view('client.posts.detail', compact('post', 'category', 'posts_hot', 'user', 'categories', 'video', 'category_child'));
     }
 
     /**

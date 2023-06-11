@@ -18,7 +18,8 @@ class VideoController extends Controller
      */
     public function index(Request $request)
     {
-        $categories = Category::query()->get();
+        $categories = Category::query()->whereNull('child_id')->whereNot('slug', 'tham-khao')->get();
+        $category_child = Category::query()->whereNotNull('child_id')->get();
         $user = Auth::user();
 
         $videos_main = Video::query()->inRandomOrder()->limit(1)->get();
@@ -36,7 +37,7 @@ class VideoController extends Controller
             }
         }
 
-        return view('client.videos.list', compact('categories', 'user', 'videos_list', 'videos_nav', 'videos_main', 'videos', 'play_lists'));
+        return view('client.videos.list', compact('categories', 'user', 'videos_list', 'videos_nav', 'videos_main', 'videos', 'play_lists', 'category_child'));
     }
 
     /**
@@ -69,7 +70,8 @@ class VideoController extends Controller
     public function show($slug)
     {
         try {
-            $categories = Category::query()->get();
+            $categories = Category::query()->whereNull('child_id')->whereNot('slug', 'tham-khao')->get();
+            $category_child = Category::query()->whereNotNull('child_id')->get();
             $user = Auth::user();
 
             $videos_main = Video::query()->where('slug', $slug)->first();
@@ -77,7 +79,7 @@ class VideoController extends Controller
             $playlist = Video::query()->where('id_playlist', $videos_main->id_playlist)->where('id_playlist', '<>', null)->orderByDesc('public_at')->get();
 
             if ($videos_main) {
-                return view('client.videos.show', compact('categories', 'user', 'videos_nav', 'videos_main', 'playlist'));
+                return view('client.videos.show', compact('categories', 'user', 'videos_nav', 'videos_main', 'playlist', 'category_child'));
             }else{
                 return abort(404);
             }

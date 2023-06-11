@@ -22,6 +22,56 @@
         }
     </style>
 
+    <style>
+        {{--      style tham khao--}}
+        .dropdown {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .dropdown::before {
+            content: "";
+            position: absolute;
+            top: 15px;
+            right: 2px;
+            z-index: 1000;
+            width: 8px;
+            height: 8px;
+            border: 2px solid #333;
+            border-top: 2px solid #fff;
+            border-right: 2px solid #fff;
+            transform: rotate(-45deg);
+            transition: 0.5s;
+            pointer-events: none;
+        }
+
+        .dropdown.active::before {
+            top: 22px;
+            transform: rotate(-225deg);
+        }
+
+        .dropdown .options {
+            position: absolute;
+            top: 42px;
+            width: 100%;
+            background: #fff;
+            overflow: hidden;
+            display: none;
+        }
+
+        .dropdown.active .options {
+            display: block;
+        }
+
+        .dropdown .options div {
+            cursor: pointer;
+        }
+
+        .dropdown .options div:hover {
+            color: #723F5FFF;
+        }
+    </style>
+
 </head>
 <body class="bg-white text-gray-600 leading-normal text-base tracking-normal">
 
@@ -49,7 +99,16 @@
                     @foreach($categories as $i)
                         <li id="li_{{ $i->slug }}"><a class="inline-block no-underline hover:text-purple py-2 px-4" href="{{ route('categories.show', $i->slug) }}">{{ $i->name }}</a></li>
                     @endforeach
-                    <li id="li_video"><a class="inline-block no-underline hover:text-purple py-2 px-4" href="{{ route('video.list') }}">Video</a></li>
+
+                    <li class="dropdown py-2 px-4" id="li_tham-khao">Tham khảo
+                        <div class="options">
+                            @foreach($category_child as $i)
+                                <div id="li_tham-khao"><a class="inline-block no-underline hover:text-purple py-2 px-4" href="{{ route('categories.show', $i->slug) }}">{{ $i->name }}</a></div>
+                            @endforeach
+                        </div>
+                    </li>
+
+                    <li id="li_video"><a class="inline-block no-underline hover:text-purple py-2 px-6" href="{{ route('video.list') }}">Video</a></li>
                 </ul>
             </nav>
         </div>
@@ -293,6 +352,12 @@
 
 @push('scripts')
 <script>
+    let dropdown = document.querySelector(".dropdown")
+    dropdown.onclick = function() {
+        dropdown.classList.toggle("active")
+    }
+</script>
+<script>
 {{--    menu user --}}
     var menuUser = document.getElementById("menuUser");
     var modal_info = document.getElementById("forgot_password");
@@ -312,8 +377,8 @@
             toggle_forgot_password();
         }
         if (status){
-            alert(status);
-            $("#modal-info-user").show();
+            // alert(status);
+            // $("#modal-info-user").show();
         }
         if (name){
             $("#modal-info-user").show();
@@ -374,14 +439,15 @@
     /// menu
     checkPath();
 
-    function checkPath(path_page = 'home') {
+    function checkPath(path_page = 'tham-khao') {
         let path = location.pathname;
-        if (path.includes('/lam-dep')) path = 'lam-dep';
+        if (path.includes('/trang-chu')) path = 'home';
+        else if (path.includes('/lam-dep')) path = 'lam-dep';
         else if (path.includes('/cuoc-song')) path = 'cuoc-song';
         else if (path.includes('/suc-khoe')) path = 'suc-khoe';
-        else if (path.includes('/tham-khao')) path = 'tham-khao';
+        else if (path.includes('danh-muc/video')) path = 'tham-khao';
         else if (path.includes('/video')) path = 'video';
-        else path = 'home';
+        else path = 'tham-khao';
 
         $("#li_" + path).css({"color": "purple", "border-bottom": "2px purple solid"});
     }

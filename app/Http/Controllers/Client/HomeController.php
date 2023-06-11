@@ -19,7 +19,8 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         $posts_hot = Post::query()->where('status', 1)->inRandomOrder()->limit(4)->get();
-        $categories = Category::query()->get();
+        $categories = Category::query()->whereNull('child_id')->whereNot('slug', 'tham-khao')->get();
+        $category_child = Category::query()->whereNotNull('child_id')->get();
         $user = Auth::user();
 
         $posts = Post::query()->inRandomOrder()->limit(6)->get();
@@ -29,7 +30,7 @@ class HomeController extends Controller
 
         $list_img = Image::query()->join('folder_images', 'folder_images.id', '=', 'images.id_folder')->where('folder_images.name', 'like','%Nổi bật%')->inRandomOrder()->limit(4)->get();
 
-        return view('client.home', compact('posts_hot', 'categories', 'user', 'posts', 'posts_3', 'list_img'));
+        return view('client.home', compact('posts_hot', 'categories', 'user', 'posts', 'posts_3', 'list_img', 'category_child'));
     }
 
     /**

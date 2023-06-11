@@ -51,14 +51,15 @@ class CategoryController extends Controller
     public function show($slug)
     {
         $posts_hot = Post::query()->where('status', 1)->limit(4)->get();
-        $categories = Category::query()->get();
+        $categories = Category::query()->whereNull('child_id')->whereNot('slug', 'tham-khao')->get();
+        $category_child = Category::query()->whereNotNull('child_id')->get();
         $category = Category::query()->where('slug', $slug)->first();
         $posts = $category->posts()->paginate(16);
         $user = Auth::user();
 
         $video = Video::query()->orderByDesc('id')->paginate(1);
 
-        return view('client.posts.list', compact('posts', 'posts_hot', 'category', 'user', 'categories', 'video'));
+        return view('client.posts.list', compact('posts', 'posts_hot', 'category', 'user', 'categories', 'video', 'category_child'));
     }
 
     /**

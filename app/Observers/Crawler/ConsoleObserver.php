@@ -63,9 +63,33 @@ class ConsoleObserver extends SpatieCrawlObserver
             }
         }
 
+        if (substr_count($title, 'VIDEO')){
+            $name = 'Video';
+        }elseif (substr_count($title, 'LIFESTYLE')){
+            $name = 'Lifestyle';
+        }elseif (substr_count($title, 'BEAUTY TIPS')){
+            $name = 'Beauty Tips';
+        }elseif (substr_count($title, 'VBLOG') || substr_count($title, 'VLOG')){
+            $name = 'Vlog';
+        }elseif (substr_count($title, 'REVIEW')){
+            $name = 'Review';
+        }elseif (substr_count($title, 'PREVIEW')){
+            $name = 'Preview';
+        }else{
+            $name = 'Sharing';
+        }
+
         $id_category = Category::query()->where('slug', 'tham-khao')->first();
+        $category = Category::query()->updateOrCreate([
+            'name' => $name,
+            'slug' => Str::slug($name),
+            'child_id' => $id_category->id,
+        ]);
+
+        // lifestyle = beauty tips = video = vblog = review = preview = FRAGRANCE = khac
+
         if ($title) {
-            $post = Post::query()->where('slug', Str::slug($title))->get();
+            $post = Post::query()->select('id', 'slug')->where('slug', Str::slug($title))->get();
         }
 
         ///data
@@ -76,7 +100,7 @@ class ConsoleObserver extends SpatieCrawlObserver
                 'content'     => $content,
                 'link_image'  => $link_image,
                 'status'      => 0,
-                'id_category' => $id_category['id'],
+                'id_category' => $category->id,
             ];
 
             Post::query()->create($dataPost);
