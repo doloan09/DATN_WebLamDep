@@ -27,7 +27,7 @@ class PostController extends Controller
         if ($request->get('title')){
             $posts = $posts->where('title', 'like', '%' . $request->get('title') . '%')->get();
         }else {
-            $posts = Post::query()->where('status', 1)->get();
+            $posts = Post::query()->where('status', 1)->orderByDesc('id')->get();
         }
 
         return view('client.searchs.search', compact( 'categories', 'user', 'posts', 'category_child'));
@@ -62,7 +62,7 @@ class PostController extends Controller
      */
     public function show($category, $slug)
     {
-        $posts_hot = Post::query()->where('status', PostStatus::Active)->limit(4)->get();
+        $posts_hot = Post::query()->where('status', PostStatus::Active)->orderByDesc('id')->inRandomOrder()->limit(4)->get();
         $post = Post::query()->where('slug', $slug)->first();
 
         // sau 3h mới tiếp tục lưu lượt view của bài viết này trên cùng 1 trình duyệt

@@ -441,13 +441,17 @@
 
     function checkPath(path_page = 'tham-khao') {
         let path = location.pathname;
-        if (path.includes('/trang-chu')) path = 'home';
-        else if (path.includes('/lam-dep')) path = 'lam-dep';
-        else if (path.includes('/cuoc-song')) path = 'cuoc-song';
-        else if (path.includes('/suc-khoe')) path = 'suc-khoe';
-        else if (path.includes('danh-muc/video')) path = 'tham-khao';
-        else if (path.includes('/video')) path = 'video';
-        else path = 'tham-khao';
+        if (window.location.href === '{{ env('APP_URL') }}/'){
+            path = 'home';
+        }else {
+            if (path.includes('/trang-chu')) path = 'home';
+            else if (path.includes('/lam-dep')) path = 'lam-dep';
+            else if (path.includes('/cuoc-song')) path = 'cuoc-song';
+            else if (path.includes('/suc-khoe')) path = 'suc-khoe';
+            else if (path.includes('danh-muc/video')) path = 'tham-khao';
+            else if (path.includes('/video')) path = 'video';
+            else path = 'tham-khao';
+        }
 
         $("#li_" + path).css({"color": "purple", "border-bottom": "2px purple solid"});
     }

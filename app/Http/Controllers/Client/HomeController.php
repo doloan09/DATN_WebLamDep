@@ -18,12 +18,12 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        $posts_hot = Post::query()->where('status', 1)->inRandomOrder()->limit(4)->get();
+        $posts_hot = Post::query()->where('status', 1)->orderByDesc('id')->inRandomOrder()->limit(4)->get();
         $categories = Category::query()->whereNull('child_id')->whereNot('slug', 'tham-khao')->get();
         $category_child = Category::query()->whereNotNull('child_id')->get();
         $user = Auth::user();
 
-        $posts = Post::query()->inRandomOrder()->limit(6)->get();
+        $posts = Post::query()->orderByDesc('id')->inRandomOrder()->limit(6)->get();
         $posts = $posts->chunk(2);
 
         $posts_3 = Post::query()->inRandomOrder()->limit(3)->get();

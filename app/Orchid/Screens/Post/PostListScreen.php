@@ -27,7 +27,7 @@ class PostListScreen extends Screen
         return [
             'posts' => Post::query()
                 ->filters(PostFilterLayout::class)
-                ->orderByDesc('created_at')
+                ->orderByDesc('id')
                 ->paginate(),
         ];
     }
