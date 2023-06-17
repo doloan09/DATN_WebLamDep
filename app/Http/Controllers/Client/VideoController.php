@@ -18,21 +18,20 @@ class VideoController extends Controller
      */
     public function index(Request $request)
     {
-        $categories = Category::query()->whereNull('child_id')->whereNot('slug', 'tham-khao')->get();
+        $categories     = Category::query()->whereNull('child_id')->whereNot('slug', 'tham-khao')->get();
         $category_child = Category::query()->whereNotNull('child_id')->get();
-        $user = Auth::user();
-
-        $videos_main = Video::query()->inRandomOrder()->limit(1)->get();
-        $videos_nav = Video::query()->inRandomOrder()->limit(5)->get();
-        $videos = Video::query()->where('id_playlist', null)->paginate(9); // video don
-        $play_lists = [];  // danh sach phat
-        $videos_list = []; // video dau tien trong danh sach phat
+        $user           = Auth::user();
+        $videos_main    = Video::query()->inRandomOrder()->limit(1)->get();
+        $videos_nav     = Video::query()->inRandomOrder()->limit(5)->get();
+        $videos         = Video::query()->whereNull('id_playlist')->paginate(9); // video don
+        $play_lists     = [];                                                      // danh sach phat
+        $videos_list    = [];                                                      // video dau tien trong danh sach phat
 
         $playlists = Playlist::query()->get();
-        foreach ($playlists as $playlist){
-            $list = Video::query()->where('id_playlist', $playlist->id)->where('id_playlist', '<>', null)->orderByDesc('public_at')->get();
+        foreach ($playlists as $playlist) {
+            $list = Video::query()->where('id_playlist', $playlist->id)->whereNotNull('id_playlist')->orderByDesc('public_at')->get();
             if (count($list)) {
-                $play_lists[] = $playlist;
+                $play_lists[]               = $playlist;
                 $videos_list[$playlist->id] = $list[0];
             }
         }
@@ -53,7 +52,7 @@ class VideoController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -64,26 +63,25 @@ class VideoController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($slug)
     {
         try {
-            $categories = Category::query()->whereNull('child_id')->whereNot('slug', 'tham-khao')->get();
+            $categories     = Category::query()->whereNull('child_id')->whereNot('slug', 'tham-khao')->get();
             $category_child = Category::query()->whereNotNull('child_id')->get();
-            $user = Auth::user();
-
-            $videos_main = Video::query()->where('slug', $slug)->first();
-            $videos_nav = Video::query()->inRandomOrder()->limit(5)->get();
-            $playlist = Video::query()->where('id_playlist', $videos_main->id_playlist)->where('id_playlist', '<>', null)->orderByDesc('public_at')->get();
+            $user           = Auth::user();
+            $videos_main    = Video::query()->where('slug', $slug)->first();
+            $videos_nav     = Video::query()->inRandomOrder()->limit(5)->get();
+            $playlist       = Video::query()->where('id_playlist', $videos_main->id_playlist)->whereNotNull('id_playlist')->orderByDesc('public_at')->get();
 
             if ($videos_main) {
                 return view('client.videos.show', compact('categories', 'user', 'videos_nav', 'videos_main', 'playlist', 'category_child'));
-            }else{
+            } else {
                 return abort(404);
             }
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             return abort(500);
         }
     }
@@ -91,7 +89,7 @@ class VideoController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -102,8 +100,8 @@ class VideoController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -114,7 +112,7 @@ class VideoController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

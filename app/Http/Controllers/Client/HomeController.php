@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Client;
 
+use App\Enum\PostStatus;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Image;
@@ -18,17 +19,14 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        $posts_hot = Post::query()->where('status', 1)->orderByDesc('id')->inRandomOrder()->limit(4)->get();
-        $categories = Category::query()->whereNull('child_id')->whereNot('slug', 'tham-khao')->get();
+        $posts_hot      = Post::query()->where('status', PostStatus::Active)->inRandomOrder()->limit(4)->get();
+        $categories     = Category::query()->whereNull('child_id')->whereNot('slug', 'tham-khao')->get();
         $category_child = Category::query()->whereNotNull('child_id')->get();
-        $user = Auth::user();
-
-        $posts = Post::query()->orderByDesc('id')->inRandomOrder()->limit(6)->get();
-        $posts = $posts->chunk(2);
-
-        $posts_3 = Post::query()->inRandomOrder()->limit(3)->get();
-
-        $list_img = Image::query()->join('folder_images', 'folder_images.id', '=', 'images.id_folder')->where('folder_images.name', 'like','%Nổi bật%')->inRandomOrder()->limit(4)->get();
+        $user           = Auth::user();
+        $posts          = Post::query()->inRandomOrder()->limit(6)->get();
+        $posts          = $posts->chunk(2);
+        $posts_3        = Post::query()->inRandomOrder()->limit(3)->get();
+        $list_img       = Image::query()->join('folder_images', 'folder_images.id', '=', 'images.id_folder')->where('folder_images.name', 'like', '%Nổi bật%')->inRandomOrder()->limit(4)->get();
 
         return view('client.home', compact('posts_hot', 'categories', 'user', 'posts', 'posts_3', 'list_img', 'category_child'));
     }
@@ -46,7 +44,7 @@ class HomeController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -57,7 +55,7 @@ class HomeController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -68,7 +66,7 @@ class HomeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -79,8 +77,8 @@ class HomeController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -91,7 +89,7 @@ class HomeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

@@ -19,18 +19,18 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
-        $categories = Category::query()->whereNull('child_id')->whereNot('slug', 'tham-khao')->get();
+        $categories     = Category::query()->whereNull('child_id')->whereNot('slug', 'tham-khao')->get();
         $category_child = Category::query()->whereNotNull('child_id')->get();
-        $user = Auth::user();
+        $user           = Auth::user();
 
         $posts = Post::query();
-        if ($request->get('title')){
+        if ($request->get('title')) {
             $posts = $posts->where('title', 'like', '%' . $request->get('title') . '%')->get();
-        }else {
-            $posts = Post::query()->where('status', 1)->orderByDesc('id')->get();
+        } else {
+            $posts = Post::query()->where('status', PostStatus::Active)->orderByDesc('id')->get();
         }
 
-        return view('client.searchs.search', compact( 'categories', 'user', 'posts', 'category_child'));
+        return view('client.searchs.search', compact('categories', 'user', 'posts', 'category_child'));
     }
 
     /**
@@ -46,7 +46,7 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -57,13 +57,18 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($category, $slug)
     {
-        $posts_hot = Post::query()->where('status', PostStatus::Active)->orderByDesc('id')->inRandomOrder()->limit(4)->get();
-        $post = Post::query()->where('slug', $slug)->first();
+        $posts_hot      = Post::query()->where('status', PostStatus::Active)->inRandomOrder()->limit(4)->get();
+        $post           = Post::query()->where('slug', $slug)->first();
+        $categories     = Category::query()->whereNull('child_id')->whereNot('slug', 'tham-khao')->get();
+        $category_child = Category::query()->whereNotNull('child_id')->get();
+        $category       = Category::query()->findOrFail($post->id_category);
+        $user           = Auth::user();
+        $video          = Video::latest()->first();
 
         // sau 3h mới tiếp tục lưu lượt view của bài viết này trên cùng 1 trình duyệt
         $expiresAt = now()->addHours(3);
@@ -71,20 +76,13 @@ class PostController extends Controller
             ->cooldown($expiresAt)
             ->record();
 
-        $categories = Category::query()->whereNull('child_id')->whereNot('slug', 'tham-khao')->get();
-        $category_child = Category::query()->whereNotNull('child_id')->get();
-        $category = Category::query()->findOrFail($post->id_category);
-        $user = Auth::user();
-
-        $video = Video::query()->orderByDesc('id')->paginate(1);
-
         return view('client.posts.detail', compact('post', 'category', 'posts_hot', 'user', 'categories', 'video', 'category_child'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -95,8 +93,8 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -107,7 +105,7 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
